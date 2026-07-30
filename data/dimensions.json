@@ -1,0 +1,439 @@
+{
+  "_schema": {
+    "note": "Physical dimensions for Earth-relative sizing. characteristicLengthM is the largest on-orbit extent (usually solar-array or antenna span) used as a single scalar for point/mesh scale. Earth mean radius = 6371 km.",
+    "fields": {
+      "characteristicLengthM": "Largest deployed extent in meters — use for scene size = lengthKm / EARTH_RADIUS_KM.",
+      "bodyM": "Bus / pressurized structure dimensions when known (L×W×H or L×D).",
+      "deployedM": "Full on-orbit envelope including arrays/antennas when known.",
+      "confidence": "published | reported | estimated",
+      "note": "Source nuance or generation chosen when a family has variants."
+    },
+    "sceneHint": "SCENE_SIZE = (characteristicLengthM / 1000 / EARTH_RADIUS_KM) * SIZE_MAGNIFICATION. App uses SIZE_MAGNIFICATION = 2500 so ratios stay real while ISS (~0.043 scene) remains visible."
+  },
+  "earthRadiusKm": 6371,
+  "categoryDefaultsM": {
+    "station": 80,
+    "science": 12,
+    "earth": 12,
+    "weather": 12,
+    "navigation": 14,
+    "comms-leo": 12,
+    "comms-geo": 30,
+    "military": 20,
+    "tech": 2,
+    "derelict": 1
+  },
+  "satellites": [
+    {
+      "key": "25544",
+      "name": "ISS",
+      "characteristicLengthM": 109,
+      "deployedM": { "length": 109, "width": 73, "height": 45 },
+      "confidence": "published",
+      "note": "NASA: ~109 m end-to-end (solar arrays); pressurized module axis ~67 m; truss ~94 m.",
+      "sources": ["NASA ISS Facts and Figures", "ESA ISS factsheet"]
+    },
+    {
+      "key": "48274",
+      "name": "Tiangong",
+      "characteristicLengthM": 55.6,
+      "bodyM": { "length": 55.6, "diameter": 4.2 },
+      "deployedM": { "length": 55.6, "solarSpan": 55 },
+      "confidence": "published",
+      "note": "T-shaped three-module station ~55.6 m; lab-module array wings ~55 m+ each pair.",
+      "sources": ["Wikipedia Tiangong", "Space: Science & Technology 10.34133/space.0035"]
+    },
+    {
+      "key": "20580",
+      "name": "Hubble",
+      "characteristicLengthM": 13.2,
+      "bodyM": { "length": 13.2, "diameter": 4.2 },
+      "confidence": "published",
+      "note": "Bus 13.2 × 4.2 m; two solar panels ~2.45 × 7.56 m each.",
+      "sources": ["NASA Hubble facts", "ESA/Hubble fact sheet"]
+    },
+    {
+      "key": "25867",
+      "name": "Chandra",
+      "characteristicLengthM": 19.5,
+      "deployedM": { "length": 13.8, "width": 19.5 },
+      "bodyM": { "stowed": "11.8 × 4.3 m" },
+      "confidence": "published",
+      "sources": ["Chandra X-ray Center specs"]
+    },
+    {
+      "key": "33053",
+      "name": "Fermi",
+      "characteristicLengthM": 9,
+      "bodyM": { "lat": "1.8 × 1.8 × 0.72 m" },
+      "deployedM": { "estimate": "≈2.5 × 2.8 × ~9 m with arrays" },
+      "confidence": "estimated",
+      "note": "LAT instrument is 1.8×1.8×0.72 m; overall observatory with solar wings ~9 m class (order-of-magnitude).",
+      "sources": ["Fermi LAT instrument papers", "NASA Fermi overview"]
+    },
+    {
+      "key": "25989",
+      "name": "XMM-Newton",
+      "characteristicLengthM": 16.16,
+      "bodyM": { "length": 10.8 },
+      "deployedM": { "length": 10.8, "span": 16.16 },
+      "confidence": "published",
+      "sources": ["Wikipedia XMM-Newton / ESA"]
+    },
+    {
+      "key": "28485",
+      "name": "Swift",
+      "characteristicLengthM": 5.6,
+      "deployedM": { "height": 5.6, "width": 5.4 },
+      "confidence": "published",
+      "note": "Solar panels ~4 m long.",
+      "sources": ["Wikipedia Neil Gehrels Swift Observatory", "NASA Swift"]
+    },
+    {
+      "key": "38358",
+      "name": "NuSTAR",
+      "characteristicLengthM": 10.14,
+      "bodyM": { "stowed": "~2 m long × 1 m diameter" },
+      "deployedM": { "focalLength": 10.14 },
+      "confidence": "published",
+      "note": "Deployable mast sets on-orbit length to the 10.14 m focal length.",
+      "sources": ["NuSTAR technical description (HEASARC)"]
+    },
+    {
+      "key": "49954",
+      "name": "IXPE",
+      "characteristicLengthM": 5.2,
+      "bodyM": { "length": 5.2, "diameter": 1.1 },
+      "deployedM": { "length": 5.2, "solarSpan": 2.7 },
+      "confidence": "published",
+      "sources": ["NASA IXPE systems engineering / NTRS"]
+    },
+    {
+      "key": "25994",
+      "name": "Terra",
+      "characteristicLengthM": 17,
+      "deployedM": { "estimate": "~3.5 × 17 × 8 m class (EOS AM-1, similar family to Aqua)" },
+      "confidence": "estimated",
+      "note": "Sister to Aqua; use Aqua-class deployed envelope when exact Terra figures unavailable.",
+      "sources": ["NASA EOS / Aqua press kit analogy"]
+    },
+    {
+      "key": "27424",
+      "name": "Aqua",
+      "characteristicLengthM": 16.7,
+      "bodyM": { "stowed": "2.68 × 2.49 × 6.49 m" },
+      "deployedM": { "x": 4.81, "y": 16.7, "z": 8.04 },
+      "confidence": "published",
+      "sources": ["NASA Aqua Press Kit"]
+    },
+    {
+      "key": "39084",
+      "name": "Landsat 8",
+      "characteristicLengthM": 9,
+      "bodyM": { "length": 3, "diameter": 2.4 },
+      "deployedM": { "solarArray": "9 × 0.4 m" },
+      "confidence": "published",
+      "sources": ["USGS Landsat 8"]
+    },
+    {
+      "key": "49260",
+      "name": "Landsat 9",
+      "characteristicLengthM": 9,
+      "bodyM": { "length": 3, "diameter": 2.4 },
+      "confidence": "reported",
+      "note": "Same LDCM-class bus as Landsat 8.",
+      "sources": ["USGS Landsat 8 heritage"]
+    },
+    {
+      "key": "43613",
+      "name": "ICESat-2",
+      "characteristicLengthM": 10,
+      "bodyM": { "stowed": "2.5 × 1.9 × 3.8 m" },
+      "deployedM": { "solarSpan": 10 },
+      "confidence": "published",
+      "note": "Solar array extends the 1.9 m axis to ~10 m (32.8 ft).",
+      "sources": ["NASA ICESat-2 fact sheet / brochure"]
+    },
+    {
+      "key": "54754",
+      "name": "SWOT",
+      "characteristicLengthM": 15,
+      "deployedM": { "solarArrayLength": 14.9 },
+      "confidence": "reported",
+      "note": "KaRIn mast + large solar arrays; ~15 m class characteristic size.",
+      "sources": ["NASA/CNES SWOT mission materials"]
+    },
+    {
+      "key": "39634",
+      "name": "Sentinel-1A",
+      "characteristicLengthM": 21,
+      "deployedM": { "length": 21, "width": 2.5, "height": 4 },
+      "confidence": "published",
+      "note": "21 m long with 2×10 m solar arrays and 12 m SAR antenna.",
+      "sources": ["ESA Sentinel-1 facts and figures"]
+    },
+    {
+      "key": "40697",
+      "name": "Sentinel-2A",
+      "characteristicLengthM": 12,
+      "deployedM": { "estimate": "~3.4 m bus, ~12–15 m with arrays" },
+      "confidence": "estimated",
+      "sources": ["ESA Sentinel-2 overview"]
+    },
+    {
+      "key": "37849",
+      "name": "Suomi NPP",
+      "characteristicLengthM": 10,
+      "bodyM": { "length": 3.6, "diameter": 1.4 },
+      "deployedM": { "span": 10 },
+      "confidence": "reported",
+      "note": "BCP-2000 bus; keeptrack/satellitemap list 3.6 × 1.4 × 10 m span. JPSS family also cited as 1.3 × 1.3 × 4.2 m bus.",
+      "sources": ["KeepTrack / satellitemap NPP", "eoPortal Suomi NPP"]
+    },
+    {
+      "key": "43013",
+      "name": "NOAA-20",
+      "characteristicLengthM": 10,
+      "bodyM": { "x": 1.3, "y": 1.3, "z": 4.2 },
+      "confidence": "published",
+      "note": "Same JPSS/BCP-2000 family as Suomi NPP; characteristic span ~10 m class.",
+      "sources": ["Wikipedia NOAA-20"]
+    },
+    {
+      "key": "41866",
+      "name": "GOES-16",
+      "characteristicLengthM": 6.1,
+      "bodyM": { "x": 6.1, "y": 5.6, "z": 3.9 },
+      "confidence": "published",
+      "note": "GOES-R series; five-panel solar wing (span larger than bus — bus dims used as published envelope).",
+      "sources": ["NESDIS GOES-R spacecraft"]
+    },
+    {
+      "key": "60133",
+      "name": "GOES-19",
+      "characteristicLengthM": 6.1,
+      "bodyM": { "x": 6.1, "y": 5.6, "z": 3.9 },
+      "confidence": "published",
+      "note": "GOES-U / same GOES-R series envelope as GOES-16.",
+      "sources": ["NESDIS GOES-R spacecraft"]
+    },
+    {
+      "key": "40267",
+      "name": "Himawari-8",
+      "characteristicLengthM": 8,
+      "bodyM": { "bus": "DS2000" },
+      "confidence": "estimated",
+      "note": "DS2000 GEO bus with single solar wing; ~8 m class estimate (exact span not in public summary).",
+      "sources": ["Wikipedia Himawari 8"]
+    },
+    {
+      "key": "43689",
+      "name": "MetOp-C",
+      "characteristicLengthM": 17,
+      "deployedM": { "estimate": "~6.3 m height, ~17 m with solar arrays (MetOp family)" },
+      "confidence": "estimated",
+      "sources": ["EUMETSAT / ESA MetOp"]
+    },
+    {
+      "key": "gps",
+      "name": "GPS III",
+      "characteristicLengthM": 14,
+      "bodyM": { "length": 3.4, "diameter": 1.8 },
+      "deployedM": { "span": 14 },
+      "confidence": "reported",
+      "sources": ["KeepTrack GPS III / A2100"]
+    },
+    {
+      "key": "galileo",
+      "name": "Galileo",
+      "characteristicLengthM": 13,
+      "bodyM": { "x": 2.7, "y": 1.1, "z": 1.2 },
+      "deployedM": { "solarSpan": 13 },
+      "confidence": "published",
+      "sources": ["ESA Galileo satellites"]
+    },
+    {
+      "key": "beidou",
+      "name": "BeiDou-3",
+      "characteristicLengthM": 8,
+      "bodyM": {
+        "MEO": "2.25 × 1.0 × 1.22 m",
+        "GEO": "2.2 × 2.0 × 3.1 m"
+      },
+      "confidence": "reported",
+      "note": "MEO ~1 t compact bus; GEO/IGSO larger DFH-3B. Characteristic ~8 m with arrays (order).",
+      "sources": ["Spaceflight101 BeiDou-3"]
+    },
+    {
+      "key": "glonass",
+      "name": "GLONASS",
+      "characteristicLengthM": 8,
+      "bodyM": { "core": "~2.4 m class (GLONASS-M)" },
+      "confidence": "estimated",
+      "sources": ["IGS workshop GNSS surface-area tables"]
+    },
+    {
+      "key": "qzss",
+      "name": "QZSS",
+      "characteristicLengthM": 19,
+      "deployedM": { "estimate": "~19 m solar span class (QZS-1 era large arrays)" },
+      "confidence": "estimated",
+      "sources": ["JAXA / QZSS public materials"]
+    },
+    {
+      "key": "starlink",
+      "name": "Starlink",
+      "characteristicLengthM": 30,
+      "bodyM": { "v2mini": "4.1 × 2.7 m" },
+      "deployedM": { "v2miniSolarSpan": 30, "v1_5EndToEnd": 11 },
+      "confidence": "published",
+      "note": "Using V2 Mini deployed solar span ~30 m (current fleet workhorse). v1.5 ~11 m end-to-end.",
+      "sources": ["SpaceX / Spaceflight Now V2 Mini", "Wikipedia Starlink FCC tables"]
+    },
+    {
+      "key": "oneweb",
+      "name": "OneWeb",
+      "characteristicLengthM": 3,
+      "bodyM": { "x": 1, "y": 1, "z": 1.3 },
+      "confidence": "published",
+      "note": "Arrow bus ~1×1×1.3 m; ~3 m with small solar wings.",
+      "sources": ["eoPortal OneWeb"]
+    },
+    {
+      "key": "iridium",
+      "name": "Iridium NEXT",
+      "characteristicLengthM": 9.4,
+      "bodyM": { "stowed": "3.1 × 2.4 × 1.5 m" },
+      "deployedM": { "wingspan": 9.4 },
+      "confidence": "published",
+      "sources": ["eoPortal Iridium NEXT"]
+    },
+    {
+      "key": "44476",
+      "name": "Intelsat 39",
+      "characteristicLengthM": 26.1,
+      "bodyM": { "length": 8, "diameter": 6 },
+      "deployedM": { "span": 26.1 },
+      "confidence": "reported",
+      "sources": ["KeepTrack Intelsat 39 / SSL-1300"]
+    },
+    {
+      "key": "49332",
+      "name": "SES-17",
+      "characteristicLengthM": 48,
+      "deployedM": { "wingspan": 48 },
+      "confidence": "published",
+      "note": "Thales Alenia Space large solar wings — SES published 48 m (factsheet also cites ~46 m).",
+      "sources": ["SES SES-17 newsroom / factsheet"]
+    },
+    {
+      "key": "56370",
+      "name": "ViaSat-3 F1",
+      "characteristicLengthM": 35,
+      "confidence": "estimated",
+      "note": "BSS-702MP+ ultra-HTS; exact span not publicly standardized — GEO HTS class ~30–40 m.",
+      "sources": ["Gunter's Space Page ViaSat-3"]
+    },
+    {
+      "key": "42915",
+      "name": "TDRS-13",
+      "characteristicLengthM": 18,
+      "confidence": "estimated",
+      "note": "TDRS H / 3rd-gen with large single-access antennas; ~18 m class estimate.",
+      "sources": ["NASA TDRS overview"]
+    },
+    {
+      "key": "45465",
+      "name": "AEHF-6",
+      "characteristicLengthM": 20,
+      "confidence": "estimated",
+      "note": "A2100M milsatcom; precise dims often undisclosed — ~20 m class with antennas/arrays.",
+      "sources": ["Lockheed A2100 / public AEHF summaries"]
+    },
+    {
+      "key": "37481",
+      "name": "SBIRS GEO-1",
+      "characteristicLengthM": 14.9,
+      "deployedM": { "x": 14.9, "y": 6.7, "z": 6.1 },
+      "confidence": "published",
+      "note": "USSF fact sheet: ~49 × 22 × 20 ft with appendages deployed.",
+      "sources": ["Buckley SFB SBIRS fact sheet"]
+    },
+    {
+      "key": "41622",
+      "name": "MUOS-5",
+      "characteristicLengthM": 14,
+      "deployedM": { "uhfReflector": 14, "narrowbandReflector": 5.4 },
+      "confidence": "published",
+      "note": "Largest feature is the ~14 m (46 ft) UHF mesh reflector.",
+      "sources": ["Lockheed / MUOS public materials"]
+    },
+    {
+      "key": "32258",
+      "name": "WGS-1",
+      "characteristicLengthM": 25,
+      "confidence": "estimated",
+      "note": "BSS-702X WGS; large Ka/X antenna farm — ~25 m class estimate.",
+      "sources": ["Boeing WGS public materials"]
+    },
+    {
+      "key": "46984",
+      "name": "Sentinel-6",
+      "characteristicLengthM": 5.15,
+      "bodyM": { "length": 5.15, "height": 2.35, "width": 2.58 },
+      "confidence": "published",
+      "sources": ["JPL Sentinel-6 press kit", "ESA Sentinel-6 facts"]
+    },
+    {
+      "key": "41240",
+      "name": "Jason-3",
+      "characteristicLengthM": 10,
+      "deployedM": { "x": 3.8, "y": 10, "z": 2 },
+      "confidence": "published",
+      "sources": ["NESDIS Jason-3 spacecraft"]
+    },
+    {
+      "key": "40376",
+      "name": "SMAP",
+      "characteristicLengthM": 9.7,
+      "bodyM": { "bus": "1.5 × 0.9 × 0.9 m" },
+      "deployedM": { "withAntenna": "9.7 × 7.1 × 6.8 m", "reflectorDiameter": 6 },
+      "confidence": "published",
+      "sources": ["JPL SMAP launch press kit"]
+    },
+    {
+      "key": "39574",
+      "name": "GPM Core",
+      "characteristicLengthM": 13,
+      "deployedM": { "estimate": "~5 × 13 × 5 m with DPR / GMI and arrays" },
+      "confidence": "estimated",
+      "sources": ["NASA GPM Core Observatory"]
+    },
+    {
+      "key": "43476",
+      "name": "GRACE-FO",
+      "characteristicLengthM": 3.12,
+      "bodyM": { "length": 3.123, "height": 0.78, "widthBase": 1.943 },
+      "confidence": "published",
+      "sources": ["JPL GRACE-FO press kit"]
+    },
+    {
+      "key": "planet",
+      "name": "Planet SuperDove",
+      "characteristicLengthM": 0.3,
+      "bodyM": { "formFactor": "3U", "x": 0.1, "y": 0.1, "z": 0.3 },
+      "confidence": "published",
+      "note": "3U CubeSat ~10×10×30 cm.",
+      "sources": ["Planet Labs Dove/SuperDove"]
+    },
+    {
+      "key": "5",
+      "name": "Vanguard 1",
+      "characteristicLengthM": 0.165,
+      "bodyM": { "diameter": 0.165 },
+      "confidence": "published",
+      "note": "16.5 cm sphere.",
+      "sources": ["NASA Vanguard 1"]
+    }
+  ]
+}

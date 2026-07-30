@@ -1,0 +1,3446 @@
+{
+  "_schema": {
+    "note": "Hand-researched dossiers. Orbital elements come from CelesTrak/Space-Track. Costs, purpose, and results are compiled from agency budgets, audits, contracts, mission pages, and peer-reviewed or official science summaries — confidence labeled per figure.",
+    "confidence": {
+      "published": "Figure appears in an official budget, audit, contract award or operator statement.",
+      "reported": "Widely reported by credible trade press, but not in a primary document.",
+      "estimated": "Analyst or press estimate. Treat as an order of magnitude only.",
+      "undisclosed": "Operator does not publish this. No credible figure exists."
+    },
+    "costYear": "Nominal (then-year) US dollars unless noted.",
+    "fields": {
+      "built": "Manufacturer, prime contract award, and when the spacecraft finished assembly.",
+      "launched": "Launch date, vehicle, and site.",
+      "settled": "When it reached its operational orbit/slot and was declared operational — often much later than launch.",
+      "costBuild": "Cost to design and manufacture the spacecraft.",
+      "costLaunch": "Cost to place it in orbit.",
+      "maintenance": "What it currently costs to keep flying, per year.",
+      "purpose": "Why the spacecraft (or constellation) exists: one-sentence intent, users, key instruments/measures.",
+      "results": "What it has delivered: headline outcome, dated bullets with sources, and what it still produces today."
+    }
+  },
+  "satellites": [
+    {
+      "norad": 25544,
+      "name": "International Space Station",
+      "shortName": "ISS",
+      "category": "station",
+      "operator": "NASA · Roscosmos · ESA · JAXA · CSA",
+      "country": "Multinational",
+      "flag": "🌐",
+      "manufacturer": "Boeing (US segment) · RSC Energia (Russian segment)",
+      "built": {
+        "text": "Modules built 1994–2011; Zarya (first module) completed by Khrunichev under Boeing contract in 1997.",
+        "year": 1997
+      },
+      "launched": {
+        "date": "1998-11-20",
+        "vehicle": "Proton-K (Zarya module)",
+        "site": "Baikonur, Kazakhstan"
+      },
+      "settled": {
+        "date": "2000-11-02",
+        "text": "Permanently crewed from Expedition 1. Assembly complete 2011; final major module Nauka added 2021."
+      },
+      "costBuild": {
+        "usd": 150000000000,
+        "display": "~$150B",
+        "confidence": "estimated",
+        "note": "Total international program cost. NASA's own share was ~$75B through 2013 per the NASA Office of Inspector General."
+      },
+      "costLaunch": {
+        "usd": 0,
+        "display": "Included above",
+        "confidence": "published",
+        "note": "~42 assembly flights (36 Shuttle at ~$450M–$1.5B each, plus Proton/Soyuz). Launch is the dominant line item inside the $150B."
+      },
+      "maintenance": {
+        "usdPerYear": 3100000000,
+        "display": "~$3.1B/yr (NASA only)",
+        "confidence": "published",
+        "note": "~$1.3B station operations & research, ~$1.8B crew and cargo transport. Roscosmos/ESA/JAXA/CSA spend on top of this."
+      },
+      "status": "Operational — retirement planned for 2030–2031 via a controlled deorbit vehicle (SpaceX, $843M contract)",
+      "designLife": "Certified through 2030",
+      "mass": "~450,000 kg",
+      "orbitClass": "LEO",
+      "sources": [
+        "NASA OIG IG-14-031, 'Extending the Operational Life of the ISS Until 2024'",
+        "NASA FY2025 Budget Request",
+        "SpaceNews, NASA ISS transition cost briefings"
+      ],
+      "purpose": {
+        "summary": "Provide a continuously crewed laboratory in low Earth orbit for science, technology demonstration, and international cooperation.",
+        "users": [
+          "science",
+          "civil"
+        ],
+        "instruments": [
+          "Expedition labs",
+          "External payloads",
+          "Human research facilities"
+        ],
+        "measures": [
+          "microgravity biology",
+          "materials science",
+          "Earth observation from station"
+        ]
+      },
+      "results": {
+        "headline": "Longest continuous human presence in space and a workhorse for microgravity research.",
+        "bullets": [
+          {
+            "text": "Permanently crewed since November 2000 — over 25 years of unbroken habitation.",
+            "year": 2000,
+            "confidence": "published",
+            "source": "NASA ISS program"
+          },
+          {
+            "text": "Thousands of investigations flown; results span protein crystals, combustion, Earth imaging, and human physiology for deep-space flight.",
+            "year": 2024,
+            "confidence": "reported",
+            "source": "NASA ISS Research Overview / annual reports"
+          },
+          {
+            "text": "Enabled commercial cargo/crew (SpaceX, Northrop, Boeing) and private astronaut missions as a market pathfinder.",
+            "year": 2020,
+            "confidence": "published",
+            "source": "NASA Commercial Crew / CRS program summaries"
+          }
+        ],
+        "stillDoing": "Crewed research, Earth observation, tech demos; planned transition to commercial LEO destinations ~2030."
+      }
+    },
+    {
+      "norad": 48274,
+      "name": "Tiangong Space Station (Tianhe core module)",
+      "shortName": "Tiangong",
+      "category": "station",
+      "operator": "China Manned Space Agency (CMSA)",
+      "country": "China",
+      "flag": "🇨🇳",
+      "manufacturer": "China Academy of Space Technology (CAST)",
+      "built": {
+        "text": "Developed under Project 921 Phase 3; Tianhe core module completed 2020.",
+        "year": 2020
+      },
+      "launched": {
+        "date": "2021-04-29",
+        "vehicle": "Long March 5B",
+        "site": "Wenchang, Hainan"
+      },
+      "settled": {
+        "date": "2022-11-01",
+        "text": "Three-module T-shape completed when Mengtian docked. Continuously crewed since June 2022."
+      },
+      "costBuild": {
+        "usd": 9000000000,
+        "display": "~$8–11B (est.)",
+        "confidence": "estimated",
+        "note": "China does not publish a program cost. Western analyst estimates for the station plus supporting Shenzhou/Tianzhou infrastructure."
+      },
+      "costLaunch": {
+        "usd": 0,
+        "display": "Undisclosed",
+        "confidence": "undisclosed",
+        "note": "Long March 5B flights estimated at ~$180M each; three module launches plus regular crew/cargo."
+      },
+      "maintenance": {
+        "usdPerYear": 0,
+        "display": "Undisclosed",
+        "confidence": "undisclosed",
+        "note": "CMSA does not release an operating budget. Cadence is ~2 crew + 1–2 cargo flights per year."
+      },
+      "status": "Operational — expansion to six modules announced",
+      "designLife": "10+ years (to ~2032, extendable)",
+      "mass": "~100,000 kg (3 modules)",
+      "orbitClass": "LEO",
+      "sources": [
+        "CMSA press releases",
+        "Analyst estimates via SpaceNews / NASASpaceflight"
+      ],
+      "purpose": {
+        "summary": "China’s crewed space station for research, technology, and continuous national human spaceflight.",
+        "users": [
+          "science",
+          "civil"
+        ]
+      },
+      "results": {
+        "headline": "Results dossier not yet researched for this entry.",
+        "bullets": [],
+        "stillDoing": null
+      }
+    },
+    {
+      "norad": 20580,
+      "name": "Hubble Space Telescope",
+      "shortName": "Hubble",
+      "category": "science",
+      "operator": "NASA · ESA (STScI operates science)",
+      "country": "United States / Europe",
+      "flag": "🇺🇸",
+      "manufacturer": "Lockheed Missiles & Space (bus) · Perkin-Elmer (optics)",
+      "built": {
+        "text": "Approved 1977, mirror ground 1979–1981, spacecraft assembled 1985. Launch delayed 4 years by the Challenger stand-down.",
+        "year": 1985
+      },
+      "launched": {
+        "date": "1990-04-24",
+        "vehicle": "Space Shuttle Discovery, STS-31",
+        "site": "Kennedy Space Center, Florida"
+      },
+      "settled": {
+        "date": "1993-12-09",
+        "text": "Deployed 1990-04-25, but the primary mirror had a 2.2 µm spherical aberration. Only fully operational after the COSTAR corrective optics were installed on servicing mission STS-61 in December 1993."
+      },
+      "costBuild": {
+        "usd": 1500000000,
+        "display": "~$1.5B at launch",
+        "confidence": "published",
+        "note": "Development through launch. Lifetime program cost including 5 Shuttle servicing missions is commonly cited at ~$16B."
+      },
+      "costLaunch": {
+        "usd": 500000000,
+        "display": "~$500M",
+        "confidence": "estimated",
+        "note": "One dedicated Space Shuttle flight. Five further servicing missions cost roughly $700M–$1.1B each."
+      },
+      "maintenance": {
+        "usdPerYear": 93000000,
+        "display": "~$90–100M/yr",
+        "confidence": "published",
+        "note": "NASA astrophysics operating line for Hubble. No longer serviceable — the Shuttle retired in 2011, and three of six gyroscopes remain; the telescope has flown in reduced one-gyro mode since 2024."
+      },
+      "status": "Operational — orbit decaying, reentry expected in the 2030s without a reboost mission",
+      "designLife": "15 years (has flown 36)",
+      "mass": "11,110 kg",
+      "orbitClass": "LEO",
+      "sources": [
+        "NASA FY budget requests, Astrophysics division",
+        "NASA/STScI Hubble program office"
+      ],
+      "purpose": {
+        "summary": "Observe the universe in ultraviolet, visible, and near-infrared from above Earth’s atmosphere.",
+        "users": [
+          "science"
+        ],
+        "instruments": [
+          "WFC3",
+          "ACS",
+          "STIS",
+          "COS"
+        ],
+        "measures": [
+          "deep-field imaging",
+          "cosmic expansion",
+          "exoplanet atmospheres"
+        ]
+      },
+      "results": {
+        "headline": "Transformed modern astronomy — the public and scientific picture of deep space.",
+        "bullets": [
+          {
+            "text": "Helped establish accelerating cosmic expansion / dark energy evidence (with ground surveys; 2011 Physics Nobel).",
+            "year": 1998,
+            "confidence": "published",
+            "source": "STScI / Nobel Committee Type Ia supernova work"
+          },
+          {
+            "text": "Hubble Ultra Deep Field and successors imaged galaxies within ~400 Myr of the Big Bang.",
+            "year": 2004,
+            "confidence": "published",
+            "source": "STScI HUDF"
+          },
+          {
+            "text": "Still drives ~1,000+ peer-reviewed papers per year decades after launch.",
+            "year": 2024,
+            "confidence": "reported",
+            "source": "STScI annual reports"
+          }
+        ],
+        "stillDoing": "Guest-observer program; public archive at MAST (STScI)."
+      }
+    },
+    {
+      "norad": 25867,
+      "name": "Chandra X-ray Observatory",
+      "shortName": "Chandra",
+      "category": "science",
+      "operator": "NASA (Smithsonian Astrophysical Observatory)",
+      "country": "United States",
+      "flag": "🇺🇸",
+      "manufacturer": "TRW (now Northrop Grumman)",
+      "built": {
+        "text": "Selected 1977 as AXAF, descoped 1992, spacecraft completed 1998.",
+        "year": 1998
+      },
+      "launched": {
+        "date": "1999-07-23",
+        "vehicle": "Space Shuttle Columbia, STS-93 + Inertial Upper Stage",
+        "site": "Kennedy Space Center, Florida"
+      },
+      "settled": {
+        "date": "1999-08-26",
+        "text": "IUS and internal propulsion raised it over five burns into a 64-hour highly elliptical orbit. First light 1999-08-19; science operations declared August 1999."
+      },
+      "costBuild": {
+        "usd": 1650000000,
+        "display": "~$1.65B development",
+        "confidence": "published",
+        "note": "Total mission cost through the first years of operation is usually given as ~$2.8B."
+      },
+      "costLaunch": {
+        "usd": 500000000,
+        "display": "~$500M",
+        "confidence": "estimated",
+        "note": "Dedicated Shuttle flight plus an Inertial Upper Stage. Chandra remains the heaviest payload the Shuttle ever launched."
+      },
+      "maintenance": {
+        "usdPerYear": 41000000,
+        "display": "~$41M/yr (cut from ~$68M)",
+        "confidence": "published",
+        "note": "NASA's FY2025 request proposed winding Chandra down; the operating budget was cut sharply and the mission's future is reviewed annually."
+      },
+      "status": "Operational but budget-threatened — thermal degradation limits observing angles",
+      "designLife": "5 years (has flown 26)",
+      "mass": "4,790 kg",
+      "orbitClass": "HEO",
+      "sources": [
+        "NASA FY2025 Budget Request",
+        "Chandra X-ray Center operating reports"
+      ],
+      "purpose": {
+        "summary": "Map the high-energy universe in X-rays — black holes, galaxy clusters, supernova remnants.",
+        "users": [
+          "science"
+        ],
+        "instruments": [
+          "ACIS",
+          "HRC",
+          "HETG",
+          "LETG"
+        ],
+        "measures": [
+          "X-ray spectra",
+          "cluster gas temperatures",
+          "compact-object accretion"
+        ]
+      },
+      "results": {
+        "headline": "Gold-standard X-ray observatory for black holes, dark matter, and explosive astrophysics.",
+        "bullets": [
+          {
+            "text": "Resolved structure in galaxy-cluster gas and constrained dark-matter / cosmology via cluster physics.",
+            "year": 2000,
+            "confidence": "published",
+            "source": "Chandra X-ray Center science highlights"
+          },
+          {
+            "text": "Imaged jets and accretion near stellar-mass and supermassive black holes with sub-arcsecond resolution.",
+            "year": 2001,
+            "confidence": "published",
+            "source": "CXC / NASA Chandra mission pages"
+          },
+          {
+            "text": "Decades-long archive remains a primary resource for multi-wavelength astronomy.",
+            "year": 2024,
+            "confidence": "published",
+            "source": "Chandra Data Archive"
+          }
+        ],
+        "stillDoing": "Guest-observer X-ray observations; archive at the Chandra X-ray Center."
+      }
+    },
+    {
+      "norad": 33053,
+      "name": "Fermi Gamma-ray Space Telescope",
+      "shortName": "Fermi",
+      "category": "science",
+      "operator": "NASA · US DOE · France · Germany · Italy · Japan · Sweden",
+      "country": "United States",
+      "flag": "🇺🇸",
+      "manufacturer": "General Dynamics (bus) · SLAC/Stanford (LAT instrument)",
+      "built": {
+        "text": "Instrument built at SLAC; spacecraft integration completed 2007 as GLAST.",
+        "year": 2007
+      },
+      "launched": {
+        "date": "2008-06-11",
+        "vehicle": "Delta II 7920-H",
+        "site": "Cape Canaveral, Florida"
+      },
+      "settled": {
+        "date": "2008-08-11",
+        "text": "Two-month commissioning; renamed Fermi on 2008-08-26 and began the all-sky survey."
+      },
+      "costBuild": {
+        "usd": 690000000,
+        "display": "~$690M",
+        "confidence": "published",
+        "note": "Total mission cost including instruments and international contributions."
+      },
+      "costLaunch": {
+        "usd": 95000000,
+        "display": "~$95M",
+        "confidence": "published",
+        "note": "Delta II 7920-H under NASA Launch Services."
+      },
+      "maintenance": {
+        "usdPerYear": 15000000,
+        "display": "~$15–20M/yr",
+        "confidence": "reported",
+        "note": "One of NASA's cheaper operating astrophysics missions."
+      },
+      "status": "Operational",
+      "designLife": "5 years (goal 10; has flown 18)",
+      "mass": "4,303 kg",
+      "orbitClass": "LEO",
+      "sources": [
+        "NASA Astrophysics Division budget",
+        "NASA Fermi mission pages"
+      ],
+      "purpose": {
+        "summary": "All-sky gamma-ray observatory for high-energy transients and the extragalactic background.",
+        "users": [
+          "science"
+        ]
+      },
+      "results": {
+        "headline": "Results dossier not yet researched for this entry.",
+        "bullets": [],
+        "stillDoing": null
+      }
+    },
+    {
+      "norad": 25989,
+      "name": "XMM-Newton",
+      "shortName": "XMM-Newton",
+      "category": "science",
+      "operator": "European Space Agency",
+      "country": "Europe",
+      "flag": "🇪🇺",
+      "manufacturer": "Dornier Satellitensysteme (now Airbus)",
+      "built": {
+        "text": "ESA Horizon 2000 cornerstone mission; assembly completed 1999.",
+        "year": 1999
+      },
+      "launched": {
+        "date": "1999-12-10",
+        "vehicle": "Ariane 5 G",
+        "site": "Kourou, French Guiana"
+      },
+      "settled": {
+        "date": "2000-07-01",
+        "text": "Commissioning and calibration ran through mid-2000; routine science from July 2000."
+      },
+      "costBuild": {
+        "usd": 750000000,
+        "display": "~€690M (~$750M)",
+        "confidence": "published",
+        "note": "ESA program cost at 1999 economic conditions."
+      },
+      "costLaunch": {
+        "usd": 180000000,
+        "display": "~$180M",
+        "confidence": "estimated",
+        "note": "Dedicated Ariane 5 G."
+      },
+      "maintenance": {
+        "usdPerYear": 15000000,
+        "display": "~€10–15M/yr",
+        "confidence": "estimated",
+        "note": "ESA extends the mission in ~2-year increments; currently approved through 2026+."
+      },
+      "status": "Operational — longest-serving ESA science mission",
+      "designLife": "10 years (has flown 26)",
+      "mass": "3,764 kg",
+      "orbitClass": "HEO",
+      "sources": [
+        "ESA science programme cost figures"
+      ],
+      "purpose": {
+        "summary": "ESA’s large X-ray observatory for spectroscopy of black holes, clusters, and stars.",
+        "users": [
+          "science"
+        ]
+      },
+      "results": {
+        "headline": "Results dossier not yet researched for this entry.",
+        "bullets": [],
+        "stillDoing": null
+      }
+    },
+    {
+      "norad": 28485,
+      "name": "Neil Gehrels Swift Observatory",
+      "shortName": "Swift",
+      "category": "science",
+      "operator": "NASA (Penn State University)",
+      "country": "United States",
+      "flag": "🇺🇸",
+      "manufacturer": "Spectrum Astro (now General Dynamics)",
+      "built": {
+        "text": "NASA MIDEX mission selected 1999; completed 2004.",
+        "year": 2004
+      },
+      "launched": {
+        "date": "2004-11-20",
+        "vehicle": "Delta II 7320-10C",
+        "site": "Cape Canaveral, Florida"
+      },
+      "settled": {
+        "date": "2005-04-05",
+        "text": "Instrument commissioning completed April 2005; normal gamma-ray burst response operations began."
+      },
+      "costBuild": {
+        "usd": 250000000,
+        "display": "~$250M",
+        "confidence": "published",
+        "note": "MIDEX-class cost cap mission."
+      },
+      "costLaunch": {
+        "usd": 55000000,
+        "display": "~$55M",
+        "confidence": "estimated",
+        "note": "Delta II 7320."
+      },
+      "maintenance": {
+        "usdPerYear": 8000000,
+        "display": "~$8M/yr",
+        "confidence": "reported",
+        "note": "Faced a proposed FY2025 termination; reprieved. A 2024–2025 orbital decay problem prompted a commercial reboost study."
+      },
+      "status": "Operational — orbit decaying faster than planned",
+      "designLife": "2 years (has flown 21)",
+      "mass": "1,470 kg",
+      "orbitClass": "LEO",
+      "sources": [
+        "NASA Astrophysics Senior Review",
+        "NASA FY2025 Budget Request"
+      ],
+      "purpose": {
+        "summary": "Rapid multi-wavelength follow-up of gamma-ray bursts and other transients.",
+        "users": [
+          "science"
+        ]
+      },
+      "results": {
+        "headline": "Results dossier not yet researched for this entry.",
+        "bullets": [],
+        "stillDoing": null
+      }
+    },
+    {
+      "norad": 38358,
+      "name": "NuSTAR",
+      "shortName": "NuSTAR",
+      "category": "science",
+      "operator": "NASA (Caltech)",
+      "country": "United States",
+      "flag": "🇺🇸",
+      "manufacturer": "Orbital Sciences (bus) · Columbia/DTU/LLNL (optics)",
+      "built": {
+        "text": "Small Explorer mission selected 2007; completed 2012.",
+        "year": 2012
+      },
+      "launched": {
+        "date": "2012-06-13",
+        "vehicle": "Pegasus XL (air-launched from L-1011)",
+        "site": "Kwajalein Atoll, Marshall Islands"
+      },
+      "settled": {
+        "date": "2012-07-01",
+        "text": "10-metre mast deployed 2012-06-21; science operations began July 2012."
+      },
+      "costBuild": {
+        "usd": 170000000,
+        "display": "~$170M",
+        "confidence": "published",
+        "note": "SMEX cost class."
+      },
+      "costLaunch": {
+        "usd": 40000000,
+        "display": "~$40M",
+        "confidence": "estimated",
+        "note": "Pegasus XL."
+      },
+      "maintenance": {
+        "usdPerYear": 5000000,
+        "display": "~$5M/yr",
+        "confidence": "estimated",
+        "note": "Among the lowest operating costs of any NASA observatory."
+      },
+      "status": "Operational",
+      "designLife": "2 years (has flown 14)",
+      "mass": "350 kg",
+      "orbitClass": "LEO",
+      "sources": [
+        "NASA SMEX program documentation"
+      ],
+      "purpose": {
+        "summary": "Focusing hard X-ray telescope for black holes, supernovae, and compact objects.",
+        "users": [
+          "science"
+        ]
+      },
+      "results": {
+        "headline": "Results dossier not yet researched for this entry.",
+        "bullets": [],
+        "stillDoing": null
+      }
+    },
+    {
+      "norad": 49954,
+      "name": "Imaging X-ray Polarimetry Explorer",
+      "shortName": "IXPE",
+      "category": "science",
+      "operator": "NASA · Italian Space Agency (ASI)",
+      "country": "United States / Italy",
+      "flag": "🇺🇸",
+      "manufacturer": "Ball Aerospace (bus) · INFN/ASI (detectors)",
+      "built": {
+        "text": "SMEX selected 2017; spacecraft completed 2021.",
+        "year": 2021
+      },
+      "launched": {
+        "date": "2021-12-09",
+        "vehicle": "Falcon 9 Block 5",
+        "site": "Kennedy Space Center, Florida"
+      },
+      "settled": {
+        "date": "2022-01-11",
+        "text": "Boom deployed and commissioning completed; science operations began January 2022."
+      },
+      "costBuild": {
+        "usd": 188000000,
+        "display": "~$188M",
+        "confidence": "published",
+        "note": "NASA cost cap; ASI contributed the detector units separately."
+      },
+      "costLaunch": {
+        "usd": 50300000,
+        "display": "$50.3M",
+        "confidence": "published",
+        "note": "NASA Launch Services contract with SpaceX, awarded 2019 — an unusually cheap dedicated Falcon 9 for a small payload."
+      },
+      "maintenance": {
+        "usdPerYear": 6000000,
+        "display": "~$6M/yr",
+        "confidence": "estimated",
+        "note": ""
+      },
+      "status": "Operational",
+      "designLife": "2 years (extended)",
+      "mass": "330 kg",
+      "orbitClass": "LEO",
+      "sources": [
+        "NASA Launch Services Program contract announcement, 2019"
+      ],
+      "purpose": {
+        "summary": "Measure X-ray polarization to probe magnetic fields near compact objects.",
+        "users": [
+          "science"
+        ]
+      },
+      "results": {
+        "headline": "Results dossier not yet researched for this entry.",
+        "bullets": [],
+        "stillDoing": null
+      }
+    },
+    {
+      "norad": 25994,
+      "name": "Terra (EOS AM-1)",
+      "shortName": "Terra",
+      "category": "earth",
+      "operator": "NASA",
+      "country": "United States",
+      "flag": "🇺🇸",
+      "manufacturer": "Lockheed Martin Space",
+      "built": {
+        "text": "Flagship of the Earth Observing System; completed 1999.",
+        "year": 1999
+      },
+      "launched": {
+        "date": "1999-12-18",
+        "vehicle": "Atlas IIAS",
+        "site": "Vandenberg AFB, California"
+      },
+      "settled": {
+        "date": "2000-02-24",
+        "text": "Reached its 705 km sun-synchronous 10:30 a.m. descending node; first MODIS imagery released February 2000."
+      },
+      "costBuild": {
+        "usd": 1300000000,
+        "display": "~$1.3B",
+        "confidence": "published",
+        "note": "Includes five instruments contributed by the US, Japan and Canada."
+      },
+      "costLaunch": {
+        "usd": 100000000,
+        "display": "~$100M",
+        "confidence": "estimated",
+        "note": "Atlas IIAS."
+      },
+      "maintenance": {
+        "usdPerYear": 20000000,
+        "display": "~$20M/yr",
+        "confidence": "estimated",
+        "note": "Now drifting out of its controlled orbit — NASA stopped maintaining the mean local time in 2020 as fuel ran low."
+      },
+      "status": "Operational but drifting — instruments degrading, decommissioning expected ~2026",
+      "designLife": "6 years (has flown 26)",
+      "mass": "5,190 kg",
+      "orbitClass": "LEO (sun-synchronous)",
+      "sources": [
+        "NASA Earth Science Division budget",
+        "NASA EOS project office"
+      ],
+      "purpose": {
+        "summary": "Flagship Earth Observing System platform for climate, atmosphere, land, and ocean processes.",
+        "users": [
+          "science",
+          "civil"
+        ],
+        "instruments": [
+          "MODIS",
+          "ASTER",
+          "MISR",
+          "MOPITT",
+          "CERES"
+        ],
+        "measures": [
+          "land cover",
+          "aerosols",
+          "radiation budget",
+          "fires"
+        ]
+      },
+      "results": {
+        "headline": "Built the modern daily global view of land, clouds, fires, and Earth’s radiation budget.",
+        "bullets": [
+          {
+            "text": "MODIS (shared with Aqua) became the workhorse for fire detection, NDVI, snow cover, and ocean color.",
+            "year": 2000,
+            "confidence": "published",
+            "source": "NASA Terra / MODIS science team"
+          },
+          {
+            "text": "CERES measurements underpin Earth’s energy imbalance and cloud-forcing climate records.",
+            "year": 2000,
+            "confidence": "published",
+            "source": "NASA CERES project"
+          },
+          {
+            "text": "ASTER DEM and thermal products widely used for geology, volcanoes, and urban heat.",
+            "year": 2001,
+            "confidence": "published",
+            "source": "NASA/METI ASTER"
+          }
+        ],
+        "stillDoing": "Continuing climate and disaster-support data products via NASA EOSDIS (aging platform)."
+      }
+    },
+    {
+      "norad": 27424,
+      "name": "Aqua (EOS PM-1)",
+      "shortName": "Aqua",
+      "category": "earth",
+      "operator": "NASA",
+      "country": "United States",
+      "flag": "🇺🇸",
+      "manufacturer": "TRW (now Northrop Grumman)",
+      "built": {
+        "text": "Second EOS flagship; completed 2002.",
+        "year": 2002
+      },
+      "launched": {
+        "date": "2002-05-04",
+        "vehicle": "Delta II 7920-10L",
+        "site": "Vandenberg AFB, California"
+      },
+      "settled": {
+        "date": "2002-06-24",
+        "text": "Led the 'A-Train' formation at a 1:30 p.m. ascending node after ~7 weeks of orbit raising and checkout."
+      },
+      "costBuild": {
+        "usd": 952000000,
+        "display": "~$952M",
+        "confidence": "published",
+        "note": "Six instruments including MODIS and AIRS."
+      },
+      "costLaunch": {
+        "usd": 85000000,
+        "display": "~$85M",
+        "confidence": "estimated",
+        "note": "Delta II 7920."
+      },
+      "maintenance": {
+        "usdPerYear": 18000000,
+        "display": "~$18M/yr",
+        "confidence": "estimated",
+        "note": "Left the A-Train in 2022 as fuel depleted; now drifting."
+      },
+      "status": "Operational but drifting — passivation planned",
+      "designLife": "6 years (has flown 24)",
+      "mass": "2,934 kg",
+      "orbitClass": "LEO (sun-synchronous)",
+      "sources": [
+        "NASA Earth Science Division budget"
+      ],
+      "purpose": {
+        "summary": "Afternoon Earth Observing System satellite focused on the water cycle and atmosphere.",
+        "users": [
+          "science",
+          "civil"
+        ],
+        "instruments": [
+          "AIRS",
+          "AMSU",
+          "HSB",
+          "MODIS",
+          "AMSR-E/AMSR2 era",
+          "CERES"
+        ],
+        "measures": [
+          "atmospheric temperature/humidity",
+          "precipitation",
+          "sea ice",
+          "radiation"
+        ]
+      },
+      "results": {
+        "headline": "Transformed weather and climate sounding from space via AIRS and complementary sensors.",
+        "bullets": [
+          {
+            "text": "AIRS hyperspectral soundings improved weather forecast skill and climate humidity records.",
+            "year": 2002,
+            "confidence": "published",
+            "source": "NASA AIRS project / NWP impact studies"
+          },
+          {
+            "text": "With Terra MODIS, delivered the long-running global fire and vegetation time series.",
+            "year": 2002,
+            "confidence": "published",
+            "source": "NASA MODIS"
+          },
+          {
+            "text": "AMSR-E (and successors) mapped sea ice and soil moisture for polar and hydrology science.",
+            "year": 2002,
+            "confidence": "published",
+            "source": "JAXA/NASA AMSR"
+          }
+        ],
+        "stillDoing": "Atmospheric and climate data products; platform past design life but still referenced in climate records."
+      }
+    },
+    {
+      "norad": 39084,
+      "name": "Landsat 8",
+      "shortName": "Landsat 8",
+      "category": "earth",
+      "operator": "NASA (built/launched) · USGS (operates)",
+      "country": "United States",
+      "flag": "🇺🇸",
+      "manufacturer": "Orbital Sciences (bus) · Ball Aerospace (OLI) · NASA GSFC (TIRS)",
+      "built": {
+        "text": "Contract to Orbital Sciences 2008; spacecraft completed 2012.",
+        "year": 2012
+      },
+      "launched": {
+        "date": "2013-02-11",
+        "vehicle": "Atlas V 401",
+        "site": "Vandenberg AFB, California"
+      },
+      "settled": {
+        "date": "2013-05-30",
+        "text": "Handed over from NASA to USGS after a 100-day on-orbit checkout; renamed from LDCM to Landsat 8."
+      },
+      "costBuild": {
+        "usd": 855000000,
+        "display": "~$855M total mission",
+        "confidence": "published",
+        "note": "NASA lifecycle cost for the Landsat Data Continuity Mission."
+      },
+      "costLaunch": {
+        "usd": 180000000,
+        "display": "~$180M",
+        "confidence": "published",
+        "note": "Atlas V 401 under NASA Launch Services."
+      },
+      "maintenance": {
+        "usdPerYear": 30000000,
+        "display": "~$30M/yr (shared with Landsat 9)",
+        "confidence": "estimated",
+        "note": "USGS operates both from EROS, South Dakota. All imagery is free and public."
+      },
+      "status": "Operational",
+      "designLife": "5 years (fuel for 10+; has flown 13)",
+      "mass": "2,623 kg",
+      "orbitClass": "LEO (sun-synchronous)",
+      "sources": [
+        "NASA LDCM cost reports",
+        "USGS EROS budget"
+      ],
+      "purpose": {
+        "summary": "Continue the Landsat record of moderate-resolution land imaging for science, resource management, and climate.",
+        "users": [
+          "science",
+          "civil",
+          "commercial"
+        ],
+        "instruments": [
+          "OLI",
+          "TIRS"
+        ],
+        "measures": [
+          "land cover change",
+          "agriculture",
+          "water quality",
+          "urban growth"
+        ]
+      },
+      "results": {
+        "headline": "Anchor of the world’s longest continuous land-imaging archive — free and open since USGS policy change.",
+        "bullets": [
+          {
+            "text": "With Landsat 7/9, enables multi-decadal maps of deforestation, crops, glaciers, and cities at 30 m.",
+            "year": 2013,
+            "confidence": "published",
+            "source": "USGS / NASA Landsat program"
+          },
+          {
+            "text": "Free-data policy (from Landsat 1–8 era) unlocked global applications and commercial analytics markets.",
+            "year": 2008,
+            "confidence": "published",
+            "source": "USGS Landsat free-data policy"
+          },
+          {
+            "text": "Thermal and OLI bands support water-use, burned-area, and urban heat applications worldwide.",
+            "year": 2015,
+            "confidence": "published",
+            "source": "USGS Landsat science"
+          }
+        ],
+        "stillDoing": "Operational land imaging with Landsat 9; data via USGS EarthExplorer / cloud collections."
+      }
+    },
+    {
+      "norad": 49260,
+      "name": "Landsat 9",
+      "shortName": "Landsat 9",
+      "category": "earth",
+      "operator": "NASA (built/launched) · USGS (operates)",
+      "country": "United States",
+      "flag": "🇺🇸",
+      "manufacturer": "Northrop Grumman (bus) · Ball Aerospace (OLI-2) · NASA GSFC (TIRS-2)",
+      "built": {
+        "text": "Approved 2015 as a near-rebuild of Landsat 8; completed 2021.",
+        "year": 2021
+      },
+      "launched": {
+        "date": "2021-09-27",
+        "vehicle": "Atlas V 401",
+        "site": "Vandenberg SFB, California"
+      },
+      "settled": {
+        "date": "2022-01-31",
+        "text": "Reached its final orbit 8 days out of phase with Landsat 8, giving the pair a joint 8-day revisit. Declared operational and handed to USGS."
+      },
+      "costBuild": {
+        "usd": 750000000,
+        "display": "~$750M spacecraft + instruments",
+        "confidence": "published",
+        "note": "Total mission cost including launch and 5 years of operations was ~$885M."
+      },
+      "costLaunch": {
+        "usd": 153800000,
+        "display": "$153.8M",
+        "confidence": "published",
+        "note": "NASA Launch Services contract with ULA, awarded 2019."
+      },
+      "maintenance": {
+        "usdPerYear": 30000000,
+        "display": "~$30M/yr (shared with Landsat 8)",
+        "confidence": "estimated",
+        "note": ""
+      },
+      "status": "Operational",
+      "designLife": "5 years (fuel for 10)",
+      "mass": "2,711 kg",
+      "orbitClass": "LEO (sun-synchronous)",
+      "sources": [
+        "NASA Launch Services contract announcement, 2019",
+        "USGS Landsat program"
+      ],
+      "purpose": {
+        "summary": "Near-twin to Landsat 8 to keep an 8-day revisit and secure the Landsat climate data record.",
+        "users": [
+          "science",
+          "civil",
+          "commercial"
+        ],
+        "instruments": [
+          "OLI-2",
+          "TIRS-2"
+        ],
+        "measures": [
+          "land cover change",
+          "agriculture",
+          "surface temperature"
+        ]
+      },
+      "results": {
+        "headline": "Secures Landsat continuity — paired with Landsat 8 for denser global land observations.",
+        "bullets": [
+          {
+            "text": "Entered service to replace aging Landsat 7 and maintain cross-calibrated continuity with Landsat 8.",
+            "year": 2021,
+            "confidence": "published",
+            "source": "NASA/USGS Landsat 9"
+          },
+          {
+            "text": "Combined L8+L9 revisit (~8 days) improves crop, disaster, and change-detection products.",
+            "year": 2022,
+            "confidence": "published",
+            "source": "USGS Landsat program"
+          }
+        ],
+        "stillDoing": "Operational USGS/NASA land imaging; open data distribution."
+      }
+    },
+    {
+      "norad": 43613,
+      "name": "ICESat-2",
+      "shortName": "ICESat-2",
+      "category": "earth",
+      "operator": "NASA",
+      "country": "United States",
+      "flag": "🇺🇸",
+      "manufacturer": "Northrop Grumman (bus) · NASA GSFC (ATLAS lidar)",
+      "built": {
+        "text": "ATLAS laser altimeter development ran long and drove the cost; spacecraft completed 2018.",
+        "year": 2018
+      },
+      "launched": {
+        "date": "2018-09-15",
+        "vehicle": "Delta II 7420-10C — the final Delta II flight ever",
+        "site": "Vandenberg AFB, California"
+      },
+      "settled": {
+        "date": "2018-10-31",
+        "text": "Reached its 496 km near-polar orbit; ATLAS first light 2018-09-30, science operations from late October."
+      },
+      "costBuild": {
+        "usd": 1000000000,
+        "display": "~$1.0B",
+        "confidence": "published",
+        "note": "Grew from an original ~$500M estimate, largely due to the ATLAS instrument."
+      },
+      "costLaunch": {
+        "usd": 96000000,
+        "display": "~$96M",
+        "confidence": "published",
+        "note": "Delta II, NASA Launch Services."
+      },
+      "maintenance": {
+        "usdPerYear": 15000000,
+        "display": "~$15M/yr",
+        "confidence": "estimated",
+        "note": ""
+      },
+      "status": "Operational",
+      "designLife": "3 years (has flown 7)",
+      "mass": "1,514 kg",
+      "orbitClass": "LEO (near-polar)",
+      "sources": [
+        "NASA Earth Science Division budget",
+        "GAO NASA assessments"
+      ],
+      "purpose": {
+        "summary": "Measure ice-sheet and sea-ice elevation change plus vegetation canopy with photon-counting laser altimetry.",
+        "users": [
+          "science"
+        ],
+        "instruments": [
+          "ATLAS"
+        ],
+        "measures": [
+          "ice elevation",
+          "sea-ice freeboard",
+          "canopy height"
+        ]
+      },
+      "results": {
+        "headline": "Precise laser altimetry of Earth’s ice — how fast ice sheets and sea ice are changing.",
+        "bullets": [
+          {
+            "text": "Mapped Greenland and Antarctic elevation change at high resolution, quantifying ice loss contribution to sea level.",
+            "year": 2020,
+            "confidence": "published",
+            "source": "NASA ICESat-2 science team / Nature & GRL papers"
+          },
+          {
+            "text": "Sea-ice freeboard and thickness products improve Arctic/Antarctic ice-volume estimates.",
+            "year": 2019,
+            "confidence": "published",
+            "source": "NSIDC ICESat-2 products"
+          },
+          {
+            "text": "Unexpected strength in vegetation and inland-water height applications.",
+            "year": 2021,
+            "confidence": "published",
+            "source": "NASA ICESat-2 applications"
+          }
+        ],
+        "stillDoing": "Ongoing ATLAS altimetry; products via NSIDC."
+      }
+    },
+    {
+      "norad": 54754,
+      "name": "SWOT (Surface Water and Ocean Topography)",
+      "shortName": "SWOT",
+      "category": "earth",
+      "operator": "NASA · CNES (with CSA and UK Space Agency)",
+      "country": "United States / France",
+      "flag": "🇺🇸",
+      "manufacturer": "Thales Alenia Space (bus) · NASA JPL (KaRIn instrument)",
+      "built": {
+        "text": "Joint NASA–CNES development from 2009; completed 2022.",
+        "year": 2022
+      },
+      "launched": {
+        "date": "2022-12-16",
+        "vehicle": "Falcon 9 Block 5",
+        "site": "Vandenberg SFB, California"
+      },
+      "settled": {
+        "date": "2023-07-01",
+        "text": "Six-month calibration in a 1-day repeat orbit, then moved to the 21-day science orbit in July 2023."
+      },
+      "costBuild": {
+        "usd": 1200000000,
+        "display": "~$1.2B total mission",
+        "confidence": "published",
+        "note": "NASA share ~$1.1B; CNES contributed the bus and the Ka-band radar's RF unit."
+      },
+      "costLaunch": {
+        "usd": 112000000,
+        "display": "$112M",
+        "confidence": "published",
+        "note": "NASA Launch Services contract with SpaceX, awarded 2016."
+      },
+      "maintenance": {
+        "usdPerYear": 25000000,
+        "display": "~$25M/yr",
+        "confidence": "estimated",
+        "note": ""
+      },
+      "status": "Operational",
+      "designLife": "3 years",
+      "mass": "2,200 kg",
+      "orbitClass": "LEO",
+      "sources": [
+        "NASA Launch Services contract announcement, 2016",
+        "JPL SWOT mission pages"
+      ],
+      "purpose": {
+        "summary": "Survey nearly all of Earth’s surface water — oceans and inland — with wide-swath Ka-band interferometry.",
+        "users": [
+          "science",
+          "civil"
+        ],
+        "instruments": [
+          "KaRIn",
+          "nadir altimeter",
+          "radiometer"
+        ],
+        "measures": [
+          "sea surface height",
+          "river/lake levels",
+          "ocean mesoscale"
+        ]
+      },
+      "results": {
+        "headline": "First global high-resolution view of ocean eddies and continental surface water from one mission.",
+        "bullets": [
+          {
+            "text": "Early KaRIn maps resolved fine-scale ocean topography previously invisible to nadir altimeters.",
+            "year": 2023,
+            "confidence": "published",
+            "source": "NASA/CNES SWOT early results"
+          },
+          {
+            "text": "Demonstrated simultaneous lake/river stage and floodplain observations for hydrology.",
+            "year": 2024,
+            "confidence": "published",
+            "source": "SWOT Science Team / NASA Earth"
+          }
+        ],
+        "stillDoing": "Cal/val and science phase; hydrology and ocean products rolling out via NASA/CNES."
+      }
+    },
+    {
+      "norad": 39634,
+      "name": "Sentinel-1A",
+      "shortName": "Sentinel-1A",
+      "category": "earth",
+      "operator": "ESA · European Commission (Copernicus)",
+      "country": "Europe",
+      "flag": "🇪🇺",
+      "manufacturer": "Thales Alenia Space Italy (prime) · Airbus DS (C-band SAR)",
+      "built": {
+        "text": "Copernicus first-generation radar satellite; completed 2013.",
+        "year": 2013
+      },
+      "launched": {
+        "date": "2014-04-03",
+        "vehicle": "Soyuz ST-A / Fregat",
+        "site": "Kourou, French Guiana"
+      },
+      "settled": {
+        "date": "2014-09-01",
+        "text": "Five-month commissioning; routine Copernicus service and free open data distribution from September 2014."
+      },
+      "costBuild": {
+        "usd": 300000000,
+        "display": "~€280M (~$300M)",
+        "confidence": "published",
+        "note": "Unit cost within the Sentinel-1 series contract."
+      },
+      "costLaunch": {
+        "usd": 80000000,
+        "display": "~€70M (~$80M)",
+        "confidence": "estimated",
+        "note": "Dedicated Soyuz from Kourou."
+      },
+      "maintenance": {
+        "usdPerYear": 0,
+        "display": "Part of Copernicus ops",
+        "confidence": "published",
+        "note": "The EU Copernicus programme's total budget is ~€5.8B for 2021–2027, covering all Sentinels, ground segment and data distribution."
+      },
+      "status": "Operational — its twin Sentinel-1B failed in December 2021 and was replaced by Sentinel-1C in 2024",
+      "designLife": "7 years (has flown 12)",
+      "mass": "2,300 kg",
+      "orbitClass": "LEO (sun-synchronous)",
+      "sources": [
+        "ESA Copernicus programme documentation",
+        "EU Multiannual Financial Framework 2021–2027"
+      ],
+      "purpose": {
+        "summary": "All-weather C-band radar imaging for Copernicus — land, ice, maritime, and emergency response.",
+        "users": [
+          "civil",
+          "science",
+          "commercial"
+        ],
+        "instruments": [
+          "C-SAR"
+        ],
+        "measures": [
+          "SAR imagery",
+          "interferometric deformation",
+          "sea ice",
+          "ship detection"
+        ]
+      },
+      "results": {
+        "headline": "Workhorse open SAR for disasters, ice, and ground deformation worldwide.",
+        "bullets": [
+          {
+            "text": "Rapid mapping for floods, earthquakes, and volcanoes via the Copernicus Emergency Management Service.",
+            "year": 2015,
+            "confidence": "published",
+            "source": "ESA / Copernicus EMS"
+          },
+          {
+            "text": "Interferometry (InSAR) monitors subsidence, infrastructure, and tectonic strain at continental scale.",
+            "year": 2016,
+            "confidence": "published",
+            "source": "ESA Sentinel-1 mission results"
+          },
+          {
+            "text": "Maritime surveillance: ice charts and ship detection independent of clouds/night.",
+            "year": 2015,
+            "confidence": "published",
+            "source": "EUMETSAT / national ice services using S-1"
+          }
+        ],
+        "stillDoing": "Operational Copernicus SAR (constellation status varies as A/B/C units age/replace)."
+      }
+    },
+    {
+      "norad": 40697,
+      "name": "Sentinel-2A",
+      "shortName": "Sentinel-2A",
+      "category": "earth",
+      "operator": "ESA · European Commission (Copernicus)",
+      "country": "Europe",
+      "flag": "🇪🇺",
+      "manufacturer": "Airbus Defence and Space (Germany)",
+      "built": {
+        "text": "Multispectral imager built by Airbus Spain; spacecraft completed 2015.",
+        "year": 2015
+      },
+      "launched": {
+        "date": "2015-06-23",
+        "vehicle": "Vega",
+        "site": "Kourou, French Guiana"
+      },
+      "settled": {
+        "date": "2015-12-03",
+        "text": "Commissioning completed and routine operations declared; open data from December 2015."
+      },
+      "costBuild": {
+        "usd": 220000000,
+        "display": "~€200M (~$220M)",
+        "confidence": "reported",
+        "note": "Series unit cost."
+      },
+      "costLaunch": {
+        "usd": 40000000,
+        "display": "~€37M (~$40M)",
+        "confidence": "estimated",
+        "note": "Vega."
+      },
+      "maintenance": {
+        "usdPerYear": 0,
+        "display": "Part of Copernicus ops",
+        "confidence": "published",
+        "note": "See Sentinel-1A."
+      },
+      "status": "Operational",
+      "designLife": "7 years (has flown 11)",
+      "mass": "1,140 kg",
+      "orbitClass": "LEO (sun-synchronous)",
+      "sources": [
+        "ESA Copernicus programme documentation"
+      ],
+      "purpose": {
+        "summary": "High-resolution multispectral optical imaging for land monitoring under Copernicus.",
+        "users": [
+          "civil",
+          "science",
+          "commercial"
+        ],
+        "instruments": [
+          "MSI"
+        ],
+        "measures": [
+          "land cover",
+          "agriculture",
+          "forestry",
+          "water quality"
+        ]
+      },
+      "results": {
+        "headline": "Global 10–20 m optical workhorse — agriculture, forests, and land change at open-data scale.",
+        "bullets": [
+          {
+            "text": "With Sentinel-2B/C, ~5-day revisit enables crop monitoring and deforestation alerts worldwide.",
+            "year": 2017,
+            "confidence": "published",
+            "source": "ESA Sentinel-2 / Copernicus"
+          },
+          {
+            "text": "Became a default input for commercial EO analytics alongside Landsat.",
+            "year": 2018,
+            "confidence": "reported",
+            "source": "Copernicus user uptake reports"
+          }
+        ],
+        "stillDoing": "Operational multispectral land imaging; open data via Copernicus Data Space."
+      }
+    },
+    {
+      "norad": 37849,
+      "name": "Suomi NPP",
+      "shortName": "Suomi NPP",
+      "category": "weather",
+      "operator": "NOAA · NASA",
+      "country": "United States",
+      "flag": "🇺🇸",
+      "manufacturer": "Ball Aerospace",
+      "built": {
+        "text": "Originally the NPOESS Preparatory Project; completed 2011 after the NPOESS program was cancelled in 2010.",
+        "year": 2011
+      },
+      "launched": {
+        "date": "2011-10-28",
+        "vehicle": "Delta II 7920-10C",
+        "site": "Vandenberg AFB, California"
+      },
+      "settled": {
+        "date": "2012-03-01",
+        "text": "Instrument checkout through early 2012; became the operational afternoon polar weather satellite."
+      },
+      "costBuild": {
+        "usd": 1500000000,
+        "display": "~$1.5B",
+        "confidence": "published",
+        "note": "Absorbed sunk cost from the cancelled $13B NPOESS program."
+      },
+      "costLaunch": {
+        "usd": 130000000,
+        "display": "~$130M",
+        "confidence": "estimated",
+        "note": "Delta II."
+      },
+      "maintenance": {
+        "usdPerYear": 0,
+        "display": "Within JPSS ops",
+        "confidence": "published",
+        "note": "Operated inside the JPSS ground system — see NOAA-20."
+      },
+      "status": "Operational",
+      "designLife": "5 years (has flown 14)",
+      "mass": "2,128 kg",
+      "orbitClass": "LEO (sun-synchronous)",
+      "sources": [
+        "NOAA JPSS program budget",
+        "GAO NPOESS reports"
+      ],
+      "purpose": {
+        "summary": "Bridge NOAA/NASA polar orbiter for weather and climate continuity after the POES/EOS era.",
+        "users": [
+          "civil",
+          "science"
+        ],
+        "instruments": [
+          "VIIRS",
+          "CrIS",
+          "ATMS",
+          "OMPS",
+          "CERES"
+        ],
+        "measures": [
+          "imagery",
+          "soundings",
+          "ozone",
+          "radiation budget"
+        ]
+      },
+      "results": {
+        "headline": "First JPSS-pathfinder — VIIRS night lights and operational polar weather sounding.",
+        "bullets": [
+          {
+            "text": "VIIRS day/night band created a new standard for nighttime lights and disaster power-outage mapping.",
+            "year": 2012,
+            "confidence": "published",
+            "source": "NASA/NOAA VIIRS DNB"
+          },
+          {
+            "text": "CrIS/ATMS soundings feed global NWP models as part of the Joint Polar Satellite System backbone.",
+            "year": 2012,
+            "confidence": "published",
+            "source": "NOAA JPSS"
+          }
+        ],
+        "stillDoing": "Aging but historically critical polar weather/climate observations."
+      }
+    },
+    {
+      "norad": 43013,
+      "name": "NOAA-20 (JPSS-1)",
+      "shortName": "NOAA-20",
+      "category": "weather",
+      "operator": "NOAA",
+      "country": "United States",
+      "flag": "🇺🇸",
+      "manufacturer": "Ball Aerospace (bus) · Raytheon (VIIRS) · Northrop Grumman (ATMS)",
+      "built": {
+        "text": "First operational Joint Polar Satellite System spacecraft; completed 2017.",
+        "year": 2017
+      },
+      "launched": {
+        "date": "2017-11-18",
+        "vehicle": "Delta II 7920-10C",
+        "site": "Vandenberg AFB, California"
+      },
+      "settled": {
+        "date": "2018-05-30",
+        "text": "Declared operational after a six-month validation campaign, flying 50 minutes ahead of Suomi NPP in the same orbital plane."
+      },
+      "costBuild": {
+        "usd": 1500000000,
+        "display": "~$1.5B",
+        "confidence": "estimated",
+        "note": "Per-satellite share of the JPSS program."
+      },
+      "costLaunch": {
+        "usd": 170000000,
+        "display": "~$170M",
+        "confidence": "published",
+        "note": "Delta II under NASA Launch Services."
+      },
+      "maintenance": {
+        "usdPerYear": 1400000000,
+        "display": "~$1.4B/yr (whole JPSS program)",
+        "confidence": "published",
+        "note": "NOAA's JPSS line covers satellites, ground system and operations. Lifecycle cost through 2038 is ~$11.3B."
+      },
+      "status": "Operational — primary US afternoon-orbit weather satellite",
+      "designLife": "7 years",
+      "mass": "2,540 kg",
+      "orbitClass": "LEO (sun-synchronous)",
+      "sources": [
+        "NOAA budget submissions",
+        "GAO-24 JPSS assessments"
+      ],
+      "purpose": {
+        "summary": "Primary JPSS-1 polar satellite for operational weather forecasting and climate monitoring.",
+        "users": [
+          "civil",
+          "science"
+        ],
+        "instruments": [
+          "VIIRS",
+          "CrIS",
+          "ATMS",
+          "OMPS"
+        ],
+        "measures": [
+          "imagery",
+          "atmospheric soundings",
+          "ozone"
+        ]
+      },
+      "results": {
+        "headline": "Operational JPSS workhorse — critical input to global weather prediction.",
+        "bullets": [
+          {
+            "text": "ATMS/CrIS data assimilated into major NWP centers, improving medium-range forecast skill.",
+            "year": 2018,
+            "confidence": "published",
+            "source": "NOAA JPSS / NWP impact assessments"
+          },
+          {
+            "text": "VIIRS continues fire, sea-surface, and night-lights products for civil agencies.",
+            "year": 2018,
+            "confidence": "published",
+            "source": "NOAA / NASA VIIRS"
+          }
+        ],
+        "stillDoing": "Operational polar weather satellite in the JPSS constellation."
+      }
+    },
+    {
+      "norad": 41866,
+      "name": "GOES-16 (GOES-East, now on-orbit spare)",
+      "shortName": "GOES-16",
+      "category": "weather",
+      "operator": "NOAA",
+      "country": "United States",
+      "flag": "🇺🇸",
+      "manufacturer": "Lockheed Martin (A2100A bus) · Harris/L3Harris (ABI imager)",
+      "built": {
+        "text": "First of the GOES-R series; contract to Lockheed Martin in 2008, completed 2016.",
+        "year": 2016
+      },
+      "launched": {
+        "date": "2016-11-19",
+        "vehicle": "Atlas V 541",
+        "site": "Cape Canaveral, Florida"
+      },
+      "settled": {
+        "date": "2017-12-18",
+        "text": "Drifted to 75.2°W and was declared the operational GOES-East after a 13-month checkout. Handed over to GOES-19 in April 2025 and moved to a standby slot."
+      },
+      "costBuild": {
+        "usd": 2000000000,
+        "display": "~$2.0B",
+        "confidence": "estimated",
+        "note": "Per-satellite share. The GOES-R series total acquisition cost is ~$10.8B for four satellites plus ground system — roughly $2.7B each all-in."
+      },
+      "costLaunch": {
+        "usd": 165000000,
+        "display": "~$165M",
+        "confidence": "published",
+        "note": "Atlas V 541 under NASA Launch Services."
+      },
+      "maintenance": {
+        "usdPerYear": 300000000,
+        "display": "~$300M/yr (GOES-R series ops)",
+        "confidence": "published",
+        "note": "NOAA's GOES-R operations line covers the whole constellation and its ground segment."
+      },
+      "status": "On-orbit spare at 104.7°W",
+      "designLife": "10 years operational + 5 years storage",
+      "mass": "5,192 kg",
+      "orbitClass": "GEO",
+      "sources": [
+        "NOAA GOES-R program budget",
+        "GAO-06-993 and follow-on GOES-R cost reports"
+      ],
+      "purpose": {
+        "summary": "Geostationary weather satellite for the Americas — continuous imagery and severe-storm warning support.",
+        "users": [
+          "civil"
+        ],
+        "instruments": [
+          "ABI",
+          "GLM",
+          "space weather suite"
+        ],
+        "measures": [
+          "cloud imagery",
+          "lightning",
+          "hurricane tracking"
+        ]
+      },
+      "results": {
+        "headline": "ABI and Geostationary Lightning Mapper remade Western Hemisphere weather monitoring.",
+        "bullets": [
+          {
+            "text": "ABI’s 16 bands and rapid scan improved hurricane, severe-storm, and fire monitoring cadence.",
+            "year": 2017,
+            "confidence": "published",
+            "source": "NOAA GOES-R program"
+          },
+          {
+            "text": "First operational geostationary lightning mapper (GLM) for the Americas.",
+            "year": 2017,
+            "confidence": "published",
+            "source": "NOAA GLM"
+          },
+          {
+            "text": "Core of NWS forecasting and public weather imagery for CONUS and Atlantic tropics.",
+            "year": 2018,
+            "confidence": "published",
+            "source": "NOAA/NWS"
+          }
+        ],
+        "stillDoing": "Operational GOES East (roles rotate with newer GOES-R series satellites)."
+      }
+    },
+    {
+      "norad": 60133,
+      "name": "GOES-19 (GOES-East)",
+      "shortName": "GOES-19",
+      "category": "weather",
+      "operator": "NOAA",
+      "country": "United States",
+      "flag": "🇺🇸",
+      "manufacturer": "Lockheed Martin · L3Harris (ABI)",
+      "built": {
+        "text": "Last of the four-satellite GOES-R series; completed 2024.",
+        "year": 2024
+      },
+      "launched": {
+        "date": "2024-06-25",
+        "vehicle": "Falcon Heavy",
+        "site": "Kennedy Space Center, Florida"
+      },
+      "settled": {
+        "date": "2025-04-07",
+        "text": "Declared the operational GOES-East at 75.2°W after a ten-month post-launch test campaign."
+      },
+      "costBuild": {
+        "usd": 2000000000,
+        "display": "~$2.0B",
+        "confidence": "estimated",
+        "note": "Per-satellite share of the ~$10.8B GOES-R series."
+      },
+      "costLaunch": {
+        "usd": 152500000,
+        "display": "$152.5M",
+        "confidence": "published",
+        "note": "NASA Launch Services contract with SpaceX for a Falcon Heavy, awarded 2021."
+      },
+      "maintenance": {
+        "usdPerYear": 300000000,
+        "display": "~$300M/yr (series ops)",
+        "confidence": "published",
+        "note": ""
+      },
+      "status": "Operational — primary US eastern weather satellite",
+      "designLife": "15 years",
+      "mass": "5,192 kg",
+      "orbitClass": "GEO",
+      "sources": [
+        "NASA Launch Services contract announcement, 2021",
+        "NOAA NESDIS"
+      ],
+      "purpose": {
+        "summary": "Newest GOES-R series geostationary weather satellite for the Americas.",
+        "users": [
+          "civil"
+        ]
+      },
+      "results": {
+        "headline": "Results dossier not yet researched for this entry.",
+        "bullets": [],
+        "stillDoing": null
+      }
+    },
+    {
+      "norad": 40267,
+      "name": "Himawari-8",
+      "shortName": "Himawari-8",
+      "category": "weather",
+      "operator": "Japan Meteorological Agency",
+      "country": "Japan",
+      "flag": "🇯🇵",
+      "manufacturer": "Mitsubishi Electric (DS-2000 bus)",
+      "built": {
+        "text": "Ordered 2009 alongside Himawari-9 under a combined build-and-operate PFI contract; completed 2014.",
+        "year": 2014
+      },
+      "launched": {
+        "date": "2014-10-07",
+        "vehicle": "H-IIA 202",
+        "site": "Tanegashima, Japan"
+      },
+      "settled": {
+        "date": "2015-07-07",
+        "text": "Positioned at 140.7°E and began full operations, becoming the world's first operational geostationary satellite with a 16-band imager."
+      },
+      "costBuild": {
+        "usd": 300000000,
+        "display": "~¥34B (~$300M) for the pair",
+        "confidence": "reported",
+        "note": "Contracted as a bundled build + 15 years of operations for Himawari-8 and -9."
+      },
+      "costLaunch": {
+        "usd": 90000000,
+        "display": "~$90M",
+        "confidence": "estimated",
+        "note": "H-IIA 202."
+      },
+      "maintenance": {
+        "usdPerYear": 0,
+        "display": "Bundled in the PFI contract",
+        "confidence": "published",
+        "note": "Japan procured operations as a service — Mitsubishi runs the ground segment for a fixed term."
+      },
+      "status": "Standby — handed primary duty to Himawari-9 in December 2022",
+      "designLife": "8 years imaging + 15 years spacecraft",
+      "mass": "3,500 kg",
+      "orbitClass": "GEO",
+      "sources": [
+        "JMA Himawari program documentation"
+      ],
+      "purpose": {
+        "summary": "JMA geostationary weather satellite for East Asia and the Western Pacific.",
+        "users": [
+          "civil"
+        ]
+      },
+      "results": {
+        "headline": "Results dossier not yet researched for this entry.",
+        "bullets": [],
+        "stillDoing": null
+      }
+    },
+    {
+      "norad": 43689,
+      "name": "MetOp-C",
+      "shortName": "MetOp-C",
+      "category": "weather",
+      "operator": "EUMETSAT · ESA",
+      "country": "Europe",
+      "flag": "🇪🇺",
+      "manufacturer": "Airbus Defence and Space",
+      "built": {
+        "text": "Third of three MetOp satellites built as a single batch in the 2000s and stored until needed. Completed ~2006, stored 12 years.",
+        "year": 2006
+      },
+      "launched": {
+        "date": "2018-11-07",
+        "vehicle": "Soyuz ST-B / Fregat",
+        "site": "Kourou, French Guiana"
+      },
+      "settled": {
+        "date": "2019-04-01",
+        "text": "Commissioned into the morning polar orbit, briefly giving Europe three simultaneous MetOp satellites."
+      },
+      "costBuild": {
+        "usd": 900000000,
+        "display": "~€800M (~$900M)",
+        "confidence": "estimated",
+        "note": "Per-satellite share of the ~€2.4B EUMETSAT Polar System program for three satellites."
+      },
+      "costLaunch": {
+        "usd": 80000000,
+        "display": "~€70M (~$80M)",
+        "confidence": "estimated",
+        "note": "Soyuz from Kourou."
+      },
+      "maintenance": {
+        "usdPerYear": 0,
+        "display": "Within EPS ops",
+        "confidence": "published",
+        "note": "EUMETSAT member-state contributions fund operations."
+      },
+      "status": "Operational — succeeded by the MetOp-SG series from 2025",
+      "designLife": "5 years",
+      "mass": "4,085 kg",
+      "orbitClass": "LEO (sun-synchronous)",
+      "sources": [
+        "EUMETSAT EPS programme documentation"
+      ],
+      "purpose": {
+        "summary": "EUMETSAT polar orbiter for operational meteorology and climate sounding.",
+        "users": [
+          "civil"
+        ]
+      },
+      "results": {
+        "headline": "Results dossier not yet researched for this entry.",
+        "bullets": [],
+        "stillDoing": null
+      }
+    },
+    {
+      "constellation": "gps",
+      "matchPrefix": "GPS BIII",
+      "name": "GPS III (Navstar Block III)",
+      "shortName": "GPS III",
+      "category": "navigation",
+      "operator": "United States Space Force (Space Delta 8)",
+      "country": "United States",
+      "flag": "🇺🇸",
+      "manufacturer": "Lockheed Martin Space, Waterton, Colorado",
+      "built": {
+        "text": "Development contract awarded to Lockheed Martin in May 2008. First flight article completed 2017; satellites produced on a rolling line since.",
+        "year": 2017
+      },
+      "launched": {
+        "date": "2018-12-23",
+        "vehicle": "Falcon 9 (GPS III SV01 'Vespucci'); later flights on Delta IV Medium, Falcon 9 and Vulcan",
+        "site": "Cape Canaveral, Florida"
+      },
+      "settled": {
+        "date": "2020-01-13",
+        "text": "SV01 was set healthy for civil use in January 2020 — 13 months after launch, an unusually long checkout because it was the first of a new block. Later units enter service in ~2–3 months."
+      },
+      "costBuild": {
+        "usd": 250000000,
+        "display": "~$250M recurring · ~$577M average incl. development",
+        "confidence": "published",
+        "note": "GAO put the first 10 GPS III satellites at ~$577M each including non-recurring development. The follow-on GPS IIIF program is $9.4B for 22 satellites — a program acquisition unit cost of ~$427M each."
+      },
+      "costLaunch": {
+        "usd": 83000000,
+        "display": "$83M–$150M",
+        "confidence": "published",
+        "note": "SpaceX won GPS III launches at ~$83M; ULA Delta IV Medium flights cost roughly $150M. National-security launch pricing carries mission-assurance premiums."
+      },
+      "maintenance": {
+        "usdPerYear": 1200000000,
+        "display": "~$1.2B/yr (whole GPS enterprise)",
+        "confidence": "published",
+        "note": "Covers constellation operations, sustainment and the ground segment. The OCX ground control program alone has cost over $7B and ran roughly eight years late."
+      },
+      "status": "Operational — 31 satellites usable across Blocks IIR, IIR-M, IIF and III",
+      "designLife": "15 years",
+      "mass": "3,880 kg",
+      "orbitClass": "MEO (20,180 km, 6 planes at 55°)",
+      "sources": [
+        "GAO-21-105 Weapon Systems Annual Assessment",
+        "GPS IIIF Selected Acquisition Report, December 2022 (DoD)",
+        "SpaceNews, GPS III cost growth reporting"
+      ],
+      "purpose": {
+        "summary": "Next-generation US Global Positioning System satellites — more accurate, robust civil and military PNT.",
+        "users": [
+          "civil",
+          "military",
+          "commercial"
+        ],
+        "instruments": [
+          "atomic clocks",
+          "L1C civil signal",
+          "M-code"
+        ],
+        "measures": [
+          "position",
+          "navigation",
+          "timing"
+        ]
+      },
+      "results": {
+        "headline": "Underpins modern timing and navigation; GPS III upgrades accuracy, authenticity, and L1C for civil users.",
+        "bullets": [
+          {
+            "text": "GPS as a system enables global aviation, logistics, telecom timing, and precision agriculture — estimated economic value in the hundreds of billions of $/year in the US alone.",
+            "year": 2019,
+            "confidence": "reported",
+            "source": "NIST / RTI GPS economic studies"
+          },
+          {
+            "text": "GPS III adds stronger civil L1C and improved anti-jam military M-code capability as vehicles enter the constellation.",
+            "year": 2020,
+            "confidence": "published",
+            "source": "USSF / Lockheed Martin GPS III"
+          }
+        ],
+        "stillDoing": "Growing GPS III fraction of the operational GPS constellation (Space Force)."
+      }
+    },
+    {
+      "constellation": "galileo",
+      "matchPrefix": "GSAT",
+      "name": "Galileo",
+      "shortName": "Galileo",
+      "category": "navigation",
+      "operator": "EUSPA (EU Agency for the Space Programme) · ESA",
+      "country": "European Union",
+      "flag": "🇪🇺",
+      "manufacturer": "OHB System (bus) · SSTL (payload) for FOC; Airbus and Thales Alenia for Gen 2",
+      "built": {
+        "text": "In-Orbit Validation satellites built by Astrium/Thales from 2006. Full Operational Capability batches contracted to OHB from 2010 at roughly €40M per satellite.",
+        "year": 2010
+      },
+      "launched": {
+        "date": "2011-10-21",
+        "vehicle": "Soyuz ST-B (first pair); later Ariane 5 ES quadruplets and Falcon 9",
+        "site": "Kourou, French Guiana"
+      },
+      "settled": {
+        "date": "2016-12-15",
+        "text": "Initial Services declared December 2016. Full Operational Capability was reached in 2024 with a 24-satellite operational constellation plus spares."
+      },
+      "costBuild": {
+        "usd": 45000000,
+        "display": "~€40M each (~$45M)",
+        "confidence": "published",
+        "note": "OHB batch contracts. Total Galileo program cost including ground segment and EGNOS is roughly €10B through 2020."
+      },
+      "costLaunch": {
+        "usd": 35000000,
+        "display": "~€30–35M per satellite",
+        "confidence": "estimated",
+        "note": "Launched four at a time on Ariane 5 ES (~€120M) or in pairs on Soyuz. Two 2024 launches moved to Falcon 9 because Ariane 6 was late."
+      },
+      "maintenance": {
+        "usdPerYear": 850000000,
+        "display": "~€750–800M/yr",
+        "confidence": "published",
+        "note": "EU allocated €9.0B to Galileo and EGNOS for 2021–2027 covering operations, replenishment and the second generation."
+      },
+      "status": "Operational — 24 usable satellites plus spares; Galileo Second Generation in development",
+      "designLife": "12 years",
+      "mass": "733 kg (FOC)",
+      "orbitClass": "MEO (23,222 km, 3 planes at 56°)",
+      "sources": [
+        "EU Space Programme Regulation 2021/696",
+        "ESA Galileo programme documentation",
+        "EUSPA"
+      ],
+      "purpose": {
+        "summary": "Europe’s independent global navigation satellite system for civil positioning, navigation, and timing.",
+        "users": [
+          "civil",
+          "commercial",
+          "military"
+        ],
+        "instruments": [
+          "atomic clocks",
+          "E1/E5/E6 signals"
+        ],
+        "measures": [
+          "position",
+          "navigation",
+          "timing",
+          "search-and-rescue"
+        ]
+      },
+      "results": {
+        "headline": "Operational EU GNSS — dual-frequency civil accuracy and European PNT autonomy.",
+        "bullets": [
+          {
+            "text": "Declared Initial Services in 2016; Open Service widely used in phones and receivers alongside GPS.",
+            "year": 2016,
+            "confidence": "published",
+            "source": "EUSPA / ESA Galileo"
+          },
+          {
+            "text": "Search-and-rescue return-link and High Accuracy Service expand beyond basic GNSS.",
+            "year": 2023,
+            "confidence": "published",
+            "source": "EUSPA Galileo services"
+          }
+        ],
+        "stillDoing": "Operational Galileo constellation under EU Space Programme (EUSPA)."
+      }
+    },
+    {
+      "constellation": "beidou",
+      "matchPrefix": "BEIDOU-3",
+      "name": "BeiDou-3",
+      "shortName": "BeiDou-3",
+      "category": "navigation",
+      "operator": "China Satellite Navigation Office · PLA Strategic Support Force",
+      "country": "China",
+      "flag": "🇨🇳",
+      "manufacturer": "China Academy of Space Technology (CAST) · Shanghai Engineering Center for Microsatellites (SECM)",
+      "built": {
+        "text": "Third-generation design finalised ~2015; satellites produced in parallel batches at two manufacturers to sustain a launch every few weeks.",
+        "year": 2015
+      },
+      "launched": {
+        "date": "2017-11-05",
+        "vehicle": "Long March 3B/YZ-1 (first BDS-3 pair); GEO and IGSO units on Long March 3B",
+        "site": "Xichang, Sichuan"
+      },
+      "settled": {
+        "date": "2020-07-31",
+        "text": "Formally commissioned by Xi Jinping on 2020-07-31, five weeks after the 30th and final core satellite launched — completing global coverage."
+      },
+      "costBuild": {
+        "usd": 0,
+        "display": "Undisclosed",
+        "confidence": "undisclosed",
+        "note": "China does not publish per-satellite costs. Chinese officials have cited roughly ¥120B (~$17B) for the entire three-generation BeiDou program from 1994."
+      },
+      "costLaunch": {
+        "usd": 70000000,
+        "display": "~$70M per Long March 3B (est.)",
+        "confidence": "estimated",
+        "note": "BDS-3 deployment took ~30 launches over three years."
+      },
+      "maintenance": {
+        "usdPerYear": 0,
+        "display": "Undisclosed",
+        "confidence": "undisclosed",
+        "note": "Replenishment launches continue at a few per year."
+      },
+      "status": "Operational — 30+ satellites in a mixed MEO/IGSO/GEO architecture",
+      "designLife": "12 years",
+      "mass": "1,000–4,600 kg depending on orbit",
+      "orbitClass": "MEO 21,528 km + IGSO + GEO",
+      "sources": [
+        "China Satellite Navigation Office white papers",
+        "CASC/CAST announcements"
+      ],
+      "purpose": {
+        "summary": "China’s global navigation satellite system for PNT services.",
+        "users": [
+          "civil",
+          "military",
+          "commercial"
+        ]
+      },
+      "results": {
+        "headline": "Results dossier not yet researched for this entry.",
+        "bullets": [],
+        "stillDoing": null
+      }
+    },
+    {
+      "constellation": "glonass",
+      "matchPrefix": "COSMOS",
+      "matchGroup": "glo-ops",
+      "name": "GLONASS",
+      "shortName": "GLONASS",
+      "category": "navigation",
+      "operator": "Roscosmos · Russian Aerospace Forces",
+      "country": "Russia",
+      "flag": "🇷🇺",
+      "manufacturer": "ISS Reshetnev, Zheleznogorsk",
+      "built": {
+        "text": "Original constellation dates to 1982. GLONASS-M production ran 2003–2018; GLONASS-K from 2011 and GLONASS-K2 from 2023.",
+        "year": 2011
+      },
+      "launched": {
+        "date": "1982-10-12",
+        "vehicle": "Proton-K/DM (triplets) and Soyuz-2.1b/Fregat (singles)",
+        "site": "Baikonur and Plesetsk"
+      },
+      "settled": {
+        "date": "2011-12-08",
+        "text": "The system first reached full 24-satellite coverage in 1995, collapsed to 6 working satellites by 2001 after the Soviet collapse, and was restored to full global coverage in December 2011."
+      },
+      "costBuild": {
+        "usd": 30000000,
+        "display": "~$25–45M each (est.)",
+        "confidence": "estimated",
+        "note": "Russian figures are quoted in roubles across a period of large currency swings, so dollar conversions are unreliable. Federal GLONASS program funding was ~RUB 320B for 2012–2020."
+      },
+      "costLaunch": {
+        "usd": 50000000,
+        "display": "~$50M (Soyuz-2.1b)",
+        "confidence": "estimated",
+        "note": "Historically three at a time on Proton; now one at a time on Soyuz."
+      },
+      "maintenance": {
+        "usdPerYear": 0,
+        "display": "~RUB 30–40B/yr (est.)",
+        "confidence": "estimated",
+        "note": "Sanctions since 2022 have constrained access to radiation-hardened foreign components, slowing GLONASS-K2 production."
+      },
+      "status": "Operational — ~24–26 satellites, several past design life",
+      "designLife": "7 years (M) / 10 years (K)",
+      "mass": "1,415 kg (M) / 935 kg (K)",
+      "orbitClass": "MEO (19,140 km, 3 planes at 64.8°)",
+      "sources": [
+        "Russian Federal Space Program documents",
+        "ISS Reshetnev",
+        "Information-Analytical Centre (glonass-iac.ru)"
+      ],
+      "purpose": {
+        "summary": "Russia’s global navigation satellite system.",
+        "users": [
+          "civil",
+          "military"
+        ]
+      },
+      "results": {
+        "headline": "Results dossier not yet researched for this entry.",
+        "bullets": [],
+        "stillDoing": null
+      }
+    },
+    {
+      "constellation": "qzss",
+      "matchPrefix": "QZS",
+      "name": "QZSS (Michibiki)",
+      "shortName": "QZSS",
+      "category": "navigation",
+      "operator": "Cabinet Office, Government of Japan",
+      "country": "Japan",
+      "flag": "🇯🇵",
+      "manufacturer": "Mitsubishi Electric",
+      "built": {
+        "text": "First satellite built by JAXA/MELCO from 2003; operational satellites from 2017.",
+        "year": 2010
+      },
+      "launched": {
+        "date": "2010-09-11",
+        "vehicle": "H-IIA 202",
+        "site": "Tanegashima, Japan"
+      },
+      "settled": {
+        "date": "2018-11-01",
+        "text": "Four-satellite service started November 2018, giving Japan a GPS augmentation with at least one satellite near zenith over Tokyo at all times."
+      },
+      "costBuild": {
+        "usd": 1500000000,
+        "display": "~¥170B (~$1.5B) program",
+        "confidence": "reported",
+        "note": "Covers the first four satellites plus ground segment."
+      },
+      "costLaunch": {
+        "usd": 90000000,
+        "display": "~$90M per H-IIA",
+        "confidence": "estimated",
+        "note": ""
+      },
+      "maintenance": {
+        "usdPerYear": 0,
+        "display": "Undisclosed",
+        "confidence": "undisclosed",
+        "note": "Operated under a PFI service contract; expanding to 7 satellites."
+      },
+      "status": "Operational — expanding to a 7-satellite constellation",
+      "designLife": "15 years",
+      "mass": "4,000 kg",
+      "orbitClass": "IGSO (quasi-zenith) + GEO",
+      "sources": [
+        "Cabinet Office of Japan QZSS documentation"
+      ],
+      "purpose": {
+        "summary": "Japan’s regional GNSS augmentation for the Asia-Oceania region.",
+        "users": [
+          "civil",
+          "commercial"
+        ]
+      },
+      "results": {
+        "headline": "Results dossier not yet researched for this entry.",
+        "bullets": [],
+        "stillDoing": null
+      }
+    },
+    {
+      "constellation": "starlink",
+      "matchPrefix": "STARLINK",
+      "name": "Starlink",
+      "shortName": "Starlink",
+      "category": "comms-leo",
+      "operator": "SpaceX (Space Exploration Technologies Corp.)",
+      "country": "United States",
+      "flag": "🇺🇸",
+      "manufacturer": "SpaceX, Redmond, Washington",
+      "built": {
+        "text": "Announced 2015. Production reached ~5 satellites per day by 2023. Generations: v0.9 (2019), v1.0, v1.5 with laser links (2021), v2 mini (2023), v3 for Starship (2025).",
+        "year": 2019
+      },
+      "launched": {
+        "date": "2019-05-23",
+        "vehicle": "Falcon 9 Block 5 — 60 at a time initially, now 20–28 v2 mini per flight",
+        "site": "Cape Canaveral, Kennedy and Vandenberg"
+      },
+      "settled": {
+        "date": "2021-10-01",
+        "text": "Each satellite ion-thrusts from a ~300 km insertion orbit to its ~550 km operational shell over several weeks. Beta service opened October 2020; general availability October 2021."
+      },
+      "costBuild": {
+        "usd": 800000,
+        "display": "~$800k each (v2 mini) · ~$250k (v1.0)",
+        "confidence": "reported",
+        "note": "Elon Musk has stated v1.0 dropped under $250k–500k; the heavier 730 kg v2 mini is reported around $800k. SpaceX does not publish audited figures."
+      },
+      "costLaunch": {
+        "usd": 650000,
+        "display": "~$300k–650k per satellite",
+        "confidence": "estimated",
+        "note": "SpaceX launches its own satellites, so the relevant number is internal marginal cost — roughly $15–20M per reused Falcon 9 flight divided by ~23 satellites. The external Falcon 9 list price is $69.75M."
+      },
+      "maintenance": {
+        "usdPerYear": 0,
+        "display": "Replacement is the maintenance model",
+        "confidence": "estimated",
+        "note": "Satellites are designed for ~5 years and then deorbited. Sustaining the constellation therefore requires roughly 2,000+ replacement satellites per year in perpetuity — an implied recurring cost on the order of $2B/yr in hardware alone. SpaceX has deorbited over 1,000 satellites to date."
+      },
+      "status": "Operational — the largest satellite constellation ever built, and roughly two-thirds of all active satellites",
+      "designLife": "~5 years",
+      "mass": "260 kg (v1.0) / 730 kg (v2 mini)",
+      "orbitClass": "LEO (mostly 540–570 km at 43°, 53°, 70° and 97° polar)",
+      "sources": [
+        "SpaceX Gen2 Starlink FCC filings",
+        "Elon Musk public statements on unit cost",
+        "SpaceNews and Wikipedia 'List of Starlink launches' for cadence"
+      ],
+      "purpose": {
+        "summary": "Low-Earth-orbit broadband constellation to deliver internet where fiber and cellular are scarce or contested.",
+        "users": [
+          "commercial",
+          "civil",
+          "military"
+        ],
+        "measures": [
+          "broadband throughput",
+          "latency",
+          "global coverage"
+        ]
+      },
+      "results": {
+        "headline": "Largest satellite constellation ever — consumer and government broadband at scale.",
+        "bullets": [
+          {
+            "text": "Millions of users across 100+ countries; primary connectivity for many rural and maritime customers.",
+            "year": 2024,
+            "confidence": "reported",
+            "source": "SpaceX Starlink updates / regulatory filings"
+          },
+          {
+            "text": "Became critical wartime and disaster connectivity (notably Ukraine and hurricane responses).",
+            "year": 2022,
+            "confidence": "reported",
+            "source": "Trade press / government statements"
+          },
+          {
+            "text": "Drove industry and regulatory focus on mega-constellation debris, brightness, and spectrum.",
+            "year": 2021,
+            "confidence": "published",
+            "source": "FCC / IAU / NASA orbital debris discussions"
+          }
+        ],
+        "stillDoing": "Rapidly expanding LEO broadband; military/government variants (e.g. Starshield) alongside consumer service."
+      }
+    },
+    {
+      "constellation": "oneweb",
+      "matchPrefix": "ONEWEB",
+      "name": "OneWeb (Eutelsat OneWeb)",
+      "shortName": "OneWeb",
+      "category": "comms-leo",
+      "operator": "Eutelsat Group",
+      "country": "United Kingdom / France",
+      "flag": "🇬🇧",
+      "manufacturer": "Airbus OneWeb Satellites JV, Merritt Island, Florida",
+      "built": {
+        "text": "Purpose-built mass-production line opened 2019 with a target of 2 satellites per day — the first true assembly line for spacecraft.",
+        "year": 2019
+      },
+      "launched": {
+        "date": "2019-02-27",
+        "vehicle": "Soyuz ST-B (34–36 at a time); after Russia seized 36 satellites in 2022, switched to Falcon 9, LVM3 and NewSpace India",
+        "site": "Kourou, Baikonur, Vostochny, Cape Canaveral, Sriharikota"
+      },
+      "settled": {
+        "date": "2023-03-26",
+        "text": "Constellation of 618 satellites completed March 2023; global commercial service phased in through 2024."
+      },
+      "costBuild": {
+        "usd": 1000000,
+        "display": "~$1M each",
+        "confidence": "reported",
+        "note": "Airbus targeted under $1M per satellite at volume — the figure that made the business case."
+      },
+      "costLaunch": {
+        "usd": 2000000,
+        "display": "~$1.5–2.5M per satellite",
+        "confidence": "estimated",
+        "note": "Roughly $60–70M per launch of ~36 satellites."
+      },
+      "maintenance": {
+        "usdPerYear": 0,
+        "display": "Undisclosed",
+        "confidence": "undisclosed",
+        "note": "OneWeb went bankrupt in March 2020 after raising $3.4B, was bought by the UK government and Bharti for $1B, and merged with Eutelsat in 2023. A second-generation constellation is planned."
+      },
+      "status": "Operational — 648 satellites",
+      "designLife": "7 years",
+      "mass": "150 kg",
+      "orbitClass": "LEO (1,200 km, 12 planes at 87.9° — near-polar)",
+      "sources": [
+        "Eutelsat Group annual reports",
+        "Airbus OneWeb Satellites",
+        "UK Government OneWeb acquisition documents"
+      ],
+      "purpose": {
+        "summary": "LEO broadband constellation (Eutelsat OneWeb) for enterprise and government connectivity.",
+        "users": [
+          "commercial",
+          "civil"
+        ]
+      },
+      "results": {
+        "headline": "Results dossier not yet researched for this entry.",
+        "bullets": [],
+        "stillDoing": null
+      }
+    },
+    {
+      "constellation": "iridium",
+      "matchPrefix": "IRIDIUM",
+      "name": "Iridium NEXT",
+      "shortName": "Iridium",
+      "category": "comms-leo",
+      "operator": "Iridium Communications Inc.",
+      "country": "United States",
+      "flag": "🇺🇸",
+      "manufacturer": "Thales Alenia Space (design) · Northrop Grumman Innovation Systems, Gilbert, Arizona (assembly)",
+      "built": {
+        "text": "Contract to Thales Alenia signed 2010 to replace the original 1990s constellation; production ran 2015–2018.",
+        "year": 2015
+      },
+      "launched": {
+        "date": "2017-01-14",
+        "vehicle": "Falcon 9 — 10 satellites per flight, 8 flights",
+        "site": "Vandenberg AFB, California"
+      },
+      "settled": {
+        "date": "2019-02-05",
+        "text": "The final 10 satellites launched 2019-01-11 and the constellation was declared complete on 2019-02-05, replacing all 66 first-generation satellites one slot at a time without a service gap."
+      },
+      "costBuild": {
+        "usd": 40000000,
+        "display": "~$40M each all-in",
+        "confidence": "published",
+        "note": "$3B total for 81 satellites (66 operational, 9 on-orbit spares, 6 ground spares) including launch — Iridium's own published program figure."
+      },
+      "costLaunch": {
+        "usd": 6200000,
+        "display": "~$6.2M per satellite",
+        "confidence": "published",
+        "note": "Eight Falcon 9 launches at roughly $62M each, 10 satellites per flight."
+      },
+      "maintenance": {
+        "usdPerYear": 40000000,
+        "display": "~$40M/yr net capex",
+        "confidence": "published",
+        "note": "Iridium has publicly guided to low ongoing capex through the 2030s — the constellation is fully deployed and paid for. Reported in Iridium's SEC filings."
+      },
+      "status": "Operational — 66 active satellites plus spares; the only constellation with true global pole-to-pole coverage",
+      "designLife": "15 years",
+      "mass": "860 kg",
+      "orbitClass": "LEO (780 km, 6 planes at 86.4° — near-polar)",
+      "sources": [
+        "Iridium Communications SEC 10-K filings",
+        "Iridium NEXT program press releases"
+      ],
+      "purpose": {
+        "summary": "Global L-band voice and data constellation, including Iridium Certus broadband.",
+        "users": [
+          "commercial",
+          "civil",
+          "military"
+        ]
+      },
+      "results": {
+        "headline": "Results dossier not yet researched for this entry.",
+        "bullets": [],
+        "stillDoing": null
+      }
+    },
+    {
+      "norad": 44476,
+      "name": "Intelsat 39",
+      "shortName": "Intelsat 39",
+      "category": "comms-geo",
+      "operator": "Intelsat (acquired by SES in 2025)",
+      "country": "United States / Luxembourg",
+      "flag": "🇺🇸",
+      "manufacturer": "Maxar Technologies (SSL-1300 bus)",
+      "built": {
+        "text": "Ordered 2016 to replace Intelsat 902; completed 2019.",
+        "year": 2019
+      },
+      "launched": {
+        "date": "2019-08-06",
+        "vehicle": "Ariane 5 ECA (dual launch with EDRS-C)",
+        "site": "Kourou, French Guiana"
+      },
+      "settled": {
+        "date": "2019-09-25",
+        "text": "Raised from geostationary transfer orbit to 62°E over about seven weeks, then entered commercial service."
+      },
+      "costBuild": {
+        "usd": 200000000,
+        "display": "~$150–250M",
+        "confidence": "estimated",
+        "note": "Typical SSL-1300 class GEO comsat. Intelsat does not disclose per-satellite prices."
+      },
+      "costLaunch": {
+        "usd": 70000000,
+        "display": "~$70M (shared Ariane 5)",
+        "confidence": "estimated",
+        "note": "Ariane 5 dual-launch slot; a full Ariane 5 ECA ran ~$150–180M."
+      },
+      "maintenance": {
+        "usdPerYear": 3000000,
+        "display": "~$2–4M/yr",
+        "confidence": "estimated",
+        "note": "GEO satellites are cheap to operate once on station: station-keeping, a teleport, and a share of a control centre. The dominant cost was the capital spend."
+      },
+      "status": "Operational at 62°E",
+      "designLife": "15 years",
+      "mass": "6,600 kg",
+      "orbitClass": "GEO",
+      "sources": [
+        "Intelsat press releases",
+        "Arianespace launch documentation"
+      ],
+      "purpose": {
+        "summary": "Geostationary communications satellite for media, mobility, and network services.",
+        "users": [
+          "commercial"
+        ]
+      },
+      "results": {
+        "headline": "Results dossier not yet researched for this entry.",
+        "bullets": [],
+        "stillDoing": null
+      }
+    },
+    {
+      "norad": 49332,
+      "name": "SES-17",
+      "shortName": "SES-17",
+      "category": "comms-geo",
+      "operator": "SES S.A.",
+      "country": "Luxembourg",
+      "flag": "🇱🇺",
+      "manufacturer": "Thales Alenia Space (Spacebus NEO — all-electric)",
+      "built": {
+        "text": "Ordered 2016 for in-flight connectivity over the Americas; completed 2021 after COVID delays.",
+        "year": 2021
+      },
+      "launched": {
+        "date": "2021-10-24",
+        "vehicle": "Ariane 5 ECA",
+        "site": "Kourou, French Guiana"
+      },
+      "settled": {
+        "date": "2022-06-01",
+        "text": "All-electric propulsion meant a slow spiral — about six months to climb from transfer orbit to its 67.1°W slot. Commercial service began June 2022."
+      },
+      "costBuild": {
+        "usd": 500000000,
+        "display": "~$450–550M",
+        "confidence": "estimated",
+        "note": "A very-high-throughput satellite with ~200 spot beams and a digital transparent processor — several times the cost of a conventional GEO comsat."
+      },
+      "costLaunch": {
+        "usd": 90000000,
+        "display": "~$90M (shared Ariane 5)",
+        "confidence": "estimated",
+        "note": ""
+      },
+      "maintenance": {
+        "usdPerYear": 4000000,
+        "display": "~$3–5M/yr",
+        "confidence": "estimated",
+        "note": ""
+      },
+      "status": "Operational at 67.1°W",
+      "designLife": "15 years",
+      "mass": "6,411 kg",
+      "orbitClass": "GEO",
+      "sources": [
+        "SES annual reports",
+        "Thales Alenia Space"
+      ],
+      "purpose": {
+        "summary": "High-throughput Ka-band GEO satellite for aviation, maritime, and enterprise.",
+        "users": [
+          "commercial"
+        ]
+      },
+      "results": {
+        "headline": "Results dossier not yet researched for this entry.",
+        "bullets": [],
+        "stillDoing": null
+      }
+    },
+    {
+      "norad": 56370,
+      "name": "ViaSat-3 Americas (F1)",
+      "shortName": "ViaSat-3 F1",
+      "category": "comms-geo",
+      "operator": "Viasat Inc.",
+      "country": "United States",
+      "flag": "🇺🇸",
+      "manufacturer": "Boeing (702MP+ bus) · Viasat (payload) · Northrop Grumman (reflector)",
+      "built": {
+        "text": "Program announced 2016; first satellite completed 2023 after repeated delays.",
+        "year": 2023
+      },
+      "launched": {
+        "date": "2023-04-30",
+        "vehicle": "Falcon Heavy (expendable)",
+        "site": "Kennedy Space Center, Florida"
+      },
+      "settled": {
+        "date": "—",
+        "text": "Never fully commissioned. The main reflector antenna failed to deploy in July 2023, leaving the satellite at under 10% of its intended ~1 Tbps capacity. It was repositioned and is used in a degraded role."
+      },
+      "costBuild": {
+        "usd": 700000000,
+        "display": "~$700M",
+        "confidence": "reported",
+        "note": "Viasat has described the three-satellite ViaSat-3 program as roughly $2B in total capital."
+      },
+      "costLaunch": {
+        "usd": 150000000,
+        "display": "~$150M",
+        "confidence": "estimated",
+        "note": "Expendable Falcon Heavy."
+      },
+      "maintenance": {
+        "usdPerYear": 0,
+        "display": "$420M insurance claim filed",
+        "confidence": "published",
+        "note": "The clearest public example of what a satellite failure actually costs. Viasat recorded a $420M insurance recovery and the third ViaSat-3 was re-planned around the loss."
+      },
+      "status": "Degraded — antenna deployment failure, operating at a fraction of design capacity",
+      "designLife": "15 years",
+      "mass": "6,400 kg",
+      "orbitClass": "GEO",
+      "sources": [
+        "Viasat SEC filings and investor calls, 2023–2024",
+        "SpaceNews coverage of the ViaSat-3 anomaly"
+      ],
+      "purpose": {
+        "summary": "Ultra-high-capacity GEO broadband satellite for the Americas.",
+        "users": [
+          "commercial"
+        ]
+      },
+      "results": {
+        "headline": "Results dossier not yet researched for this entry.",
+        "bullets": [],
+        "stillDoing": null
+      }
+    },
+    {
+      "norad": 42915,
+      "name": "TDRS-13 (TDRS-M)",
+      "shortName": "TDRS-13",
+      "category": "comms-geo",
+      "operator": "NASA (Space Communications and Navigation)",
+      "country": "United States",
+      "flag": "🇺🇸",
+      "manufacturer": "Boeing (BSS-601HP)",
+      "built": {
+        "text": "Third of the third-generation TDRS satellites; completed 2017. An omni antenna was damaged during pre-launch processing and had to be replaced.",
+        "year": 2017
+      },
+      "launched": {
+        "date": "2017-08-18",
+        "vehicle": "Atlas V 401",
+        "site": "Cape Canaveral, Florida"
+      },
+      "settled": {
+        "date": "2019-03-01",
+        "text": "Placed into the on-orbit spare fleet after checkout. TDRS is the relay network that carries ISS and Hubble traffic to the ground."
+      },
+      "costBuild": {
+        "usd": 280000000,
+        "display": "~$280M",
+        "confidence": "estimated",
+        "note": "Total mission cost including launch was ~$408M."
+      },
+      "costLaunch": {
+        "usd": 132400000,
+        "display": "$132.4M",
+        "confidence": "published",
+        "note": "NASA Launch Services contract with ULA."
+      },
+      "maintenance": {
+        "usdPerYear": 250000000,
+        "display": "~$250M/yr (whole Space Network)",
+        "confidence": "published",
+        "note": "NASA's Space Communications and Navigation budget for the TDRS constellation and its ground terminals at White Sands and Guam. NASA is transitioning to buying commercial relay services instead of replacing TDRS."
+      },
+      "status": "Operational — final TDRS ever built; no successors planned",
+      "designLife": "15 years",
+      "mass": "3,454 kg",
+      "orbitClass": "GEO",
+      "sources": [
+        "NASA Launch Services contract announcements",
+        "NASA SCaN budget line"
+      ],
+      "purpose": {
+        "summary": "NASA Tracking and Data Relay Satellite for near-continuous LEO spacecraft communications.",
+        "users": [
+          "science",
+          "civil"
+        ]
+      },
+      "results": {
+        "headline": "Results dossier not yet researched for this entry.",
+        "bullets": [],
+        "stillDoing": null
+      }
+    },
+    {
+      "norad": 45465,
+      "name": "AEHF-6",
+      "shortName": "AEHF-6",
+      "category": "military",
+      "operator": "United States Space Force",
+      "country": "United States",
+      "flag": "🇺🇸",
+      "manufacturer": "Lockheed Martin (A2100M bus) · Northrop Grumman (payload)",
+      "built": {
+        "text": "Sixth and final Advanced Extremely High Frequency satellite; completed 2020.",
+        "year": 2020
+      },
+      "launched": {
+        "date": "2020-03-26",
+        "vehicle": "Atlas V 551",
+        "site": "Cape Canaveral, Florida — the first launch for the newly created Space Force"
+      },
+      "settled": {
+        "date": "2020-11-01",
+        "text": "Used both chemical and electric propulsion to reach geostationary orbit over roughly six months, then entered the protected-communications constellation."
+      },
+      "costBuild": {
+        "usd": 1900000000,
+        "display": "~$1.9B",
+        "confidence": "estimated",
+        "note": "Per-satellite share. The AEHF program total is roughly $15B for six satellites plus terminals and ground segment."
+      },
+      "costLaunch": {
+        "usd": 190000000,
+        "display": "~$190M",
+        "confidence": "published",
+        "note": "Atlas V 551 under the EELV/NSSL program — national-security launches cost substantially more than commercial equivalents."
+      },
+      "maintenance": {
+        "usdPerYear": 0,
+        "display": "Classified",
+        "confidence": "undisclosed",
+        "note": "Operations are funded inside classified and unclassified Space Force lines that are not broken out per satellite."
+      },
+      "status": "Operational — provides nuclear-survivable, jam-resistant comms for US and allied forces",
+      "designLife": "14 years",
+      "mass": "6,168 kg",
+      "orbitClass": "GEO",
+      "sources": [
+        "US Space Force / SSC press releases",
+        "GAO weapon system assessments"
+      ],
+      "purpose": {
+        "summary": "US protected strategic military communications in GEO.",
+        "users": [
+          "military"
+        ]
+      },
+      "results": {
+        "headline": "Results dossier not yet researched for this entry.",
+        "bullets": [],
+        "stillDoing": null
+      }
+    },
+    {
+      "norad": 37481,
+      "name": "SBIRS GEO-1",
+      "shortName": "SBIRS GEO-1",
+      "category": "military",
+      "operator": "United States Space Force",
+      "country": "United States",
+      "flag": "🇺🇸",
+      "manufacturer": "Lockheed Martin (A2100 bus) · Northrop Grumman (infrared sensors)",
+      "built": {
+        "text": "SBIRS was contracted in 1996 and became one of the most troubled US space programs — the first satellite was delivered roughly nine years late.",
+        "year": 2011
+      },
+      "launched": {
+        "date": "2011-05-07",
+        "vehicle": "Atlas V 401",
+        "site": "Cape Canaveral, Florida"
+      },
+      "settled": {
+        "date": "2013-01-01",
+        "text": "Extended checkout of the scanning and staring infrared sensors; entered operational missile-warning service in 2013."
+      },
+      "costBuild": {
+        "usd": 1700000000,
+        "display": "~$1.7B",
+        "confidence": "published",
+        "note": "Per-satellite share of a ~$19B program for 6 GEO satellites and 4 hosted HEO payloads. Original 1996 estimate for the whole program was $4B."
+      },
+      "costLaunch": {
+        "usd": 130000000,
+        "display": "~$130M",
+        "confidence": "estimated",
+        "note": "Atlas V 401 under EELV."
+      },
+      "maintenance": {
+        "usdPerYear": 0,
+        "display": "Classified",
+        "confidence": "undisclosed",
+        "note": "Being succeeded by Next-Gen OPIR, itself budgeted at ~$14B."
+      },
+      "status": "Operational — strategic missile early warning",
+      "designLife": "12 years",
+      "mass": "4,500 kg",
+      "orbitClass": "GEO",
+      "sources": [
+        "GAO SBIRS cost reports",
+        "DoD Selected Acquisition Reports"
+      ],
+      "purpose": {
+        "summary": "US Space Force missile-warning satellite — detect and characterize ballistic missile launches from GEO.",
+        "users": [
+          "military"
+        ],
+        "instruments": [
+          "scanning IR sensor",
+          "staring IR sensor"
+        ],
+        "measures": [
+          "missile launch detection",
+          "infrared events"
+        ]
+      },
+      "results": {
+        "headline": "Operational missile-warning layer; detailed performance is classified.",
+        "bullets": [
+          {
+            "text": "Part of SBIRS, which replaced DSP for US strategic missile warning and battlespace awareness.",
+            "year": 2011,
+            "confidence": "published",
+            "source": "USSF / Lockheed Martin SBIRS program"
+          },
+          {
+            "text": "Specific detection statistics and tactical outcomes are not publicly released.",
+            "year": null,
+            "confidence": "undisclosed",
+            "source": "Classified operational reporting"
+          }
+        ],
+        "stillDoing": "On-orbit missile warning; being succeeded over time by Next-Gen OPIR."
+      }
+    },
+    {
+      "norad": 41622,
+      "name": "MUOS-5",
+      "shortName": "MUOS-5",
+      "category": "military",
+      "operator": "United States Navy / Space Force",
+      "country": "United States",
+      "flag": "🇺🇸",
+      "manufacturer": "Lockheed Martin (A2100M)",
+      "built": {
+        "text": "Fifth Mobile User Objective System satellite, built as the on-orbit spare; completed 2016.",
+        "year": 2016
+      },
+      "launched": {
+        "date": "2016-06-24",
+        "vehicle": "Atlas V 551",
+        "site": "Cape Canaveral, Florida"
+      },
+      "settled": {
+        "date": "2017-02-01",
+        "text": "An orbit-raising thruster failed on 2016-06-29, stranding it short of its slot. Engineers used the backup propulsion to complete the climb over seven months and it reached its test slot in early 2017."
+      },
+      "costBuild": {
+        "usd": 1500000000,
+        "display": "~$1.5B",
+        "confidence": "estimated",
+        "note": "Per-satellite share of a ~$7.7B program for five satellites and the ground system."
+      },
+      "costLaunch": {
+        "usd": 180000000,
+        "display": "~$180M",
+        "confidence": "estimated",
+        "note": "Atlas V 551."
+      },
+      "maintenance": {
+        "usdPerYear": 0,
+        "display": "Not broken out",
+        "confidence": "undisclosed",
+        "note": ""
+      },
+      "status": "Operational as an on-orbit spare — a good example of a $1.5B asset nearly lost to a single thruster",
+      "designLife": "15 years",
+      "mass": "6,740 kg",
+      "orbitClass": "GEO",
+      "sources": [
+        "US Navy PEO Space Systems",
+        "GAO assessments of MUOS"
+      ],
+      "purpose": {
+        "summary": "US Navy narrowband military UHF SATCOM (Mobile User Objective System).",
+        "users": [
+          "military"
+        ]
+      },
+      "results": {
+        "headline": "Results dossier not yet researched for this entry.",
+        "bullets": [],
+        "stillDoing": null
+      }
+    },
+    {
+      "norad": 32258,
+      "name": "WGS-1 (Wideband Global SATCOM)",
+      "shortName": "WGS-1",
+      "category": "military",
+      "operator": "United States Space Force",
+      "country": "United States",
+      "flag": "🇺🇸",
+      "manufacturer": "Boeing (BSS-702HP)",
+      "built": {
+        "text": "First of the WGS series replacing the Defense Satellite Communications System; completed 2007.",
+        "year": 2007
+      },
+      "launched": {
+        "date": "2007-10-11",
+        "vehicle": "Atlas V 421",
+        "site": "Cape Canaveral, Florida"
+      },
+      "settled": {
+        "date": "2008-04-01",
+        "text": "Entered service over the Pacific in April 2008."
+      },
+      "costBuild": {
+        "usd": 400000000,
+        "display": "~$400M",
+        "confidence": "estimated",
+        "note": "WGS program is roughly $5B for 11 satellites. Australia funded WGS-6 outright (~$707M) in exchange for constellation access — a rare published per-satellite figure."
+      },
+      "costLaunch": {
+        "usd": 140000000,
+        "display": "~$140M",
+        "confidence": "estimated",
+        "note": "Atlas V 421."
+      },
+      "maintenance": {
+        "usdPerYear": 0,
+        "display": "Not broken out",
+        "confidence": "undisclosed",
+        "note": ""
+      },
+      "status": "Operational",
+      "designLife": "14 years (has flown 18)",
+      "mass": "5,987 kg",
+      "orbitClass": "GEO",
+      "sources": [
+        "Australian Department of Defence WGS-6 agreement",
+        "US Space Force"
+      ],
+      "purpose": {
+        "summary": "US high-capacity military wideband communications satellite.",
+        "users": [
+          "military"
+        ]
+      },
+      "results": {
+        "headline": "Results dossier not yet researched for this entry.",
+        "bullets": [],
+        "stillDoing": null
+      }
+    },
+    {
+      "norad": 46984,
+      "name": "Sentinel-6 Michael Freilich",
+      "shortName": "Sentinel-6",
+      "category": "earth",
+      "operator": "ESA · EUMETSAT · NASA · NOAA · CNES",
+      "country": "Europe / United States",
+      "flag": "🇪🇺",
+      "manufacturer": "Airbus Defence and Space (Germany)",
+      "built": {
+        "text": "Built as a pair (6A and 6B) under a joint transatlantic agreement; 6A completed 2020.",
+        "year": 2020
+      },
+      "launched": {
+        "date": "2020-11-21",
+        "vehicle": "Falcon 9 Block 5",
+        "site": "Vandenberg AFB, California"
+      },
+      "settled": {
+        "date": "2021-06-22",
+        "text": "Flew 30 seconds behind Jason-3 for six months of cross-calibration, then took over as the reference sea-level mission in June 2021 — continuing an unbroken record that began with TOPEX/Poseidon in 1992."
+      },
+      "costBuild": {
+        "usd": 600000000,
+        "display": "~€500M+ (~$600M) for the pair",
+        "confidence": "reported",
+        "note": "Costs split across five agencies, which makes a single figure approximate."
+      },
+      "costLaunch": {
+        "usd": 97000000,
+        "display": "$97M",
+        "confidence": "published",
+        "note": "NASA Launch Services contract with SpaceX, awarded 2017."
+      },
+      "maintenance": {
+        "usdPerYear": 0,
+        "display": "Split across agencies",
+        "confidence": "undisclosed",
+        "note": "EUMETSAT operates the spacecraft; NASA and NOAA fund instruments and data processing."
+      },
+      "status": "Operational — Sentinel-6B launched 2025 to continue the series",
+      "designLife": "5.5 years",
+      "mass": "1,192 kg",
+      "orbitClass": "LEO (1,336 km reference orbit)",
+      "sources": [
+        "NASA Launch Services contract announcement, 2017",
+        "EUMETSAT Sentinel-6 programme"
+      ],
+      "purpose": {
+        "summary": "Reference sea-level altimetry mission continuing the TOPEX/Jason climate record (Sentinel-6 Michael Freilich).",
+        "users": [
+          "science",
+          "civil"
+        ],
+        "instruments": [
+          "Poseidon-4 altimeter",
+          "AMR-C",
+          "GNSS-RO"
+        ],
+        "measures": [
+          "global mean sea level",
+          "ocean topography"
+        ]
+      },
+      "results": {
+        "headline": "Extends the gold-standard global sea-level rise record into the 2020s.",
+        "bullets": [
+          {
+            "text": "Continues the uninterrupted altimetry climate data record begun by TOPEX/Poseidon (1992).",
+            "year": 2021,
+            "confidence": "published",
+            "source": "NASA/ESA/EUMETSAT/NOAA Sentinel-6"
+          },
+          {
+            "text": "Provides the reference orbit for calibrating other altimeters and ocean models.",
+            "year": 2022,
+            "confidence": "published",
+            "source": "Sentinel-6 mission overview"
+          }
+        ],
+        "stillDoing": "Operational reference altimetry; twin Sentinel-6B planned for continuity."
+      }
+    },
+    {
+      "norad": 41240,
+      "name": "Jason-3",
+      "shortName": "Jason-3",
+      "category": "earth",
+      "operator": "NOAA · CNES · EUMETSAT · NASA",
+      "country": "United States / France",
+      "flag": "🇺🇸",
+      "manufacturer": "Thales Alenia Space (Proteus bus)",
+      "built": {
+        "text": "Fourth in the TOPEX/Jason ocean altimetry lineage; completed 2015.",
+        "year": 2015
+      },
+      "launched": {
+        "date": "2016-01-17",
+        "vehicle": "Falcon 9 v1.1 — the final flight of that variant",
+        "site": "Vandenberg AFB, California"
+      },
+      "settled": {
+        "date": "2016-10-01",
+        "text": "Took over the reference orbit from Jason-2 after several months of tandem flight and cross-calibration."
+      },
+      "costBuild": {
+        "usd": 180000000,
+        "display": "~$180M",
+        "confidence": "published",
+        "note": "Shared across four agencies."
+      },
+      "costLaunch": {
+        "usd": 82000000,
+        "display": "$82M",
+        "confidence": "published",
+        "note": "NASA Launch Services contract with SpaceX."
+      },
+      "maintenance": {
+        "usdPerYear": 8000000,
+        "display": "~$8M/yr",
+        "confidence": "estimated",
+        "note": "Now an interleaved backup to Sentinel-6."
+      },
+      "status": "Operational in a drifting/interleaved orbit",
+      "designLife": "5 years (has flown 10)",
+      "mass": "553 kg",
+      "orbitClass": "LEO (1,336 km)",
+      "sources": [
+        "NOAA NESDIS",
+        "NASA Launch Services"
+      ],
+      "purpose": {
+        "summary": "Precision ocean altimeter bridging Jason-2 and Sentinel-6 for sea-level and ocean circulation.",
+        "users": [
+          "science",
+          "civil"
+        ],
+        "instruments": [
+          "Poseidon-3B",
+          "AMR",
+          "DORIS",
+          "GPSP"
+        ],
+        "measures": [
+          "sea surface height",
+          "wave height",
+          "wind speed"
+        ]
+      },
+      "results": {
+        "headline": "Key mid-2010s link in the global sea-level rise time series.",
+        "bullets": [
+          {
+            "text": "Extended precise sea-level and mesoscale ocean topography used in climate assessments.",
+            "year": 2016,
+            "confidence": "published",
+            "source": "NOAA/EUMETSAT/CNES/NASA Jason-3"
+          },
+          {
+            "text": "Cross-calibrated the transition toward Sentinel-6 as the new reference altimeter.",
+            "year": 2021,
+            "confidence": "published",
+            "source": "OSTST / Jason–Sentinel-6 cal/val"
+          }
+        ],
+        "stillDoing": "Extended mission / climate record support alongside Sentinel-6."
+      }
+    },
+    {
+      "norad": 40376,
+      "name": "SMAP (Soil Moisture Active Passive)",
+      "shortName": "SMAP",
+      "category": "earth",
+      "operator": "NASA",
+      "country": "United States",
+      "flag": "🇺🇸",
+      "manufacturer": "NASA JPL",
+      "built": {
+        "text": "Decadal Survey mission; completed 2014 with a 6-metre deployable mesh reflector.",
+        "year": 2014
+      },
+      "launched": {
+        "date": "2015-01-31",
+        "vehicle": "Delta II 7320-10C",
+        "site": "Vandenberg AFB, California"
+      },
+      "settled": {
+        "date": "2015-05-01",
+        "text": "Reflector spun up and both instruments commissioned by May 2015. The radar failed permanently on 2015-07-07 after ten weeks; the radiometer continues to operate."
+      },
+      "costBuild": {
+        "usd": 780000000,
+        "display": "~$780M",
+        "confidence": "published",
+        "note": "Total mission cost ~$916M including launch and operations."
+      },
+      "costLaunch": {
+        "usd": 82000000,
+        "display": "~$82M",
+        "confidence": "published",
+        "note": "Delta II."
+      },
+      "maintenance": {
+        "usdPerYear": 10000000,
+        "display": "~$10M/yr",
+        "confidence": "estimated",
+        "note": ""
+      },
+      "status": "Partially operational — radar failed 2015, radiometer still returning data",
+      "designLife": "3 years (has flown 11)",
+      "mass": "944 kg",
+      "orbitClass": "LEO (sun-synchronous)",
+      "sources": [
+        "NASA JPL SMAP mission reports"
+      ],
+      "purpose": {
+        "summary": "Map global soil moisture and freeze/thaw state for weather, drought, and carbon-cycle science.",
+        "users": [
+          "science",
+          "civil"
+        ],
+        "instruments": [
+          "L-band radiometer",
+          "radar (failed 2015)"
+        ],
+        "measures": [
+          "soil moisture",
+          "freeze/thaw"
+        ]
+      },
+      "results": {
+        "headline": "Global L-band soil moisture — drought, flood, and NWP applications despite early radar loss.",
+        "bullets": [
+          {
+            "text": "Radiometer-only mission after radar failure still delivered validated global soil-moisture products.",
+            "year": 2015,
+            "confidence": "published",
+            "source": "NASA SMAP mission"
+          },
+          {
+            "text": "Products used in drought monitoring, agriculture, and assimilation into land-surface / weather models.",
+            "year": 2017,
+            "confidence": "published",
+            "source": "NASA SMAP applications / NSIDC"
+          }
+        ],
+        "stillDoing": "Ongoing radiometer soil-moisture and freeze/thaw data."
+      }
+    },
+    {
+      "norad": 39574,
+      "name": "GPM Core Observatory",
+      "shortName": "GPM Core",
+      "category": "earth",
+      "operator": "NASA · JAXA",
+      "country": "United States / Japan",
+      "flag": "🇺🇸",
+      "manufacturer": "NASA Goddard (bus) · JAXA/NEC (dual-frequency radar)",
+      "built": {
+        "text": "Successor to TRMM; completed 2013.",
+        "year": 2013
+      },
+      "launched": {
+        "date": "2014-02-27",
+        "vehicle": "H-IIA 202",
+        "site": "Tanegashima, Japan"
+      },
+      "settled": {
+        "date": "2014-05-29",
+        "text": "Commissioned into a 65° inclined 407 km orbit, anchoring a constellation of partner satellites that together map global precipitation every 30 minutes."
+      },
+      "costBuild": {
+        "usd": 933000000,
+        "display": "~$933M",
+        "confidence": "published",
+        "note": "NASA lifecycle cost; JAXA provided the radar and the launch."
+      },
+      "costLaunch": {
+        "usd": 0,
+        "display": "Provided by JAXA",
+        "confidence": "published",
+        "note": "JAXA contributed the H-IIA launch in exchange for the radar partnership — an in-kind trade rather than a cash cost."
+      },
+      "maintenance": {
+        "usdPerYear": 15000000,
+        "display": "~$15M/yr",
+        "confidence": "estimated",
+        "note": ""
+      },
+      "status": "Operational",
+      "designLife": "3 years (fuel to ~2032)",
+      "mass": "3,850 kg",
+      "orbitClass": "LEO (407 km, 65°)",
+      "sources": [
+        "NASA GPM project office",
+        "JAXA"
+      ],
+      "purpose": {
+        "summary": "International precipitation-measuring mission — rain and snowfall for weather, climate, and disasters.",
+        "users": [
+          "science",
+          "civil"
+        ],
+        "instruments": [
+          "DPR",
+          "GMI"
+        ],
+        "measures": [
+          "rain rate",
+          "snowfall",
+          "latent heating"
+        ]
+      },
+      "results": {
+        "headline": "Global standard for spaceborne rain and snow measurement after TRMM.",
+        "bullets": [
+          {
+            "text": "Dual-frequency radar + microwave imager improved light rain and snowfall detection vs TRMM.",
+            "year": 2014,
+            "confidence": "published",
+            "source": "NASA/JAXA GPM"
+          },
+          {
+            "text": "IMERG and related products used worldwide for floods, landslides, and climate precipitation datasets.",
+            "year": 2015,
+            "confidence": "published",
+            "source": "NASA GPM IMERG"
+          }
+        ],
+        "stillDoing": "Core observatory plus constellation partners; precipitation products via NASA PPS."
+      }
+    },
+    {
+      "norad": 43476,
+      "name": "GRACE-FO 1",
+      "shortName": "GRACE-FO",
+      "category": "earth",
+      "operator": "NASA · GFZ German Research Centre for Geosciences",
+      "country": "United States / Germany",
+      "flag": "🇺🇸",
+      "manufacturer": "Airbus Defence and Space",
+      "built": {
+        "text": "Twin satellites that measure Earth's gravity field by tracking the distance between each other to within a micron; completed 2017.",
+        "year": 2017
+      },
+      "launched": {
+        "date": "2018-05-22",
+        "vehicle": "Falcon 9 Block 4 (rideshare with 5 Iridium NEXT satellites)",
+        "site": "Vandenberg AFB, California"
+      },
+      "settled": {
+        "date": "2018-11-01",
+        "text": "Formation established at ~220 km separation; science operations from late 2018 after a microwave instrument processor swap."
+      },
+      "costBuild": {
+        "usd": 430000000,
+        "display": "~$430M",
+        "confidence": "published",
+        "note": "NASA cost; Germany contributed the launch share and ground segment."
+      },
+      "costLaunch": {
+        "usd": 30000000,
+        "display": "~$30M (rideshare share)",
+        "confidence": "estimated",
+        "note": "Sharing a Falcon 9 with Iridium made this one of the cheapest launches for a flagship-adjacent science mission."
+      },
+      "maintenance": {
+        "usdPerYear": 12000000,
+        "display": "~$12M/yr",
+        "confidence": "estimated",
+        "note": ""
+      },
+      "status": "Operational",
+      "designLife": "5 years",
+      "mass": "600 kg each",
+      "orbitClass": "LEO (490 km, near-polar)",
+      "sources": [
+        "NASA JPL GRACE-FO",
+        "GFZ Potsdam"
+      ],
+      "purpose": {
+        "summary": "Track month-to-month changes in Earth’s gravity field to map water mass movement.",
+        "users": [
+          "science"
+        ],
+        "instruments": [
+          "microwave ranging",
+          "laser ranging interferometer demo",
+          "accelerometers"
+        ],
+        "measures": [
+          "groundwater",
+          "ice-sheet mass",
+          "ocean mass"
+        ]
+      },
+      "results": {
+        "headline": "Continues the GRACE record of melting ice and shrinking groundwater from space.",
+        "bullets": [
+          {
+            "text": "With GRACE (2002–2017), revealed groundwater depletion in aquifers from California to India.",
+            "year": 2018,
+            "confidence": "published",
+            "source": "NASA/GFZ GRACE-FO / science literature"
+          },
+          {
+            "text": "Quantifies ice-sheet and glacier mass loss contribution to sea-level rise.",
+            "year": 2019,
+            "confidence": "published",
+            "source": "NASA GRACE/GRACE-FO"
+          },
+          {
+            "text": "Laser ranging interferometer demonstrated finer inter-satellite ranging for future gravity missions.",
+            "year": 2019,
+            "confidence": "published",
+            "source": "NASA/GFZ LRI"
+          }
+        ],
+        "stillDoing": "Monthly gravity-field and mass-change products via NASA/GFZ/JPL."
+      }
+    },
+    {
+      "constellation": "planet",
+      "matchPrefix": "FLOCK",
+      "name": "Planet Labs Dove / SuperDove",
+      "shortName": "Planet Doves",
+      "category": "earth",
+      "operator": "Planet Labs PBC",
+      "country": "United States",
+      "flag": "🇺🇸",
+      "manufacturer": "Planet Labs, San Francisco",
+      "built": {
+        "text": "3U cubesats built in-house on an iterative 'agile aerospace' model — roughly 15 hardware generations since 2013, each flown before the next is finalised.",
+        "year": 2013
+      },
+      "launched": {
+        "date": "2013-04-21",
+        "vehicle": "Rideshare on almost everything: Antares, Falcon 9 Transporter, PSLV, Electron, and deployed from the ISS",
+        "site": "Various"
+      },
+      "settled": {
+        "date": "2017-02-01",
+        "text": "Reached a 'daily global scan' capability in 2017 with ~150 satellites — the first constellation to image the entire land surface of Earth every day."
+      },
+      "costBuild": {
+        "usd": 300000,
+        "display": "~$100–300k each (est.)",
+        "confidence": "estimated",
+        "note": "Planet does not publish unit cost, but the model depends on the satellites being cheap and disposable rather than exquisite."
+      },
+      "costLaunch": {
+        "usd": 200000,
+        "display": "~$150–300k each",
+        "confidence": "estimated",
+        "note": "SpaceX Transporter rideshare is priced around $6,000/kg; a 5 kg Dove is a very small share of a launch."
+      },
+      "maintenance": {
+        "usdPerYear": 0,
+        "display": "Continuous replacement",
+        "confidence": "estimated",
+        "note": "Doves have no propulsion and deorbit naturally in 3–5 years. Planet has launched over 500 and treats attrition as normal."
+      },
+      "status": "Operational — the largest Earth-imaging constellation",
+      "designLife": "~3 years",
+      "mass": "~5 kg",
+      "orbitClass": "LEO (400–500 km and sun-synchronous)",
+      "sources": [
+        "Planet Labs SEC filings",
+        "Planet Labs technical publications"
+      ],
+      "purpose": {
+        "summary": "Fleet of optical Earth-imaging CubeSats for daily global monitoring.",
+        "users": [
+          "commercial",
+          "civil"
+        ]
+      },
+      "results": {
+        "headline": "Results dossier not yet researched for this entry.",
+        "bullets": [],
+        "stillDoing": null
+      }
+    },
+    {
+      "norad": 5,
+      "name": "Vanguard 1",
+      "shortName": "Vanguard 1",
+      "category": "derelict",
+      "operator": "US Navy / NASA (dead since 1964)",
+      "country": "United States",
+      "flag": "🇺🇸",
+      "manufacturer": "US Naval Research Laboratory",
+      "built": {
+        "text": "Built at NRL in 1957–58 as a 1.47 kg grapefruit-sized test sphere. Khrushchev called it 'the grapefruit satellite'.",
+        "year": 1958
+      },
+      "launched": {
+        "date": "1958-03-17",
+        "vehicle": "Vanguard TV-4",
+        "site": "Cape Canaveral, Florida"
+      },
+      "settled": {
+        "date": "1958-03-17",
+        "text": "The fourth satellite ever launched, and the first to use solar cells."
+      },
+      "costBuild": {
+        "usd": 110000000,
+        "display": "Program ~$110M (1958)",
+        "confidence": "published",
+        "note": "The whole Project Vanguard program in then-year dollars — roughly $1.2B today. The satellite itself was a tiny fraction of that."
+      },
+      "costLaunch": {
+        "usd": 0,
+        "display": "Within program cost",
+        "confidence": "published",
+        "note": ""
+      },
+      "maintenance": {
+        "usdPerYear": 0,
+        "display": "$0 — dead since May 1964",
+        "confidence": "published",
+        "note": "It stopped transmitting in 1964 and has been an inert object ever since. Nobody pays anything to keep it there."
+      },
+      "status": "Derelict — but the oldest human-made object still in orbit, and expected to stay up for another ~180 years",
+      "designLife": "n/a",
+      "mass": "1.47 kg",
+      "orbitClass": "MEO (654 × 3,834 km)",
+      "sources": [
+        "US Naval Research Laboratory",
+        "NASA NSSDCA"
+      ],
+      "purpose": {
+        "summary": "Early US naval research satellite — test launch vehicle, miniaturization, and geodesy from orbit.",
+        "users": [
+          "science",
+          "military"
+        ],
+        "instruments": [
+          "radio beacons",
+          "temperature sensors"
+        ],
+        "measures": [
+          "orbital decay",
+          "Earth shape"
+        ]
+      },
+      "results": {
+        "headline": "Oldest human-made object still in orbit — and an early win for space-based geodesy.",
+        "bullets": [
+          {
+            "text": "Proved solar-powered miniaturized satellites could survive long-term in orbit (launched 1958).",
+            "year": 1958,
+            "confidence": "published",
+            "source": "NRL / NASA Vanguard history"
+          },
+          {
+            "text": "Tracking data helped refine Earth’s shape (oblateness) and atmospheric density models.",
+            "year": 1959,
+            "confidence": "published",
+            "source": "Historical geodesy literature / NSSDCA"
+          },
+          {
+            "text": "Remains in orbit as a derelict — a monument to the first years of the Space Age.",
+            "year": 2024,
+            "confidence": "published",
+            "source": "CelesTrak / NSSDCA"
+          }
+        ],
+        "stillDoing": "Inactive; tracked as debris/derelict for catalog and historical interest."
+      }
+    }
+  ]
+}

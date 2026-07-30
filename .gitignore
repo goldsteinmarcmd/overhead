@@ -1,0 +1,21 @@
+# Secrets & credentials
+.env
+.env.*
+*.pem
+*.key
+*credentials*
+*secret*
+
+# Local / editor
+.DS_Store
+.claude/
+Untitled/
+.idea/
+.vscode/
+*.swp
+*~
+
+# Logs & caches
+*.log
+.cache/
+node_modules/

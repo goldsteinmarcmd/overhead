@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Overhead — purpose, results, cost</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Syne:wght@600;700;800&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/app.css" />
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "./vendor/three.module.js"
+    }
+  }
+  </script>
+</head>
+<body>
+  <div id="app">
+    <canvas id="globe"></canvas>
+
+    <header class="brand">
+      <h1>Overhead</h1>
+      <p class="tagline">What they’re for, what they’ve done, and what it cost to put there.</p>
+      <p class="meta" id="status">Loading catalog…</p>
+    </header>
+
+    <div class="search-wrap">
+      <div class="search-field">
+        <input id="search" type="search" placeholder="Search name or NORAD…" autocomplete="off" spellcheck="false" />
+        <ul id="search-results" class="search-drop" hidden></ul>
+      </div>
+      <div class="search-field">
+        <input id="place" type="search" placeholder="Zoom to an address or city…" autocomplete="off" spellcheck="false" aria-label="Zoom the globe to an address" />
+        <ul id="place-results" class="search-drop place-drop" hidden></ul>
+      </div>
+    </div>
+
+    <aside class="filters" aria-label="Filters">
+      <div class="filter-tabs" role="tablist">
+        <button type="button" class="filter-tab active" data-mode="cat" role="tab" aria-selected="true">Category</button>
+        <button type="button" class="filter-tab" data-mode="owner" role="tab" aria-selected="false">Owner</button>
+        <button type="button" class="filter-tab" data-mode="country" role="tab" aria-selected="false">Country</button>
+      </div>
+      <div class="filter-bulk" role="group" aria-label="Bulk selection">
+        <button type="button" class="filter-bulk-btn" data-bulk="all">Select all</button>
+        <button type="button" class="filter-bulk-btn" data-bulk="none">Unselect all</button>
+      </div>
+      <div class="filter-picture" role="group" aria-label="Picture filter">
+        <button type="button" class="filter-picture-btn active" data-picture="all">All</button>
+        <button type="button" class="filter-picture-btn" data-picture="yes">Has picture</button>
+        <button type="button" class="filter-picture-btn" data-picture="no">No picture</button>
+      </div>
+      <div id="filters-cat" class="filter-list" role="tabpanel"></div>
+      <div id="filters-owner" class="filter-list" role="tabpanel" hidden></div>
+      <div id="filters-country" class="filter-list" role="tabpanel" hidden></div>
+    </aside>
+
+    <div class="hud">
+      <label class="toggle">
+        <input type="checkbox" id="pause" />
+        <span>Pause time</span>
+      </label>
+      <label class="toggle">
+        <input type="checkbox" id="show-orbits" />
+        <span>Selected orbit</span>
+      </label>
+      <span id="clock" class="clock"></span>
+    </div>
+
+    <aside class="panel" id="panel" hidden>
+      <button type="button" class="panel-close" id="panel-close" aria-label="Close">×</button>
+      <div id="panel-body"></div>
+    </aside>
+
+    <footer class="credit">
+      TLEs from <a href="https://celestrak.org" target="_blank" rel="noopener">CelesTrak</a>.
+      Purpose, results and costs compiled from mission pages, budgets and audits — confidence labeled per figure.
+    </footer>
+  </div>
+
+  <script src="vendor/satellite.min.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

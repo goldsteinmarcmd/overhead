@@ -1,0 +1,792 @@
+{
+  "generated": "2026-07-29T06:02:53.467Z",
+  "source": "CelesTrak GP element sets (celestrak.org), general perturbations catalog",
+  "total": 16123,
+  "categories": [
+    {
+      "id": "station",
+      "label": "Crewed stations",
+      "color": "#ffffff"
+    },
+    {
+      "id": "navigation",
+      "label": "Navigation",
+      "color": "#ffd166"
+    },
+    {
+      "id": "comms-leo",
+      "label": "Comms — LEO broadband",
+      "color": "#4cc9f0"
+    },
+    {
+      "id": "comms-geo",
+      "label": "Comms — GEO",
+      "color": "#b388ff"
+    },
+    {
+      "id": "earth",
+      "label": "Earth observation",
+      "color": "#06d6a0"
+    },
+    {
+      "id": "weather",
+      "label": "Weather",
+      "color": "#5ee7df"
+    },
+    {
+      "id": "science",
+      "label": "Science",
+      "color": "#ff9f1c"
+    },
+    {
+      "id": "military",
+      "label": "Military / intel",
+      "color": "#ef476f"
+    },
+    {
+      "id": "tech",
+      "label": "Tech demo / smallsat",
+      "color": "#8d99ae"
+    },
+    {
+      "id": "derelict",
+      "label": "Derelict",
+      "color": "#6c757d"
+    }
+  ],
+  "countries": [
+    {
+      "id": "us",
+      "label": "United States",
+      "flag": "🇺🇸"
+    },
+    {
+      "id": "cn",
+      "label": "China",
+      "flag": "🇨🇳"
+    },
+    {
+      "id": "ru",
+      "label": "Russia",
+      "flag": "🇷🇺"
+    },
+    {
+      "id": "eu",
+      "label": "Europe",
+      "flag": "🇪🇺"
+    },
+    {
+      "id": "uk",
+      "label": "United Kingdom",
+      "flag": "🇬🇧"
+    },
+    {
+      "id": "jp",
+      "label": "Japan",
+      "flag": "🇯🇵"
+    },
+    {
+      "id": "in",
+      "label": "India",
+      "flag": "🇮🇳"
+    },
+    {
+      "id": "intl",
+      "label": "Multinational",
+      "flag": "🌐"
+    },
+    {
+      "id": "other",
+      "label": "Other / unknown",
+      "flag": "🛰"
+    }
+  ],
+  "owners": [
+    {
+      "id": "us",
+      "label": "United States",
+      "flag": "🇺🇸"
+    },
+    {
+      "id": "cn",
+      "label": "China",
+      "flag": "🇨🇳"
+    },
+    {
+      "id": "ru",
+      "label": "Russia",
+      "flag": "🇷🇺"
+    },
+    {
+      "id": "eu",
+      "label": "Europe",
+      "flag": "🇪🇺"
+    },
+    {
+      "id": "uk",
+      "label": "United Kingdom",
+      "flag": "🇬🇧"
+    },
+    {
+      "id": "jp",
+      "label": "Japan",
+      "flag": "🇯🇵"
+    },
+    {
+      "id": "in",
+      "label": "India",
+      "flag": "🇮🇳"
+    },
+    {
+      "id": "intl",
+      "label": "Multinational",
+      "flag": "🌐"
+    },
+    {
+      "id": "other",
+      "label": "Other / unknown",
+      "flag": "🛰"
+    }
+  ],
+  "operators": [
+    {
+      "id": "SpaceX (Space Exploration Technologies Corp.)",
+      "label": "SpaceX (Space Exploration Technologies Corp.)",
+      "count": 10773
+    },
+    {
+      "id": "Undisclosed",
+      "label": "Undisclosed",
+      "count": 2274
+    },
+    {
+      "id": "Eutelsat Group",
+      "label": "Eutelsat Group",
+      "count": 651
+    },
+    {
+      "id": "Amazon Kuiper",
+      "label": "Amazon Kuiper",
+      "count": 392
+    },
+    {
+      "id": "PLA / CASC",
+      "label": "PLA / CASC",
+      "count": 264
+    },
+    {
+      "id": "Spacesail / Qianfan",
+      "label": "Spacesail / Qianfan",
+      "count": 240
+    },
+    {
+      "id": "CNSA / commercial",
+      "label": "CNSA / commercial",
+      "count": 128
+    },
+    {
+      "id": "Russian Aerospace Forces",
+      "label": "Russian Aerospace Forces",
+      "count": 118
+    },
+    {
+      "id": "Planet Labs PBC",
+      "label": "Planet Labs PBC",
+      "count": 99
+    },
+    {
+      "id": "Commercial imaging",
+      "label": "Commercial imaging",
+      "count": 86
+    },
+    {
+      "id": "Spire Global",
+      "label": "Spire Global",
+      "count": 83
+    },
+    {
+      "id": "National / regional operator",
+      "label": "National / regional operator",
+      "count": 80
+    },
+    {
+      "id": "Iridium Communications Inc.",
+      "label": "Iridium Communications Inc.",
+      "count": 80
+    },
+    {
+      "id": "SES S.A.",
+      "label": "SES S.A.",
+      "count": 69
+    },
+    {
+      "id": "EUSPA (EU Agency for the Space Programme) · ESA",
+      "label": "EUSPA (EU Agency for the Space Programme) · ESA",
+      "count": 49
+    },
+    {
+      "id": "US Department of Defense",
+      "label": "US Department of Defense",
+      "count": 46
+    },
+    {
+      "id": "China SatNet",
+      "label": "China SatNet",
+      "count": 46
+    },
+    {
+      "id": "RSCC / Gazprom",
+      "label": "RSCC / Gazprom",
+      "count": 44
+    },
+    {
+      "id": "China Satcom",
+      "label": "China Satcom",
+      "count": 41
+    },
+    {
+      "id": "Intelsat / SES",
+      "label": "Intelsat / SES",
+      "count": 40
+    },
+    {
+      "id": "China Satellite Navigation Office · PLA Strategic Support Force",
+      "label": "China Satellite Navigation Office · PLA Strategic Support Force",
+      "count": 39
+    },
+    {
+      "id": "US Space Force",
+      "label": "US Space Force",
+      "count": 30
+    },
+    {
+      "id": "Eutelsat",
+      "label": "Eutelsat",
+      "count": 28
+    },
+    {
+      "id": "Roscosmos · Russian Aerospace Forces",
+      "label": "Roscosmos · Russian Aerospace Forces",
+      "count": 28
+    },
+    {
+      "id": "Globalstar",
+      "label": "Globalstar",
+      "count": 28
+    },
+    {
+      "id": "EchoStar / DirecTV",
+      "label": "EchoStar / DirecTV",
+      "count": 26
+    },
+    {
+      "id": "Planet Labs",
+      "label": "Planet Labs",
+      "count": 25
+    },
+    {
+      "id": "ISRO",
+      "label": "ISRO",
+      "count": 20
+    },
+    {
+      "id": "SKY Perfect JSAT",
+      "label": "SKY Perfect JSAT",
+      "count": 18
+    },
+    {
+      "id": "China Satellite Navigation Office",
+      "label": "China Satellite Navigation Office",
+      "count": 17
+    },
+    {
+      "id": "Human spaceflight",
+      "label": "Human spaceflight",
+      "count": 17
+    },
+    {
+      "id": "ORBCOMM",
+      "label": "ORBCOMM",
+      "count": 14
+    },
+    {
+      "id": "Inmarsat / Viasat",
+      "label": "Inmarsat / Viasat",
+      "count": 13
+    },
+    {
+      "id": "China Meteorological Administration",
+      "label": "China Meteorological Administration",
+      "count": 13
+    },
+    {
+      "id": "ESA",
+      "label": "ESA",
+      "count": 12
+    },
+    {
+      "id": "European MoD",
+      "label": "European MoD",
+      "count": 11
+    },
+    {
+      "id": "Roscosmos",
+      "label": "Roscosmos",
+      "count": 11
+    },
+    {
+      "id": "NOAA",
+      "label": "NOAA",
+      "count": 10
+    },
+    {
+      "id": "United States Space Force (Space Delta 8)",
+      "label": "United States Space Force (Space Delta 8)",
+      "count": 10
+    },
+    {
+      "id": "Maxar Technologies",
+      "label": "Maxar Technologies",
+      "count": 10
+    },
+    {
+      "id": "NASA",
+      "label": "NASA",
+      "count": 9
+    },
+    {
+      "id": "JAXA",
+      "label": "JAXA",
+      "count": 9
+    },
+    {
+      "id": "ISRO / NavIC",
+      "label": "ISRO / NavIC",
+      "count": 8
+    },
+    {
+      "id": "Roshydromet",
+      "label": "Roshydromet",
+      "count": 8
+    },
+    {
+      "id": "ESA / Copernicus",
+      "label": "ESA / Copernicus",
+      "count": 8
+    },
+    {
+      "id": "NASA SCaN",
+      "label": "NASA SCaN",
+      "count": 7
+    },
+    {
+      "id": "NASA / USGS",
+      "label": "NASA / USGS",
+      "count": 7
+    },
+    {
+      "id": "CNES / Airbus",
+      "label": "CNES / Airbus",
+      "count": 7
+    },
+    {
+      "id": "EUMETSAT",
+      "label": "EUMETSAT",
+      "count": 6
+    },
+    {
+      "id": "ISRO / INSAT",
+      "label": "ISRO / INSAT",
+      "count": 6
+    },
+    {
+      "id": "Viasat",
+      "label": "Viasat",
+      "count": 5
+    },
+    {
+      "id": "Cabinet Office, Government of Japan",
+      "label": "Cabinet Office, Government of Japan",
+      "count": 5
+    },
+    {
+      "id": "KARI (South Korea)",
+      "label": "KARI (South Korea)",
+      "count": 5
+    },
+    {
+      "id": "Italian Space Agency",
+      "label": "Italian Space Agency",
+      "count": 5
+    },
+    {
+      "id": "CAS / CNSA",
+      "label": "CAS / CNSA",
+      "count": 5
+    },
+    {
+      "id": "DLR / Airbus",
+      "label": "DLR / Airbus",
+      "count": 4
+    },
+    {
+      "id": "United States Space Force",
+      "label": "United States Space Force",
+      "count": 3
+    },
+    {
+      "id": "Swarm / SpaceX",
+      "label": "Swarm / SpaceX",
+      "count": 3
+    },
+    {
+      "id": "Japan Meteorological Agency",
+      "label": "Japan Meteorological Agency",
+      "count": 2
+    },
+    {
+      "id": "Canadian Space Agency",
+      "label": "Canadian Space Agency",
+      "count": 2
+    },
+    {
+      "id": "NASA (built/launched) · USGS (operates)",
+      "label": "NASA (built/launched) · USGS (operates)",
+      "count": 2
+    },
+    {
+      "id": "ESA · European Commission (Copernicus)",
+      "label": "ESA · European Commission (Copernicus)",
+      "count": 2
+    },
+    {
+      "id": "NASA (Smithsonian Astrophysical Observatory)",
+      "label": "NASA (Smithsonian Astrophysical Observatory)",
+      "count": 1
+    },
+    {
+      "id": "United States Navy / Space Force",
+      "label": "United States Navy / Space Force",
+      "count": 1
+    },
+    {
+      "id": "NASA (Space Communications and Navigation)",
+      "label": "NASA (Space Communications and Navigation)",
+      "count": 1
+    },
+    {
+      "id": "Intelsat (acquired by SES in 2025)",
+      "label": "Intelsat (acquired by SES in 2025)",
+      "count": 1
+    },
+    {
+      "id": "Viasat Inc.",
+      "label": "Viasat Inc.",
+      "count": 1
+    },
+    {
+      "id": "NASA · JAXA",
+      "label": "NASA · JAXA",
+      "count": 1
+    },
+    {
+      "id": "NOAA · CNES · EUMETSAT · NASA",
+      "label": "NOAA · CNES · EUMETSAT · NASA",
+      "count": 1
+    },
+    {
+      "id": "ESA · EUMETSAT · NASA · NOAA · CNES",
+      "label": "ESA · EUMETSAT · NASA · NOAA · CNES",
+      "count": 1
+    },
+    {
+      "id": "NASA · CNES (with CSA and UK Space Agency)",
+      "label": "NASA · CNES (with CSA and UK Space Agency)",
+      "count": 1
+    },
+    {
+      "id": "NASA · ESA (STScI operates science)",
+      "label": "NASA · ESA (STScI operates science)",
+      "count": 1
+    },
+    {
+      "id": "European Space Agency",
+      "label": "European Space Agency",
+      "count": 1
+    },
+    {
+      "id": "NASA (Penn State University)",
+      "label": "NASA (Penn State University)",
+      "count": 1
+    },
+    {
+      "id": "NASA · US DOE · France · Germany · Italy · Japan · Sweden",
+      "label": "NASA · US DOE · France · Germany · Italy · Japan · Sweden",
+      "count": 1
+    },
+    {
+      "id": "NASA (Caltech)",
+      "label": "NASA (Caltech)",
+      "count": 1
+    },
+    {
+      "id": "NASA · Italian Space Agency (ASI)",
+      "label": "NASA · Italian Space Agency (ASI)",
+      "count": 1
+    },
+    {
+      "id": "NASA · Roscosmos · ESA · JAXA · CSA",
+      "label": "NASA · Roscosmos · ESA · JAXA · CSA",
+      "count": 1
+    },
+    {
+      "id": "China Manned Space Agency (CMSA)",
+      "label": "China Manned Space Agency (CMSA)",
+      "count": 1
+    },
+    {
+      "id": "NOAA · NASA",
+      "label": "NOAA · NASA",
+      "count": 1
+    },
+    {
+      "id": "EUMETSAT · ESA",
+      "label": "EUMETSAT · ESA",
+      "count": 1
+    },
+    {
+      "id": "Spain / Hisdesat",
+      "label": "Spain / Hisdesat",
+      "count": 1
+    },
+    {
+      "id": "NASA · GFZ German Research Centre for Geosciences",
+      "label": "NASA · GFZ German Research Centre for Geosciences",
+      "count": 1
+    },
+    {
+      "id": "US Navy / NASA (dead since 1964)",
+      "label": "US Navy / NASA (dead since 1964)",
+      "count": 1
+    }
+  ],
+  "counts": {
+    "cat": {
+      "navigation": 186,
+      "science": 49,
+      "tech": 2061,
+      "comms-geo": 458,
+      "military": 467,
+      "weather": 73,
+      "earth": 582,
+      "comms-leo": 12227,
+      "station": 19,
+      "derelict": 1
+    },
+    "owner": {
+      "cn": 793,
+      "us": 11716,
+      "other": 2448,
+      "eu": 189,
+      "uk": 664,
+      "ru": 209,
+      "jp": 34,
+      "in": 51,
+      "intl": 19
+    },
+    "orbit": {
+      "GEO": 585,
+      "MEO": 184,
+      "HEO": 42,
+      "LEO": 15312
+    },
+    "operator": {
+      "China Satellite Navigation Office": 17,
+      "China Satellite Navigation Office · PLA Strategic Support Force": 39,
+      "NASA (Smithsonian Astrophysical Observatory)": 1,
+      "Undisclosed": 2274,
+      "ESA": 12,
+      "EUSPA (EU Agency for the Space Programme) · ESA": 49,
+      "NASA SCaN": 7,
+      "European MoD": 11,
+      "US Department of Defense": 46,
+      "Inmarsat / Viasat": 13,
+      "SES S.A.": 69,
+      "Intelsat / SES": 40,
+      "EchoStar / DirecTV": 26,
+      "China Satcom": 41,
+      "National / regional operator": 80,
+      "RSCC / Gazprom": 44,
+      "EUMETSAT": 6,
+      "Eutelsat": 28,
+      "SKY Perfect JSAT": 18,
+      "Viasat": 5,
+      "United States Space Force": 3,
+      "ISRO / INSAT": 6,
+      "ISRO / NavIC": 8,
+      "ISRO": 20,
+      "Japan Meteorological Agency": 2,
+      "China Meteorological Administration": 13,
+      "PLA / CASC": 264,
+      "Roshydromet": 8,
+      "Russian Aerospace Forces": 118,
+      "CNSA / commercial": 128,
+      "United States Navy / Space Force": 1,
+      "NOAA": 10,
+      "Cabinet Office, Government of Japan": 5,
+      "NASA (Space Communications and Navigation)": 1,
+      "Intelsat (acquired by SES in 2025)": 1,
+      "Viasat Inc.": 1,
+      "Roscosmos · Russian Aerospace Forces": 28,
+      "US Space Force": 30,
+      "United States Space Force (Space Delta 8)": 10,
+      "Iridium Communications Inc.": 80,
+      "Eutelsat Group": 651,
+      "Planet Labs": 25,
+      "Planet Labs PBC": 99,
+      "NASA": 9,
+      "NASA / USGS": 7,
+      "Roscosmos": 11,
+      "KARI (South Korea)": 5,
+      "Italian Space Agency": 5,
+      "DLR / Airbus": 4,
+      "Maxar Technologies": 10,
+      "Canadian Space Agency": 2,
+      "JAXA": 9,
+      "CNES / Airbus": 7,
+      "NASA (built/launched) · USGS (operates)": 2,
+      "NASA · JAXA": 1,
+      "ESA · European Commission (Copernicus)": 2,
+      "NOAA · CNES · EUMETSAT · NASA": 1,
+      "ESA / Copernicus": 8,
+      "ESA · EUMETSAT · NASA · NOAA · CNES": 1,
+      "NASA · CNES (with CSA and UK Space Agency)": 1,
+      "NASA · ESA (STScI operates science)": 1,
+      "European Space Agency": 1,
+      "NASA (Penn State University)": 1,
+      "NASA · US DOE · France · Germany · Italy · Japan · Sweden": 1,
+      "NASA (Caltech)": 1,
+      "Swarm / SpaceX": 3,
+      "CAS / CNSA": 5,
+      "NASA · Italian Space Agency (ASI)": 1,
+      "Spire Global": 83,
+      "SpaceX (Space Exploration Technologies Corp.)": 10773,
+      "NASA · Roscosmos · ESA · JAXA · CSA": 1,
+      "China Manned Space Agency (CMSA)": 1,
+      "Human spaceflight": 17,
+      "NOAA · NASA": 1,
+      "EUMETSAT · ESA": 1,
+      "ORBCOMM": 14,
+      "Globalstar": 28,
+      "Spain / Hisdesat": 1,
+      "NASA · GFZ German Research Centre for Geosciences": 1,
+      "China SatNet": 46,
+      "Commercial imaging": 86,
+      "Spacesail / Qianfan": 240,
+      "Amazon Kuiper": 392,
+      "US Navy / NASA (dead since 1964)": 1
+    }
+  },
+  "topOperators": [
+    [
+      "SpaceX (Space Exploration Technologies Corp.)",
+      10773
+    ],
+    [
+      "Undisclosed",
+      2274
+    ],
+    [
+      "Eutelsat Group",
+      651
+    ],
+    [
+      "Amazon Kuiper",
+      392
+    ],
+    [
+      "PLA / CASC",
+      264
+    ],
+    [
+      "Spacesail / Qianfan",
+      240
+    ],
+    [
+      "CNSA / commercial",
+      128
+    ],
+    [
+      "Russian Aerospace Forces",
+      118
+    ],
+    [
+      "Planet Labs PBC",
+      99
+    ],
+    [
+      "Commercial imaging",
+      86
+    ],
+    [
+      "Spire Global",
+      83
+    ],
+    [
+      "National / regional operator",
+      80
+    ],
+    [
+      "Iridium Communications Inc.",
+      80
+    ],
+    [
+      "SES S.A.",
+      69
+    ],
+    [
+      "EUSPA (EU Agency for the Space Programme) · ESA",
+      49
+    ],
+    [
+      "US Department of Defense",
+      46
+    ],
+    [
+      "China SatNet",
+      46
+    ],
+    [
+      "RSCC / Gazprom",
+      44
+    ],
+    [
+      "China Satcom",
+      41
+    ],
+    [
+      "Intelsat / SES",
+      40
+    ],
+    [
+      "China Satellite Navigation Office · PLA Strategic Support Force",
+      39
+    ],
+    [
+      "US Space Force",
+      30
+    ],
+    [
+      "Eutelsat",
+      28
+    ],
+    [
+      "Roscosmos · Russian Aerospace Forces",
+      28
+    ],
+    [
+      "Globalstar",
+      28
+    ]
+  ]
+}
