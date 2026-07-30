@@ -48,8 +48,11 @@ html, body {
   top: 1.25rem;
   left: 1.25rem;
   z-index: 2;
-  max-width: min(22rem, calc(100vw - 2.5rem));
+  /* Syne "Overhead" needs more than 22rem at max display size; Firefox was
+     clipping the final glyph when color:transparent + background-clip:text. */
+  max-width: min(32rem, calc(100vw - 2.5rem));
   pointer-events: none;
+  overflow: visible;
 }
 
 .brand h1 {
@@ -58,7 +61,12 @@ html, body {
   font-weight: 800;
   font-size: clamp(2.4rem, 5vw, 3.4rem);
   letter-spacing: -0.04em;
-  line-height: 0.95;
+  line-height: 1.05;
+  white-space: nowrap;
+  width: max-content;
+  max-width: 100%;
+  /* Extra ink box so Firefox paints the last letter under background-clip:text */
+  padding-inline-end: 0.15em;
   background: linear-gradient(120deg, #f4f8ff 20%, var(--accent) 140%);
   -webkit-background-clip: text;
   background-clip: text;
