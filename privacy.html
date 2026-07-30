@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Privacy — Overhead</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600&family=Syne:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/app.css" />
+  <style>
+    .privacy {
+      max-width: 40rem;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 4rem;
+      position: relative;
+      z-index: 2;
+    }
+    .privacy h1 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      margin: 0 0 0.5rem;
+    }
+    .privacy h2 {
+      font-size: 1.05rem;
+      margin: 1.75rem 0 0.5rem;
+    }
+    .privacy p, .privacy li {
+      color: var(--muted);
+      line-height: 1.55;
+    }
+    .privacy a { color: var(--accent); }
+    .privacy .back {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--line);
+    }
+  </style>
+</head>
+<body>
+  <div class="privacy">
+    <a class="back" href="./">← Overhead</a>
+    <h1>Privacy</h1>
+    <p>Last updated: 30 July 2026</p>
+
+    <h2>What this site is</h2>
+    <p>
+      Overhead is a static visualization of Earth-orbiting satellites hosted on GitHub Pages.
+      Address lookup uses OpenStreetMap Nominatim. Satellite imagery browse frames use NASA GIBS.
+      Those services receive the requests your browser makes when you use those features.
+    </p>
+
+    <h2>Optional analytics</h2>
+    <p>
+      If you click <strong>Accept</strong> on the consent banner, Overhead sends first-party analytics
+      events to a collector we operate on Google Cloud (Cloud Run + BigQuery, region europe-west1).
+      This is not Google Analytics advertising products. We do not sell data or show ads.
+    </p>
+    <p>With consent we may record:</p>
+    <ul>
+      <li>Page views, session and engagement timing</li>
+      <li>Referrer and UTM campaign parameters</li>
+      <li>Approximate device class, browser, and OS</li>
+      <li>Country derived from IP in memory (raw IP is not stored)</li>
+      <li>In-app events such as selecting a satellite, searching, or zooming to a place
+          (search text is not stored—only that a search occurred)</li>
+    </ul>
+    <p>
+      A random client id is stored in your browser’s <code>localStorage</code> after consent.
+      If you click <strong>Decline</strong>, we send no analytics beacons and store only your choice.
+    </p>
+
+    <h2>Legal basis (GDPR)</h2>
+    <p>
+      Analytics run only with your consent (Art. 6(1)(a) GDPR / ePrivacy). You can withdraw anytime:
+      clear site data for this origin, or
+      <button type="button" id="withdraw" style="all:unset;color:var(--accent);cursor:pointer;text-decoration:underline">withdraw consent here</button>.
+    </p>
+
+    <h2>Processor</h2>
+    <p>
+      Google Cloud acts as a data processor under Google’s Cloud Data Processing Addendum.
+      Data is stored in the European Union (europe-west1) when possible.
+    </p>
+
+    <h2>Contact</h2>
+    <p>
+      Questions about this policy: open an issue on
+      <a href="https://github.com/goldsteinmarcmd/overhead">github.com/goldsteinmarcmd/overhead</a>.
+    </p>
+  </div>
+  <script>
+    document.getElementById('withdraw')?.addEventListener('click', () => {
+      try {
+        localStorage.setItem('overhead_consent', 'denied');
+        localStorage.removeItem('overhead_cid');
+        localStorage.removeItem('overhead_sid');
+        localStorage.removeItem('overhead_sid_ts');
+      } catch {}
+      alert('Consent withdrawn. Analytics will not run on this browser unless you Accept again.');
+    });
+  </script>
+</body>
+</html>

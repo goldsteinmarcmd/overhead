@@ -1,0 +1,19 @@
+{
+  "name": "overhead-analytics",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@google-cloud/bigquery": "^7.9.0",
+    "express": "^4.21.2",
+    "geoip-lite": "^1.4.10",
+    "ua-parser-js": "^1.0.39",
+    "uuid": "^11.0.5"
+  }
+}

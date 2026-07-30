@@ -3,6 +3,11 @@ import { OrbitControls } from '../vendor/OrbitControls.js';
 import { imageryFor, fillLastImage } from './imagery.js';
 import { geocode, formatLatLon } from './geocode.js';
 import { latLonToScene, findOverhead, lookAngleAt, compass } from './sky.js';
+import { initAnalytics, track } from './analytics.js';
+
+/** Cloud Run collector — set after deploy; empty disables beacons. */
+const ANALYTICS_COLLECT_URL = window.__OVERHEAD_ANALYTICS_URL
+  || 'https://overhead-analytics-xytglqjhja-ew.a.run.app';
 
 const EARTH_RADIUS_KM = 6371.0;
 const SCENE_EARTH_R = 1.0;
@@ -339,6 +344,9 @@ for (let i = 0; i < n; i++) {
 buildFilters();
 propagate(true);
 statusEl.textContent = `${meta.total.toLocaleString()} objects · generated ${fmtDate(meta.generated)}`;
+initAnalytics({
+  collectUrl: ANALYTICS_COLLECT_URL.includes('PLACEHOLDER') ? '' : ANALYTICS_COLLECT_URL,
+});
 
 // ----------------------------------------------------------------- UI
 
@@ -386,6 +394,7 @@ searchInput.addEventListener('input', () => {
 searchResults.addEventListener('click', (e) => {
   const li = e.target.closest('li');
   if (!li) return;
+  track('search', { kind: 'sat', q_len: searchInput.value.trim().length });
   selectSat(+li.dataset.i);
   searchResults.hidden = true;
   searchInput.value = state.sats[+li.dataset.i][fi.name];
@@ -598,6 +607,11 @@ function selectSat(i, opts = {}) {
   const row = state.sats[i];
   const dossierKey = row[fi.dossier];
   const dossier = dossierKey ? dossierByKey.get(String(dossierKey)) : null;
+  track('select_sat', {
+    norad: row[fi.norad],
+    category: cats[row[fi.cat]]?.id || '',
+    has_dossier: Boolean(dossier),
+  });
   renderPanel(row, dossier);
   setPanelOpen(true);
   updateOrbitLine();
@@ -651,6 +665,10 @@ function updateOrbitLine() {
 
 function setPlace(place) {
   state.place = place;
+  track('place_zoom', {
+    kind: place.kind || 'place',
+    has_coords: Number.isFinite(place.lat) && Number.isFinite(place.lon),
+  });
   const p = latLonToScene(place.lat, place.lon, SCENE_EARTH_R);
   markerPos.set(p.x, p.y, p.z);
   markerGroup.position.copy(markerPos);
@@ -1010,12 +1028,14 @@ function buildFilters() {
     document.querySelectorAll('.filter-picture-btn').forEach((b) => {
       b.classList.toggle('active', b.dataset.picture === state.pictureFilter);
     });
+    track('filter_change', { kind: 'picture', value: state.pictureFilter });
     propagate(true);
   });
 }
 
 /** Select or clear every item in the active filter header. */
 function setFilterGroup(mode, enabled) {
+  track('filter_change', { kind: mode, bulk: enabled ? 'all' : 'none' });
   if (mode === 'cat') {
     state.enabledCat.clear();
     if (enabled) cats.forEach((c) => state.enabledCat.add(c.id));

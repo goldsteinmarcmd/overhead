@@ -13,6 +13,19 @@ Interactive globe of Earth-orbiting satellites — what they’re for, what they
 - Optional last-known imagery via NASA GIBS for mapped sensors
 - Address lookup (OpenStreetMap Nominatim) to see what’s overhead
 
+## Analytics (first-party, GDPR)
+
+Optional consent-gated analytics on Google Cloud free tier (Cloud Run + BigQuery, `europe-west1`). Not Google Analytics ads products.
+
+- Collector / dashboard: see Cloud Run service `overhead-analytics` in project `overhead-analytics-260730`
+- Site sends events only after **Accept** on the consent banner ([privacy.html](privacy.html))
+- Redeploy collector: `./analytics/deploy.sh`
+- Open dashboard: Cloud Run `/dashboard` URL + secret from Secret Manager:
+
+```bash
+gcloud secrets versions access latest --secret=dashboard-secret --project=overhead-analytics-260730
+```
+
 ## Local development
 
 ```bash

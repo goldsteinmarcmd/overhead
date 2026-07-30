@@ -1164,6 +1164,70 @@ html, body {
 
 .credit a:hover { text-decoration: underline; }
 
+/* GDPR consent — blocks tracking until Accept */
+#consent-banner {
+  position: fixed;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 40;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  animation: fade-up 0.45s ease-out both;
+}
+
+#consent-banner .consent-inner {
+  pointer-events: auto;
+  max-width: 36rem;
+  width: 100%;
+  padding: 1rem 1.1rem;
+  border-radius: 14px;
+  background: rgba(8, 14, 26, 0.94);
+  border: 1px solid var(--line);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+}
+
+#consent-banner p {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+#consent-banner a {
+  color: var(--accent);
+}
+
+.consent-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  margin-top: 0.85rem;
+}
+
+.consent-actions button {
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 0.45rem 0.9rem;
+  cursor: pointer;
+}
+
+.consent-decline {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--ink);
+}
+
+.consent-accept {
+  background: var(--accent);
+  border: 0;
+  color: #05080f;
+}
+
 @keyframes brand-in {
   from { opacity: 0; transform: translateY(12px) scale(0.98); filter: blur(4px); }
   to   { opacity: 1; transform: none; filter: none; }

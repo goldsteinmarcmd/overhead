@@ -19,3 +19,4 @@ Untitled/
 *.log
 .cache/
 node_modules/
+analytics/node_modules/
