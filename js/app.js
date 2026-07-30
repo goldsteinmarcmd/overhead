@@ -609,6 +609,7 @@ function selectSat(i, opts = {}) {
   const dossier = dossierKey ? dossierByKey.get(String(dossierKey)) : null;
   track('select_sat', {
     norad: row[fi.norad],
+    name: String(dossier?.shortName || row[fi.name] || '').slice(0, 80),
     category: cats[row[fi.cat]]?.id || '',
     has_dossier: Boolean(dossier),
   });

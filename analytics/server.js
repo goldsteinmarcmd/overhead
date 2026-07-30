@@ -337,7 +337,21 @@ SELECT
   (SELECT ARRAY_AGG(STRUCT(day, views) ORDER BY day)
      FROM (SELECT FORMAT_DATE('%Y-%m-%d', DATE(received_at)) AS day,
                   COUNTIF(event_name = 'page_view') AS views
-           FROM base GROUP BY day)) AS daily
+           FROM base GROUP BY day)) AS daily,
+  (SELECT COUNT(*) FROM base WHERE event_name = 'select_sat') AS sat_clicks,
+  (SELECT COUNT(DISTINCT client_id) FROM base
+     WHERE event_name = 'select_sat' AND client_id IS NOT NULL) AS sat_click_users,
+  (SELECT ARRAY_AGG(STRUCT(norad, name, clicks, unique_users) ORDER BY clicks DESC LIMIT 25)
+     FROM (
+       SELECT
+         IFNULL(JSON_VALUE(event_params, '$.norad'), '(unknown)') AS norad,
+         ANY_VALUE(NULLIF(JSON_VALUE(event_params, '$.name'), '')) AS name,
+         COUNT(*) AS clicks,
+         COUNT(DISTINCT client_id) AS unique_users
+       FROM base
+       WHERE event_name = 'select_sat'
+       GROUP BY norad
+     )) AS satellites
     `,
     params: { days },
   });
@@ -351,11 +365,15 @@ SELECT
     users: Number(r.users || 0),
     sessions: Number(r.sessions || 0),
     bounce_rate: sessionRows ? bounced / sessionRows : 0,
+    sat_clicks: Number(r.sat_clicks || 0),
+    sat_click_users: Number(r.sat_click_users || 0),
     referrers: r.referrers || [],
     countries: r.countries || [],
     devices: r.devices || [],
     events: r.events || [],
     campaigns: r.campaigns || [],
     daily: r.daily || [],
+    satellites: r.satellites || [],
+    refreshed_at: new Date().toISOString(),
   };
 }

@@ -144,12 +144,17 @@
     }
 
     function render(data) {
-      metaEl.textContent = `Last ${data.days} days · first-party · GDPR consent-gated`;
+      const when = data.refreshed_at
+        ? new Date(data.refreshed_at).toLocaleTimeString()
+        : 'now';
+      metaEl.textContent = `Last ${data.days} days · refreshed ${when} · auto every 30s · BigQuery (~seconds lag)`;
       cardsEl.innerHTML = [
         ['Users', fmt(data.users)],
         ['Sessions', fmt(data.sessions)],
         ['Pageviews', fmt(data.pageviews)],
         ['Bounce rate', pct(data.bounce_rate)],
+        ['Sat clicks', fmt(data.sat_clicks)],
+        ['Unique sat clickers', fmt(data.sat_click_users)],
       ].map(([label, value]) => `
         <div class="card"><div class="label">${label}</div><div class="value">${value}</div></div>
       `).join('');
@@ -165,12 +170,36 @@
           <h2>Pageviews / day</h2>
           <div class="chart">${chart || '<p class="loading">No data yet</p>'}</div>
         </section>
+        ${satSection(data.satellites)}
         ${listSection('Top referrers', data.referrers)}
         ${listSection('Countries', data.countries)}
         ${listSection('Devices', data.devices)}
         ${listSection('Events', data.events)}
         ${listSection('Campaigns (UTM)', data.campaigns)}
       `;
+    }
+
+    function satSection(rows) {
+      const max = Math.max(1, ...(rows || []).map((r) => Number(r.clicks || 0)));
+      const body = (rows || []).length
+        ? `<table>
+            <tr><th>Satellite</th><th>Clicks</th><th>Unique</th></tr>
+            ${(rows || []).map((r) => {
+              const label = r.name
+                ? `${escapeHtml(r.name)} <span style="color:var(--muted);font-size:.75rem">NORAD ${escapeHtml(r.norad)}</span>`
+                : `NORAD ${escapeHtml(r.norad)}`;
+              return `
+              <tr>
+                <td>${label}</td>
+                <td>${fmt(r.clicks)}</td>
+                <td>${fmt(r.unique_users)}</td>
+              </tr>
+              <tr><td colspan="3"><div class="bar"><i style="width:${(Number(r.clicks || 0) / max) * 100}%"></i></div></td></tr>
+            `;
+            }).join('')}
+          </table>`
+        : '<p class="loading">No satellite clicks yet</p>';
+      return `<section style="grid-column:1/-1"><h2>Top satellites clicked</h2>${body}</section>`;
     }
 
     function listSection(title, rows) {
@@ -195,6 +224,7 @@
 
     daysEl.addEventListener('change', load);
     load();
+    setInterval(load, 30_000);
   </script>
 </body>
 </html>
