@@ -74,9 +74,8 @@
 
     <h2>Legal basis (GDPR)</h2>
     <p>
-      Analytics run only with your consent (Art. 6(1)(a) GDPR / ePrivacy). You can withdraw anytime:
-      clear site data for this origin, or
-      <button type="button" id="withdraw" style="all:unset;color:var(--accent);cursor:pointer;text-decoration:underline">withdraw consent here</button>.
+      Analytics run only with your consent (Art. 6(1)(a) GDPR / ePrivacy).
+      You can change your choice below, or clear site data for this origin.
     </p>
 
     <h2>Processor</h2>
@@ -85,21 +84,36 @@
       Data is stored in the European Union (europe-west1) when possible.
     </p>
 
+    <h2>Your choice</h2>
+    <p>
+      <button type="button" id="accept" style="all:unset;color:var(--accent);cursor:pointer;text-decoration:underline">Accept analytics</button>
+      ·
+      <button type="button" id="withdraw" style="all:unset;color:var(--accent);cursor:pointer;text-decoration:underline">Withdraw consent</button>
+    </p>
+
     <h2>Contact</h2>
     <p>
       Questions about this policy: open an issue on
       <a href="https://github.com/goldsteinmarcmd/overhead">github.com/goldsteinmarcmd/overhead</a>.
     </p>
   </div>
-  <script>
+  <script type="module">
+    import { initAnalytics, setConsent } from './js/analytics.js';
+    initAnalytics({
+      collectUrl: 'https://overhead-analytics-xytglqjhja-ew.a.run.app',
+    });
+    document.getElementById('accept')?.addEventListener('click', () => {
+      setConsent('granted');
+      alert('Analytics accepted. Events will count from this browser.');
+    });
     document.getElementById('withdraw')?.addEventListener('click', () => {
+      setConsent('denied');
       try {
-        localStorage.setItem('overhead_consent', 'denied');
         localStorage.removeItem('overhead_cid');
         localStorage.removeItem('overhead_sid');
         localStorage.removeItem('overhead_sid_ts');
       } catch {}
-      alert('Consent withdrawn. Analytics will not run on this browser unless you Accept again.');
+      alert('Consent withdrawn. Analytics will not run unless you Accept again.');
     });
   </script>
 </body>

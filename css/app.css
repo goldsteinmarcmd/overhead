@@ -1228,6 +1228,22 @@ html, body {
   color: #05080f;
 }
 
+/* If they already declined, still offer a quiet way back */
+.consent-nudge {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 35;
+  font-size: 0.72rem;
+  color: var(--muted);
+  background: rgba(8, 14, 26, 0.85);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.35rem 0.7rem;
+  cursor: pointer;
+}
+.consent-nudge:hover { color: var(--ink); }
+
 @keyframes brand-in {
   from { opacity: 0; transform: translateY(12px) scale(0.98); filter: blur(4px); }
   to   { opacity: 1; transform: none; filter: none; }

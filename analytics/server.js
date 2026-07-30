@@ -46,7 +46,20 @@ const app = express();
 
 app.disable('x-powered-by');
 app.set('trust proxy', true);
-app.use(express.json({ limit: '16kb' }));
+// Accept JSON as application/json or text/plain (browser beacon-friendly)
+app.use(express.text({ type: ['application/json', 'text/plain'], limit: '16kb' }));
+app.use((req, res, next) => {
+  if (typeof req.body === 'string' && req.body.length) {
+    try {
+      req.body = JSON.parse(req.body);
+    } catch {
+      req.body = {};
+    }
+  } else if (!req.body || typeof req.body !== 'object') {
+    req.body = {};
+  }
+  next();
+});
 
 app.use((req, res, next) => {
   const origin = req.headers.origin;

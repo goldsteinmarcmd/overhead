@@ -43,6 +43,15 @@ export function setConsent(value) {
   } else {
     hideBanner();
   }
+  window.dispatchEvent(new CustomEvent('overhead-consent', { detail: value }));
+}
+
+/** Re-open the banner even if the visitor previously chose Decline. */
+export function resetConsentPrompt() {
+  try {
+    localStorage.removeItem(CONSENT_KEY);
+  } catch { /* ignore */ }
+  showBanner();
 }
 
 export function initAnalytics({ collectUrl } = {}) {
@@ -57,6 +66,8 @@ export function initAnalytics({ collectUrl } = {}) {
     track('page_view');
   } else if (consent !== 'denied') {
     showBanner();
+  } else {
+    showNudge();
   }
 
   document.addEventListener('visibilitychange', () => {
@@ -122,21 +133,22 @@ function send(eventName, clientId, sessionId, eventParams) {
 
   const body = JSON.stringify(payload);
   const url = COLLECT_URL.replace(/\/$/, '') + '/collect';
-  try {
-    if (navigator.sendBeacon) {
-      const blob = new Blob([body], { type: 'application/json' });
-      if (navigator.sendBeacon(url, blob)) return;
-    }
-  } catch { /* fall through */ }
 
+  // Prefer fetch: sendBeacon + application/json is unreliable cross-origin (no preflight).
   fetch(url, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
     body,
     keepalive: true,
     mode: 'cors',
     credentials: 'omit',
-  }).catch(() => {});
+  }).catch(() => {
+    try {
+      // text/plain is a "simple" content-type so beacon CORS is more likely to succeed
+      const blob = new Blob([body], { type: 'text/plain;charset=UTF-8' });
+      navigator.sendBeacon?.(url, blob);
+    } catch { /* ignore */ }
+  });
 }
 
 function flushEngagement() {
@@ -190,6 +202,21 @@ function showBanner() {
 function hideBanner() {
   bannerEl?.remove();
   bannerEl = null;
+  document.getElementById('consent-nudge')?.remove();
+}
+
+function showNudge() {
+  if (document.getElementById('consent-nudge')) return;
+  const nudge = document.createElement('button');
+  nudge.type = 'button';
+  nudge.id = 'consent-nudge';
+  nudge.className = 'consent-nudge';
+  nudge.textContent = 'Enable analytics';
+  nudge.addEventListener('click', () => {
+    nudge.remove();
+    resetConsentPrompt();
+  });
+  document.body.appendChild(nudge);
 }
 
 function read(key) {
