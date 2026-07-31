@@ -22,6 +22,17 @@ const FLIGHT_MS = 1200;
 const SKY_UPDATE_MS = 1500;     // slower than propagation so rows stay clickable
 const SKY_MAX_ROWS = 40;
 const SKY_MAX_RAYS = 14;
+/** Fraction of the limiting viewport axis that Earth (radius 1) should fill on load. */
+const INITIAL_EARTH_FILL = 0.58;
+
+/** Camera distance so Earth frames like the mobile reference zoom on every refresh. */
+function initialViewDistance(fovDeg, aspect) {
+  const vFov = THREE.MathUtils.degToRad(fovDeg);
+  const limitingFov = aspect < 1
+    ? 2 * Math.atan(Math.tan(vFov / 2) * aspect)
+    : vFov;
+  return SCENE_EARTH_R / Math.tan((INITIAL_EARTH_FILL * limitingFov) / 2);
+}
 
 const $ = (id) => document.getElementById(id);
 
@@ -93,7 +104,6 @@ renderer.outputColorSpace = THREE.SRGBColorSpace;
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(45, innerWidth / innerHeight, 0.01, 200);
-camera.position.set(0, 0.35, 3.1);
 
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
@@ -103,6 +113,20 @@ controls.maxDistance = 12;
 controls.enablePan = false;
 controls.autoRotate = true;
 controls.autoRotateSpeed = 0.22;
+
+/** Keep the reference framing until the user zooms/pans the globe. */
+let viewFramingLocked = false;
+function applyInitialFraming() {
+  if (viewFramingLocked) return;
+  const dist = initialViewDistance(camera.fov, camera.aspect);
+  camera.position
+    .set(0, 0.12, 1)
+    .normalize()
+    .multiplyScalar(dist);
+  controls.target.set(0, 0, 0);
+  controls.update();
+}
+applyInitialFraming();
 
 scene.add(new THREE.AmbientLight(0x6a7a96, 0.55));
 const sun = new THREE.DirectionalLight(0xfff2dd, 1.35);
@@ -402,10 +426,15 @@ searchResults.addEventListener('click', (e) => {
 
 // Hand the camera back the moment they grab or zoom it.
 canvas.addEventListener('pointerdown', () => {
+  viewFramingLocked = true;
   controls.autoRotate = false;
   state.flight = null;
 });
-canvas.addEventListener('wheel', () => { state.flight = null; }, { passive: true });
+canvas.addEventListener('wheel', () => {
+  viewFramingLocked = true;
+  state.flight = null;
+}, { passive: true });
+controls.addEventListener('start', () => { viewFramingLocked = true; });
 
 canvas.addEventListener('click', (e) => {
   const rect = canvas.getBoundingClientRect();
@@ -508,6 +537,8 @@ window.addEventListener('resize', () => {
   camera.aspect = innerWidth / innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(innerWidth, innerHeight);
+  // Phones often report the wrong size on the first paint; re-frame until touched.
+  applyInitialFraming();
 });
 
 // ----------------------------------------------------------------- loop
@@ -697,6 +728,7 @@ function clearPlace() {
 function flyTo(target, distance, ms = FLIGHT_MS) {
   const to = target.clone().normalize();
   if (!Number.isFinite(to.lengthSq()) || to.lengthSq() === 0) return;
+  viewFramingLocked = true;
   state.flight = {
     fromDir: camera.position.clone().normalize(),
     fromDist: camera.position.length(),
