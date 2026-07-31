@@ -97,7 +97,28 @@ const skyRowCache = new Map();
 
 // ----------------------------------------------------------------- three
 
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+function createRenderer() {
+  // Some Android Chrome / Adreno configs fail antialiased contexts; fall back.
+  try {
+    const hi = new THREE.WebGLRenderer({
+      canvas,
+      antialias: true,
+      alpha: true,
+      powerPreference: 'high-performance',
+      failIfMajorPerformanceCaveat: false,
+    });
+    if (hi.getContext()) return hi;
+  } catch {
+    /* try again without AA */
+  }
+  return new THREE.WebGLRenderer({ canvas, antialias: false, alpha: true });
+}
+
+const renderer = createRenderer();
+if (!renderer.getContext()) {
+  statusEl.textContent = 'WebGL unavailable in this browser — Overhead can’t render the globe.';
+  throw new Error('WebGL unavailable');
+}
 renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 renderer.setSize(innerWidth, innerHeight);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -137,11 +158,30 @@ const earthGroup = new THREE.Group();
 scene.add(earthGroup);
 
 const loader = new THREE.TextureLoader();
-const [dayMap, nightMap, topoMap] = await Promise.all([
-  loadTex('assets/earth-day.jpg'),
-  loadTex('assets/earth-night.jpg'),
-  loadTex('assets/earth-topo.png'),
+
+// Kick catalog download while Earth textures load — biggest win on phones.
+statusEl.textContent = 'Loading Overhead…';
+const dataPromise = Promise.all([
+  fetchJson('data/meta.json'),
+  fetchJson('data/catalog.json'),
+  fetchJson('data/curated.json'),
+  fetchJson('data/dimensions.json'),
 ]);
+
+let dayMap;
+let nightMap;
+let topoMap;
+try {
+  [dayMap, nightMap, topoMap] = await Promise.all([
+    loadTex('assets/earth-day.jpg'),
+    loadTex('assets/earth-night.jpg'),
+    loadTex('assets/earth-topo.png'),
+  ]);
+} catch (err) {
+  console.error(err);
+  statusEl.textContent = 'Couldn’t load Earth textures — refresh to try again.';
+  throw err;
+}
 
 const earthMat = new THREE.MeshPhongMaterial({
   map: dayMap,
@@ -266,20 +306,23 @@ const pointer = new THREE.Vector2();
 
 statusEl.textContent = 'Fetching catalog…';
 
-const [meta, catalog, curated, byOperatorDoc, byCountryDoc, dimensions] = await Promise.all([
-  fetch('data/meta.json').then((r) => r.json()),
-  fetch('data/catalog.json').then((r) => r.json()),
-  fetch('data/curated.json').then((r) => r.json()),
-  fetch('data/by-operator.json').then((r) => r.json()),
-  fetch('data/by-country.json').then((r) => r.json()),
-  fetch('data/dimensions.json').then((r) => r.json()),
-]);
+let meta;
+let catalog;
+let curated;
+let dimensions;
+try {
+  // Started earlier, in parallel with the Earth textures.
+  [meta, catalog, curated, dimensions] = await dataPromise;
+} catch (err) {
+  console.error(err);
+  statusEl.textContent = 'Couldn’t load the satellite catalog — check your connection and refresh.';
+  throw err;
+}
 
 state.meta = meta;
 state.curated = curated;
-state.byOperator = byOperatorDoc.operators;
-state.byCountry = byCountryDoc.countries;
 state.dimensions = dimensions;
+// Owner/country expand indexes (~5 MB) load on demand — see ensureBrowseIndex.
 
 const lengthByKey = new Map();
 for (const d of dimensions.satellites) {
@@ -335,6 +378,8 @@ state.lengthM = new Float32Array(n);
 state.visible = new Uint8Array(n);
 
 const tmpColor = new THREE.Color();
+const SATREC_CHUNK = 800;
+statusEl.textContent = 'Preparing orbits…';
 for (let i = 0; i < n; i++) {
   const row = catalog.sats[i];
   state.noradToIdx.set(row[fi.norad], i);
@@ -351,6 +396,11 @@ for (let i = 0; i < n; i++) {
     state.satrecs[i] = satellite.twoline2satrec(row[fi.l1], row[fi.l2]);
   } catch {
     state.satrecs[i] = null;
+  }
+  // Yield so Chrome on phones doesn’t freeze on ~16k TLE parses.
+  if (i > 0 && i % SATREC_CHUNK === 0) {
+    statusEl.textContent = `Preparing orbits… ${Math.round((i / n) * 100)}%`;
+    await new Promise((r) => setTimeout(r, 0));
   }
 }
 
@@ -1227,9 +1277,17 @@ function renderCountryFilterList(countryCounts) {
   }
 }
 
-function fillExpandBody(body, kind, id) {
+async function fillExpandBody(body, kind, id) {
   if (!body || !id) return;
-  const bucket = kind === 'operator' ? state.byOperator[id] : state.byCountry[id];
+  body.innerHTML = `<p class="expand-more">Loading…</p>`;
+  try {
+    await ensureBrowseIndex(kind);
+  } catch (err) {
+    console.error(err);
+    body.innerHTML = `<p class="expand-more">Couldn’t load satellite list.</p>`;
+    return;
+  }
+  const bucket = kind === 'operator' ? state.byOperator?.[id] : state.byCountry?.[id];
   if (!bucket) {
     body.innerHTML = `<p class="expand-more">No satellites found.</p>`;
     return;
@@ -1263,8 +1321,15 @@ function fillExpandBody(body, kind, id) {
   `;
 }
 
-function openBrowse(kind, id) {
-  const bucket = kind === 'operator' ? state.byOperator[id] : state.byCountry[id];
+async function openBrowse(kind, id) {
+  try {
+    await ensureBrowseIndex(kind);
+  } catch (err) {
+    console.error(err);
+    statusEl.textContent = 'Couldn’t load that satellite list — try again.';
+    return;
+  }
+  const bucket = kind === 'operator' ? state.byOperator?.[id] : state.byCountry?.[id];
   if (!bucket) return;
 
   state.expandQuery = '';
@@ -1515,4 +1580,32 @@ function loadTex(url) {
       resolve(t);
     }, undefined, reject);
   });
+}
+
+function fetchJson(url) {
+  return fetch(url).then(async (r) => {
+    if (!r.ok) throw new Error(`${url} → HTTP ${r.status}`);
+    return r.json();
+  });
+}
+
+/** Owner/country expand indexes are large; fetch only when first needed. */
+const browseIndexInflight = { operator: null, country: null };
+function ensureBrowseIndex(kind) {
+  if (kind === 'operator') {
+    if (state.byOperator) return Promise.resolve();
+    if (!browseIndexInflight.operator) {
+      browseIndexInflight.operator = fetchJson('data/by-operator.json')
+        .then((doc) => { state.byOperator = doc.operators; })
+        .finally(() => { browseIndexInflight.operator = null; });
+    }
+    return browseIndexInflight.operator;
+  }
+  if (state.byCountry) return Promise.resolve();
+  if (!browseIndexInflight.country) {
+    browseIndexInflight.country = fetchJson('data/by-country.json')
+      .then((doc) => { state.byCountry = doc.countries; })
+      .finally(() => { browseIndexInflight.country = null; });
+  }
+  return browseIndexInflight.country;
 }
