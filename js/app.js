@@ -1012,26 +1012,45 @@ function buildFilters() {
       filtersCatEl.hidden = mode !== 'cat';
       filtersOwnerEl.hidden = mode !== 'owner';
       filtersCountryEl.hidden = mode !== 'country';
+      syncBulkToggleUi();
     });
   });
 
-  document.querySelector('.filter-bulk')?.addEventListener('click', (e) => {
-    const btn = e.target.closest('[data-bulk]');
-    if (!btn) return;
+  const bulkToggle = $('bulk-toggle');
+  bulkToggle?.addEventListener('click', () => {
     const mode = document.querySelector('.filter-tab.active')?.dataset.mode || 'cat';
-    setFilterGroup(mode, btn.dataset.bulk === 'all');
+    const allOn = filterGroupFullyEnabled(mode);
+    setFilterGroup(mode, !allOn);
   });
 
-  document.querySelector('.filter-picture')?.addEventListener('click', (e) => {
+  const pictureBtn = $('picture-menu-btn');
+  const pictureMenu = $('picture-menu');
+  pictureBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const open = pictureMenu.hidden;
+    pictureMenu.hidden = !open;
+    pictureBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  pictureMenu?.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-picture]');
     if (!btn) return;
     state.pictureFilter = btn.dataset.picture;
-    document.querySelectorAll('.filter-picture-btn').forEach((b) => {
-      b.classList.toggle('active', b.dataset.picture === state.pictureFilter);
-    });
+    syncPictureFilterUi();
+    pictureMenu.hidden = true;
+    pictureBtn.setAttribute('aria-expanded', 'false');
     track('filter_change', { kind: 'picture', value: state.pictureFilter });
     propagate(true);
   });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.filter-picture-wrap') && pictureMenu && !pictureMenu.hidden) {
+      pictureMenu.hidden = true;
+      pictureBtn?.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // Keep Extra menu from fighting the globe on first paint; sync labels.
+  syncBulkToggleUi();
+  syncPictureFilterUi();
 }
 
 /** Select or clear every item in the active filter header. */
@@ -1052,7 +1071,38 @@ function setFilterGroup(mode, enabled) {
     if (enabled) countries.forEach((c) => state.enabledCountry.add(c.id));
     renderCountryFilterList(state.meta.counts.owner || {});
   }
+  syncBulkToggleUi();
   propagate(true);
+}
+
+function filterGroupFullyEnabled(mode) {
+  if (mode === 'cat') return cats.every((c) => state.enabledCat.has(c.id));
+  if (mode === 'owner') return operators.every((o) => state.enabledOperator.has(o.id));
+  if (mode === 'country') return countries.every((c) => state.enabledCountry.has(c.id));
+  return true;
+}
+
+function syncBulkToggleUi() {
+  const btn = $('bulk-toggle');
+  if (!btn) return;
+  const mode = document.querySelector('.filter-tab.active')?.dataset.mode || 'cat';
+  const allOn = filterGroupFullyEnabled(mode);
+  btn.textContent = allOn ? 'Unselect all' : 'Select all';
+  btn.setAttribute('aria-pressed', allOn ? 'true' : 'false');
+}
+
+function syncPictureFilterUi() {
+  const icon = $('picture-menu-btn');
+  document.querySelectorAll('.filter-picture-btn').forEach((b) => {
+    const on = b.dataset.picture === state.pictureFilter;
+    b.classList.toggle('active', on);
+    b.setAttribute('aria-checked', on ? 'true' : 'false');
+  });
+  icon?.classList.toggle('is-filtered', state.pictureFilter !== 'all');
+  if (icon) {
+    const labels = { all: 'All', yes: 'Has picture', no: 'No picture' };
+    icon.title = `Picture filter: ${labels[state.pictureFilter] || 'All'}`;
+  }
 }
 
 function toggleSet(set, id, el) {
@@ -1063,6 +1113,7 @@ function toggleSet(set, id, el) {
     set.add(id);
     el.classList.remove('off');
   }
+  syncBulkToggleUi();
 }
 
 function renderOperatorFilterList() {

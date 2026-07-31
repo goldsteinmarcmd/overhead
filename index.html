@@ -43,14 +43,22 @@
         <button type="button" class="filter-tab" data-mode="owner" role="tab" aria-selected="false">Owner</button>
         <button type="button" class="filter-tab" data-mode="country" role="tab" aria-selected="false">Country</button>
       </div>
-      <div class="filter-bulk" role="group" aria-label="Bulk selection">
-        <button type="button" class="filter-bulk-btn" data-bulk="all">Select all</button>
-        <button type="button" class="filter-bulk-btn" data-bulk="none">Unselect all</button>
-      </div>
-      <div class="filter-picture" role="group" aria-label="Picture filter">
-        <button type="button" class="filter-picture-btn active" data-picture="all">All</button>
-        <button type="button" class="filter-picture-btn" data-picture="yes">Has picture</button>
-        <button type="button" class="filter-picture-btn" data-picture="no">No picture</button>
+      <div class="filter-toolbar">
+        <button type="button" class="filter-bulk-toggle" id="bulk-toggle" aria-pressed="true">Unselect all</button>
+        <div class="filter-picture-wrap">
+          <button type="button" class="filter-picture-icon" id="picture-menu-btn" aria-haspopup="true" aria-expanded="false" aria-label="Picture filter" title="Picture filter">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <rect x="3" y="6" width="18" height="14" rx="2" />
+              <circle cx="12" cy="13" r="3.2" />
+              <path d="M8 6l1.2-2h5.6L16 6" />
+            </svg>
+          </button>
+          <div class="filter-picture-menu" id="picture-menu" role="menu" hidden>
+            <button type="button" class="filter-picture-btn active" role="menuitemradio" aria-checked="true" data-picture="all">All</button>
+            <button type="button" class="filter-picture-btn" role="menuitemradio" aria-checked="false" data-picture="yes">Has picture</button>
+            <button type="button" class="filter-picture-btn" role="menuitemradio" aria-checked="false" data-picture="no">No picture</button>
+          </div>
+        </div>
       </div>
       <div id="filters-cat" class="filter-list" role="tabpanel"></div>
       <div id="filters-owner" class="filter-list" role="tabpanel" hidden></div>
@@ -58,15 +66,20 @@
     </aside>
 
     <div class="hud">
-      <label class="toggle">
-        <input type="checkbox" id="pause" />
-        <span>Pause time</span>
-      </label>
-      <label class="toggle">
-        <input type="checkbox" id="show-orbits" />
-        <span>Selected orbit</span>
-      </label>
-      <span id="clock" class="clock"></span>
+      <details class="hud-extra">
+        <summary>Extra</summary>
+        <div class="hud-extra-body">
+          <label class="toggle">
+            <input type="checkbox" id="pause" />
+            <span>Pause time</span>
+          </label>
+          <label class="toggle">
+            <input type="checkbox" id="show-orbits" />
+            <span>Selected orbit</span>
+          </label>
+          <span id="clock" class="clock"></span>
+        </div>
+      </details>
     </div>
 
     <aside class="panel" id="panel" hidden>
