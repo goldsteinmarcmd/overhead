@@ -1428,11 +1428,12 @@ html, body {
   .hud-extra-body {
     left: auto;
     right: 0;
-    width: 10.5rem;
-    min-width: 10.5rem;
-    max-width: min(10.5rem, calc(100% - 1.5rem));
-    padding: 0.45rem;
-    gap: 0.35rem;
+    /* Stay mostly in the Extra column so an open menu barely covers search */
+    width: 8.75rem;
+    min-width: 8.75rem;
+    max-width: min(8.75rem, calc(100% - 1.5rem));
+    padding: 0.4rem;
+    gap: 0.3rem;
   }
   .hud-extra-body .toggle {
     flex-direction: row;
@@ -1451,10 +1452,11 @@ html, body {
     text-align: left;
   }
 
-  /* Keep the analytics nudge off the Extra control */
+  /* Keep the analytics nudge clear of Extra + search */
   .consent-nudge {
-    right: max(0.75rem, env(safe-area-inset-right, 0px));
-    bottom: calc(5.75rem + env(safe-area-inset-bottom, 0px));
+    left: 1rem;
+    right: auto;
+    bottom: calc(6.25rem + env(safe-area-inset-bottom, 0px));
   }
 
   .panel { width: 100%; }
