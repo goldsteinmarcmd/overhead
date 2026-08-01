@@ -28,12 +28,12 @@
 
     <div class="search-wrap">
       <div class="search-field">
-        <input id="search" type="search" placeholder="Search name or NORAD…" autocomplete="off" spellcheck="false" />
-        <ul id="search-results" class="search-drop" hidden></ul>
-      </div>
-      <div class="search-field">
         <input id="place" type="search" placeholder="Zoom to an address or city…" autocomplete="off" spellcheck="false" aria-label="Zoom the globe to an address" />
         <ul id="place-results" class="search-drop place-drop" hidden></ul>
+      </div>
+      <div class="search-field">
+        <input id="search" type="search" placeholder="Search name or NORAD…" autocomplete="off" spellcheck="false" />
+        <ul id="search-results" class="search-drop" hidden></ul>
       </div>
     </div>
 
@@ -82,6 +82,10 @@
             <input type="checkbox" id="show-orbits" />
             <span>Selected orbit</span>
           </label>
+          <label class="toggle">
+            <input type="checkbox" id="enlarge-size" />
+            <span>Enlarge ×2,500</span>
+          </label>
           <span id="clock" class="clock"></span>
         </div>
       </details>
@@ -100,6 +104,6 @@
   </div>
 
   <script src="vendor/satellite.min.js"></script>
-  <script type="module" src="js/app.js?v=20260731-rollup"></script>
+  <script type="module" src="js/app.js?v=20260731-truesize"></script>
 </body>
 </html>

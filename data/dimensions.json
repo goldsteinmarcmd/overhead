@@ -8,7 +8,7 @@
       "confidence": "published | reported | estimated",
       "note": "Source nuance or generation chosen when a family has variants."
     },
-    "sceneHint": "SCENE_SIZE = (characteristicLengthM / 1000 / EARTH_RADIUS_KM) * SIZE_MAGNIFICATION. App uses SIZE_MAGNIFICATION = 2500 so ratios stay real while ISS (~0.043 scene) remains visible."
+    "sceneHint": "SCENE_SIZE = (characteristicLengthM / 1000 / EARTH_RADIUS_KM) * sizeMagnification. Default sizeMagnification = 1 (true scale vs Earth). Optional Enlarge ×2,500 keeps ratios real while ISS (~0.043 scene) remains visible."
   },
   "earthRadiusKm": 6371,
   "categoryDefaultsM": {

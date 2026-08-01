@@ -12,8 +12,8 @@ const ANALYTICS_COLLECT_URL = window.__OVERHEAD_ANALYTICS_URL
 const EARTH_RADIUS_KM = 6371.0;
 const SCENE_EARTH_R = 1.0;
 const KM_TO_SCENE = SCENE_EARTH_R / EARTH_RADIUS_KM;
-/** Shared visual multiplier so craft stay relative to each other but readable on the globe. */
-const SIZE_MAGNIFICATION = 2500;
+/** Optional visual multiplier — off by default so craft are true scale vs Earth. */
+const SIZE_MAGNIFICATION_ENLARGED = 2500;
 const PROP_INTERVAL_MS = 750;
 
 const PLACE_COLOR = 0xffb703;
@@ -64,6 +64,8 @@ const state = {
   selectedIdx: -1,
   paused: false,
   showOrbit: false,
+  /** 1 = true scale vs Earth; SIZE_MAGNIFICATION_ENLARGED when enlarged. */
+  sizeMagnification: 1,
   simTime: new Date(),
   lastProp: 0,
   positions: null,
@@ -166,6 +168,7 @@ const dataPromise = Promise.all([
   fetchJson('data/catalog.json'),
   fetchJson('data/curated.json'),
   fetchJson('data/dimensions.json'),
+  fetchJson('data/enrichment.json').catch(() => null),
 ]);
 
 let dayMap;
@@ -310,9 +313,10 @@ let meta;
 let catalog;
 let curated;
 let dimensions;
+let enrichment;
 try {
   // Started earlier, in parallel with the Earth textures.
-  [meta, catalog, curated, dimensions] = await dataPromise;
+  [meta, catalog, curated, dimensions, enrichment] = await dataPromise;
 } catch (err) {
   console.error(err);
   statusEl.textContent = 'Couldn’t load the satellite catalog — check your connection and refresh.';
@@ -322,6 +326,7 @@ try {
 state.meta = meta;
 state.curated = curated;
 state.dimensions = dimensions;
+state.enrichment = enrichment;
 // Owner/country expand indexes (~5 MB) load on demand — see ensureBrowseIndex.
 
 const lengthByKey = new Map();
@@ -345,6 +350,10 @@ for (const d of curated.satellites) {
   if (d.constellation) dossierByKey.set(d.constellation, d);
 }
 
+function enrichmentFor(norad) {
+  return enrichment?.byNorad?.[String(norad)] || null;
+}
+
 const n = catalog.sats.length;
 state.sats = catalog.sats;
 state.satrecs = new Array(n);
@@ -360,8 +369,8 @@ function lengthMForRow(row) {
   return categoryLengthM[catId] ?? 2;
 }
 
-function sceneSizeFromLengthM(lengthM) {
-  return (lengthM / 1000) * KM_TO_SCENE * SIZE_MAGNIFICATION;
+function sceneSizeFromLengthM(lengthM, magnification = state.sizeMagnification) {
+  return (lengthM / 1000) * KM_TO_SCENE * magnification;
 }
 
 function formatLengthM(m) {
@@ -370,6 +379,30 @@ function formatLengthM(m) {
   if (m >= 0.1) return `${Math.round(m * 100)} cm`;
   return `${Math.round(m * 1000)} mm`;
 }
+
+function sizeScaleNote() {
+  if (state.sizeMagnification <= 1) {
+    return 'Point size is true scale vs Earth — most craft are smaller than a pixel until you enlarge.';
+  }
+  return `Point size is physical length × ${SIZE_MAGNIFICATION_ENLARGED.toLocaleString()} so craft stay relative to each other and readable on the globe.`;
+}
+
+function sizeFactLabel(lengthM) {
+  const base = formatLengthM(lengthM);
+  if (state.sizeMagnification <= 1) return `${base} · true scale vs Earth`;
+  return `${base} · shown ×${SIZE_MAGNIFICATION_ENLARGED.toLocaleString()} vs Earth`;
+}
+
+function applyPointSizes() {
+  if (!state.sizes || !state.lengthM) return;
+  const mag = state.sizeMagnification;
+  for (let i = 0; i < state.lengthM.length; i++) {
+    state.sizes[i] = sceneSizeFromLengthM(state.lengthM[i], mag);
+  }
+  const attr = pointsGeom.getAttribute('aSize');
+  if (attr) attr.needsUpdate = true;
+}
+
 state.positions = new Float32Array(n * 3);
 state.colors = new Float32Array(n * 3);
 state.baseColors = new Float32Array(n * 3);
@@ -432,6 +465,17 @@ $('pause').addEventListener('change', (e) => {
 $('show-orbits').addEventListener('change', (e) => {
   state.showOrbit = e.target.checked;
   updateOrbitLine();
+});
+
+$('enlarge-size').addEventListener('change', (e) => {
+  state.sizeMagnification = e.target.checked ? SIZE_MAGNIFICATION_ENLARGED : 1;
+  applyPointSizes();
+  if (state.selectedIdx >= 0 && !state.skyMode && !state.browseKind) {
+    const row = state.sats[state.selectedIdx];
+    const dossierKey = row[fi.dossier];
+    const dossier = dossierKey ? dossierByKey.get(String(dossierKey)) : null;
+    renderPanel(row, dossier);
+  }
 });
 
 // Closing a satellite while a place is pinned steps back to its overhead list.
@@ -1426,6 +1470,14 @@ function renderPanel(row, dossier) {
     : '';
 
   if (!dossier) {
+    const enrich = enrichmentFor(row[fi.norad]);
+    const purposeBlock = enrich
+      ? renderEnrichmentPurpose(enrich)
+      : `<section class="dossier-block">
+          <p class="eyebrow">Purpose</p>
+          <p class="dossier-lead">${escapeHtml(cat?.label ? `Catalogued as ${cat.label.toLowerCase()} — no hand-researched mission dossier yet.` : 'No hand-researched mission dossier yet.')}</p>
+        </section>`;
+    const narrativeBlock = renderNarratives(enrich?.narratives);
     panelBody.innerHTML = `
       ${backBtn}
       <p class="eyebrow">${escapeHtml(cat?.label || 'Satellite')}</p>
@@ -1433,19 +1485,17 @@ function renderPanel(row, dossier) {
       <p class="sub">${opBtn} · ${countryBtn}</p>
       ${lookLine}
       ${imageSlot}
-      <section class="dossier-block">
-        <p class="eyebrow">Purpose</p>
-        <p class="dossier-lead">${escapeHtml(cat?.label ? `Catalogued as ${cat.label.toLowerCase()} — no hand-researched mission dossier yet.` : 'No hand-researched mission dossier yet.')}</p>
-      </section>
+      ${purposeBlock}
+      ${narrativeBlock}
       <div class="cost-grid bare-sat">
         <div class="cost-card"><div class="label">NORAD</div><div class="value">${row[fi.norad]}</div></div>
         <div class="cost-card"><div class="label">Orbit</div><div class="value">${escapeHtml(row[fi.orbit])}</div></div>
-        <div class="cost-card"><div class="label">Size</div><div class="value">${escapeHtml(formatLengthM(state.lengthM[state.selectedIdx]))}</div></div>
+        <div class="cost-card"><div class="label">Size</div><div class="value">${escapeHtml(sizeFactLabel(state.lengthM[state.selectedIdx]))}</div></div>
         <div class="cost-card"><div class="label">Perigee</div><div class="value">${row[fi.perigeeKm]} km</div></div>
         <div class="cost-card"><div class="label">Apogee</div><div class="value">${row[fi.apogeeKm]} km</div></div>
         <div class="cost-card wide"><div class="label">Inclination</div><div class="value">${row[fi.incDeg]}°</div></div>
       </div>
-      <p class="note">Point size is physical length × ${SIZE_MAGNIFICATION.toLocaleString()} so craft stay relative to each other on the globe. Classification is rule-based from the catalog name.</p>
+      <p class="note">${escapeHtml(sizeScaleNote())} Classification is rule-based from the catalog name.${enrich ? ' Purpose line is from the UCS Satellite Database (auto-joined), not a hand dossier.' : ''}</p>
     `;
     $('open-op')?.addEventListener('click', () => openBrowse('operator', operatorName));
     $('open-country')?.addEventListener('click', () => openBrowse('country', country.id));
@@ -1459,6 +1509,8 @@ function renderPanel(row, dossier) {
   const maint = dossier.maintenance || {};
   const purposeBlock = renderPurpose(dossier.purpose);
   const resultsBlock = renderResults(dossier.results);
+  const enrich = enrichmentFor(row[fi.norad]);
+  const narrativeBlock = renderNarratives(enrich?.narratives);
 
   panelBody.innerHTML = `
     ${backBtn}
@@ -1470,6 +1522,7 @@ function renderPanel(row, dossier) {
 
     ${purposeBlock}
     ${resultsBlock}
+    ${narrativeBlock}
 
     <p class="eyebrow">Cost</p>
     <div class="cost-grid">
@@ -1500,7 +1553,7 @@ function renderPanel(row, dossier) {
       <li><span class="k">Settled</span><span>${escapeHtml(dossier.settled?.text || dossier.settled?.date || '—')}</span></li>
       <li><span class="k">Status</span><span>${escapeHtml(dossier.status || '—')}</span></li>
       <li><span class="k">Mass</span><span>${escapeHtml(dossier.mass || '—')}</span></li>
-      <li><span class="k">Size</span><span>${escapeHtml(formatLengthM(state.lengthM[state.selectedIdx]))} · shown ×${SIZE_MAGNIFICATION.toLocaleString()} vs Earth</span></li>
+      <li><span class="k">Size</span><span>${escapeHtml(sizeFactLabel(state.lengthM[state.selectedIdx]))}</span></li>
       <li><span class="k">Orbit</span><span>${escapeHtml(dossier.orbitClass || row[fi.orbit])} · ${row[fi.perigeeKm]}–${row[fi.apogeeKm]} km · ${row[fi.incDeg]}°</span></li>
       <li><span class="k">Maker</span><span>${escapeHtml(dossier.manufacturer || '—')}</span></li>
       <li><span class="k">NORAD</span><span>${row[fi.norad]}</span></li>
@@ -1538,6 +1591,53 @@ function renderPurpose(purpose) {
       <p class="dossier-lead">${escapeHtml(purpose.summary)}</p>
       ${users ? `<div class="chip-row">${users}</div>` : ''}
       ${metaBits.join('')}
+    </section>
+`;
+}
+
+function renderEnrichmentPurpose(enrich) {
+  if (!enrich?.summary) return '';
+  const users = (enrich.users || [])
+    .map((u) => `<span class="chip">${escapeHtml(u)}</span>`)
+    .join('');
+  const metaBits = [];
+  if (enrich.operator) {
+    metaBits.push(`<div class="dossier-meta"><span class="k">UCS operator</span><span>${escapeHtml(enrich.operator)}</span></div>`);
+  }
+  if (enrich.cospar) {
+    metaBits.push(`<div class="dossier-meta"><span class="k">COSPAR</span><span>${escapeHtml(enrich.cospar)}</span></div>`);
+  }
+  metaBits.push(`<div class="dossier-meta"><span class="k">Source</span><span>UCS Satellite Database (as of ${escapeHtml(enrich.asOf || '2023-05-01')})</span></div>`);
+  return `
+    <section class="dossier-block">
+      <p class="eyebrow">Purpose</p>
+      <p class="dossier-lead">${escapeHtml(enrich.summary)}</p>
+      ${users ? `<div class="chip-row">${users}</div>` : ''}
+      ${metaBits.join('')}
+    </section>
+  `;
+}
+
+function renderNarratives(narratives) {
+  if (!narratives?.length) return '';
+  const items = narratives.map((n) => {
+    const label = n.label || ({
+      eoportal: 'ESA eoPortal',
+      nssdc: 'NASA NSSDCA',
+      gunter: "Gunter’s Space Page",
+    }[n.provider] || n.provider);
+    const excerpt = n.excerpt
+      ? `<p class="narrative-excerpt">${escapeHtml(n.excerpt)}</p>`
+      : (n.citeOnly ? `<p class="narrative-excerpt muted">Citation link only — page not scraped.</p>` : '');
+    return `<li>
+      <a class="narrative-link" href="${escapeHtml(n.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(label)}</a>
+      ${excerpt}
+    </li>`;
+  }).join('');
+  return `
+    <section class="dossier-block">
+      <p class="eyebrow">Mission notes</p>
+      <ul class="narrative-list">${items}</ul>
     </section>
   `;
 }

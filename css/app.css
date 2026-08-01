@@ -912,6 +912,43 @@ html, body {
   margin: 0 0 1.35rem;
 }
 
+.narrative-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.narrative-list li {
+  padding: 0.55rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.narrative-list li:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.narrative-link {
+  color: var(--accent, #5ee7df);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.narrative-link:hover {
+  text-decoration: underline;
+}
+
+.narrative-excerpt {
+  margin: 0.35rem 0 0;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+.narrative-excerpt.muted {
+  font-style: italic;
+}
+
 .dossier-lead {
   margin: 0 0 0.65rem;
   font-size: 0.98rem;

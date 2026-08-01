@@ -5,12 +5,14 @@
  *   node build.js
  *
  * Reads   data/raw-*.txt, data/supplement.txt, data/curated.json
+ *         data/enrichment.json  (optional; UCS purpose + narrative links)
  * Writes  data/catalog.json     (every tracked object + classification)
  *         data/meta.json        (counts, generation time, legend)
  *         data/by-country.json  (country id → satellite list)
  *         data/by-operator.json (operator name → satellite list)
  *
  * Re-run `fetch.sh` first to refresh the TLEs.
+ * Purpose enrichment: `node scripts/build-enrichment.js` (or `./fetch.sh --enrichment`).
  */
 
 const fs = require('fs');
@@ -213,6 +215,12 @@ function orbitOf(l2) {
 
 const curated = JSON.parse(fs.readFileSync(path.join(DATA, 'curated.json'), 'utf8'));
 
+let enrichment = null;
+const enrichmentPath = path.join(DATA, 'enrichment.json');
+if (fs.existsSync(enrichmentPath)) {
+  enrichment = JSON.parse(fs.readFileSync(enrichmentPath, 'utf8'));
+}
+
 // Bind each dossier to a NORAD id, or to a constellation prefix.
 const dossierByNorad = new Map();
 const dossierByPrefix = [];
@@ -227,6 +235,8 @@ const ownIdx = Object.fromEntries(OWNERS.map((o, i) => [o.id, i]));
 const out = [];
 const counts = { cat: {}, owner: {}, orbit: {}, operator: {} };
 let skipped = 0;
+let enrichmentHits = 0;
+let enrichmentBareHits = 0;
 
 for (const s of sats.values()) {
   const orb = orbitOf(s.l2);
@@ -240,6 +250,12 @@ for (const s of sats.values()) {
   // A dossier is authoritative — it was researched by hand.
   const cat = dossier ? dossier.category : c.cat;
   const operator = dossier ? dossier.operator : c.operator;
+
+  const enriched = enrichment?.byNorad?.[String(s.norad)];
+  if (enriched) {
+    enrichmentHits++;
+    if (!dossier) enrichmentBareHits++;
+  }
 
   counts.cat[cat] = (counts.cat[cat] || 0) + 1;
   counts.owner[c.owner] = (counts.owner[c.owner] || 0) + 1;
@@ -285,6 +301,13 @@ fs.writeFileSync(path.join(DATA, 'meta.json'), JSON.stringify({
   operators,
   counts,
   topOperators: topOperators.slice(0, 25),
+  enrichment: enrichment ? {
+    generated: enrichment.generated,
+    ucsAsOf: enrichment.sources?.ucs?.asOf || null,
+    matched: enrichmentHits,
+    bareMatched: enrichmentBareHits,
+    sources: Object.keys(enrichment.sources || {}),
+  } : null,
 }, null, 2));
 
 const satEntry = (row) => ({
@@ -359,5 +382,10 @@ console.log(`orbit classes ${Object.entries(counts.orbit).map(([k, v]) => `${k}:
 console.log(`countries     ${Object.entries(counts.owner).sort((a,b)=>b[1]-a[1]).map(([k, v]) => `${k}:${v}`).join('  ')}`);
 console.log(`categories    ${Object.entries(counts.cat).sort((a,b)=>b[1]-a[1]).map(([k, v]) => `${k}:${v}`).join('  ')}`);
 console.log(`dossiers      ${out.filter((r) => r[10]).length} objects matched to ${curated.satellites.length} researched entries`);
+if (enrichment) {
+  console.log(`enrichment    ${enrichmentHits} UCS/narrative joins (${enrichmentBareHits} without hand dossier)`);
+} else {
+  console.log('enrichment    none — run: node scripts/build-enrichment.js');
+}
 console.log('\ntop operators by object count:');
 for (const [op, n] of topOperators.slice(0, 12)) console.log(`  ${String(n).padStart(6)}  ${op}`);

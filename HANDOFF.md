@@ -58,11 +58,13 @@ satellites/
 │   └── sky.js              # lat/lon → scene, look angles, overhead search
 ├── .claude/launch.json     # Dev-server config for the Claude Code preview pane
 ├── scripts/
-│   └── patch-purpose-results.js   # Seeds purpose/results into curated.json
+│   ├── patch-purpose-results.js   # Seeds purpose/results into curated.json
+│   └── build-enrichment.js        # UCS + eoPortal/NSSDCA/Gunter → enrichment.json
 ├── build.js                # TLE → catalog.json + meta + indexes
-├── fetch.sh                # Download raw-*.txt from CelesTrak
+├── fetch.sh                # Download raw-*.txt from CelesTrak (+ optional --enrichment)
 ├── data/
 │   ├── curated.json        # Hand dossiers (costs, purpose, results)
+│   ├── enrichment.json     # Built: UCS purpose + narrative links by NORAD
 │   ├── catalog.json        # Built: all sats + fields
 │   ├── meta.json           # Built: counts, legend, operators
 │   ├── by-operator.json    # Built: operator → sat list
@@ -206,7 +208,20 @@ Catalog row fields (see `catalog.json` `fields`):
 **Closed (UX reference only):** azmth, Cosmik, satellitemap.space, Track The Sky.  
 **No license on public repo:** Exosphere — don’t copy.
 
-Data sources for future purpose/results scale-out: UCS Satellite Database (purpose), eoPortal / NSSDCA (mission narratives), Gunter’s Space Page.
+Data sources for purpose scale-out (now wired): UCS Satellite Database (purpose), eoPortal / NSSDCA (mission narratives), Gunter’s Space Page (citation links only).
+
+### Enrichment pipeline
+
+```bash
+node scripts/build-enrichment.js            # UCS → data/enrichment.json
+node scripts/build-enrichment.js --excerpts # + eoPortal/NSSDCA meta blurbs
+./fetch.sh --enrichment [--excerpts]        # TLEs then enrichment
+```
+
+- Join: **NORAD preferred**, normalized name fallback.
+- Client loads `data/enrichment.json`; bare sats show UCS purpose; dossiers can show Mission notes links.
+- UCS official DB paused after **2023-05-01**; NSSDCA may be intermittently offline (links still emitted from COSPAR).
+- Gunter: **no body scrape** — only URLs already present in UCS source columns.
 
 ---
 
@@ -214,11 +229,11 @@ Data sources for future purpose/results scale-out: UCS Satellite Database (purpo
 
 1. **Git** — initialize repo, `.gitignore` for nothing critical (raw TLEs are large but useful; decide whether to commit or fetch CI-side).  
 2. **Fill stub dossiers** — especially Planet, OneWeb, Tiangong, remaining science.  
-3. **UCS auto-purpose** for non-dossier sats (optional).  
+3. **Enrichment freshness** — UCS paused; consider community mirrors (e.g. Hugging Face) or Space-Track SATCAT for post-2023 objects.  
 4. **Imagery coverage** — more GIBS NORADs; no good “last picture” for non-imagers (show instrument product instead?).  
 5. **Operator name cleanup** — build rules produced some duplicate-ish operator strings (e.g. Planet Labs vs Planet Labs PBC).  
 6. **Deploy** — still local static only; no hosting yet.  
-7. **Tests** — none; smoke-check: load page, search Hubble, toggle Owner select-all, Has picture.  
+7. **Tests** — none; smoke-check: load page, search Hubble, toggle Owner select-all, Has picture; search a bare UCS sat (e.g. non-dossier EO) for purpose + Mission notes.  
 8. **Performance** — ~16k points OK; Starlink density dominates. KeepTrack-style tricks if it slows on mobile.  
 9. **Geocoder** — Nominatim has no key but allows ~1 req/s and can't be identified by User-Agent from a browser. Swap in a keyed geocoder (Mapbox / MapTiler / Google) before this gets real traffic; only `js/geocode.js` changes.  
 10. **Pass predictions** — the sky panel is "right now" only. Next obvious step: *when* the ISS (or any pick) next rises over the pinned address, plus rise/set times.  

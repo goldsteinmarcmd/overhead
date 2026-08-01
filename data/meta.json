@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-29T06:02:53.467Z",
+  "generated": "2026-08-01T02:34:09.533Z",
   "source": "CelesTrak GP element sets (celestrak.org), general perturbations catalog",
   "total": 16123,
   "categories": [
@@ -788,5 +788,17 @@
       "Globalstar",
       28
     ]
-  ]
+  ],
+  "enrichment": {
+    "generated": "2026-08-01T02:34:07.130Z",
+    "ucsAsOf": "2023-05-01",
+    "matched": 5026,
+    "bareMatched": 1410,
+    "sources": [
+      "ucs",
+      "eoportal",
+      "nssdc",
+      "gunter"
+    ]
+  }
 }

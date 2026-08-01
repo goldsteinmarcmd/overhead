@@ -20,3 +20,6 @@ Untitled/
 .cache/
 node_modules/
 analytics/node_modules/
+
+# Large raw downloads (rebuild via fetch / build-enrichment)
+data/raw-ucs.txt
