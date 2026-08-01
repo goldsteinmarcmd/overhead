@@ -138,6 +138,24 @@ function splitUsers(raw) {
     .filter(Boolean);
 }
 
+/**
+ * Drop hedged military / intel speculation ("there may also be a military role",
+ * "possible reconnaissance function", etc.). Keep firm classifications.
+ */
+function scrubUncertainMilitary(text) {
+  if (!text) return '';
+  const mil = /\b(militar\w*|miltary|strategic(?:\s+imaging)?|recon(?:naissance)?|intel(?:ligence)?|spy|surveil\w*|dual[\s-]?use)\b/i;
+  const hedge = /\b(may|might|maybe|possible|possibly|alleged|allegedly|reportedly|suspected|could|perhaps|unclear|rumou?r(?:ed)?|there may)\b/i;
+  return text
+    .replace(/\s+/g, ' ')
+    .split(/(?<=[.!?])\s+/)
+    .map((s) => s.trim())
+    .filter((s) => s && !(hedge.test(s) && mil.test(s)))
+    .join(' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 function buildSummary(purpose, detailed, comments) {
   const bits = [];
   if (purpose) {
@@ -145,11 +163,9 @@ function buildSummary(purpose, detailed, comments) {
   } else if (detailed) {
     bits.push(detailed);
   }
-  if (comments) {
-    const c = comments.replace(/\s+/g, ' ').trim();
-    if (c && !bits.some((b) => b.includes(c.slice(0, 40)))) bits.push(c);
-  }
-  return bits.join('. ').replace(/\.\./g, '.').trim();
+  const cleaned = scrubUncertainMilitary(comments);
+  if (cleaned && !bits.some((b) => b.includes(cleaned.slice(0, 40)))) bits.push(cleaned);
+  return scrubUncertainMilitary(bits.join('. ').replace(/\.\./g, '.')).trim();
 }
 
 /** Rewrite legacy directory.eoportal.org URLs to the current site. */
@@ -317,7 +333,7 @@ async function main() {
     const alt = (row[C.alt] || '').trim();
     const purpose = (row[C.purpose] || '').trim();
     const detailed = (row[C.detailed] || '').trim();
-    const comments = (row[C.comments] || '').trim();
+    const comments = scrubUncertainMilitary((row[C.comments] || '').trim());
     const cospar = (row[C.cospar] || '').trim().toUpperCase();
     const operator = (row[C.operator] || '').trim();
     const users = splitUsers(row[C.users]);
