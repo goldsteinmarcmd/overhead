@@ -429,17 +429,41 @@ async function main() {
         }
       }
     }
+    /** Only attach an eoPortal blurb when the URL slug overlaps the sat name. */
+    function slugMatchesSat(url, entry) {
+      let slug = '';
+      try { slug = new URL(url).pathname.split('/').pop() || ''; } catch { return false; }
+      const slugToks = new Set(normName(slug.replace(/-/g, ' ')).split(' ').filter((t) => t.length > 2));
+      if (!slugToks.size) return false;
+      const nameToks = new Set([
+        ...normName(entry.name).split(' '),
+        ...normName(entry.summary || '').split(' ').slice(0, 8),
+      ].filter((t) => t.length > 2));
+      let hits = 0;
+      for (const t of slugToks) if (nameToks.has(t)) hits++;
+      // Strong single token (landsat, kompsat, pleiades) or ≥2 overlaps.
+      if (hits >= 2) return true;
+      if (hits === 1 && slugToks.size <= 2) return true;
+      return false;
+    }
+
     console.log(`Fetching excerpts: ${eoUrls.size} eoPortal, ${nssUrls.size} NSSDCA…`);
     for (const [url, keys] of eoUrls) {
       const excerpt = await excerptEoportal(url);
       await sleep(350);
       if (!excerpt) continue;
-      excerptCount++;
+      let attached = false;
       for (const key of keys) {
-        for (const n of outByNorad[key].narratives) {
-          if (n.provider === 'eoportal' && n.url === url) n.excerpt = excerpt;
+        const entry = outByNorad[key];
+        if (!slugMatchesSat(url, entry)) continue;
+        for (const n of entry.narratives) {
+          if (n.provider === 'eoportal' && n.url === url) {
+            n.excerpt = excerpt;
+            attached = true;
+          }
         }
       }
+      if (attached) excerptCount++;
     }
     let nssdcOffline = false;
     for (const [url, keys] of nssUrls) {

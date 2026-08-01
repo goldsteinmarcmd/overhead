@@ -9,9 +9,33 @@ Interactive globe of Earth-orbiting satellites — what they’re for, what they
 - ~16k tracked objects from [CelesTrak](https://celestrak.org) TLEs, propagated with SGP4
 - Filters by category, operator, and country
 - Hand-researched dossiers (cost, purpose, results) for notable missions
+- Auto purpose text for ~5k objects from the UCS Satellite Database (see below)
 - Point sizes at true scale vs Earth by default; Extra → Enlarge ×2,500 for readable relative sizes
 - Optional last-known imagery via NASA GIBS for mapped sensors
 - Address lookup (OpenStreetMap Nominatim) to see what’s overhead
+
+## Purpose text we have
+
+Most TLEs never say what a satellite does. Overhead fills that gap in layers:
+
+| Layer | Coverage (approx.) | What you get |
+|--------|---------------------|--------------|
+| Hand dossiers | 46 researched entries (~12k objects via constellation prefixes like Starlink) | Purpose, results, costs, timeline |
+| UCS auto-purpose | **5,026** catalog objects (**1,410** with no hand dossier) | Purpose + detailed purpose + users + operator comments |
+| ESA eoPortal | ~50 mission page links; name-matched blurbs where available | Short mission narrative |
+| NASA NSSDCA | COSPAR deep link on nearly every UCS match | Spacecraft archive page (site sometimes offline) |
+| Gunter’s Space Page | Citation links only when already listed in UCS | No body scrape |
+
+**UCS purpose mix among matched objects** (database as of 2023-05-01; UCS has paused updates):
+
+- Communications ~4,040
+- Earth Observation ~530
+- Technology Development / Demo ~170
+- Navigation ~140
+- Space / Earth science ~70
+- Surveillance / other — remainder
+
+Rough corpus size in `data/enrichment.json`: ~185k characters of purpose summaries, ~95k of UCS comments, plus eoPortal excerpts where the mission slug matches the satellite name.
 
 ## Analytics (first-party, GDPR)
 
