@@ -1,13 +1,13 @@
 /**
- * First-party, consent-gated analytics for Overhead.
+ * First-party, consent-gated analytics client for the shared analytics platform.
  * No network beacons until the visitor Accepts.
  */
 
-const CONSENT_KEY = 'overhead_consent';
-const CLIENT_KEY = 'overhead_cid';
-const SESSION_KEY = 'overhead_sid';
-const SESSION_TS_KEY = 'overhead_sid_ts';
 const SESSION_TIMEOUT_MS = 30 * 60 * 1000;
+
+let SITE_ID = 'overhead';
+let PRODUCT_NAME = 'Overhead';
+let PRIVACY_URL = 'privacy.html';
 
 /** Set after Cloud Run deploy; overridable via window.__OVERHEAD_ANALYTICS_URL */
 let COLLECT_URL = typeof window !== 'undefined' && window.__OVERHEAD_ANALYTICS_URL
@@ -19,6 +19,11 @@ let engagementStarted = 0;
 let pageEnteredAt = 0;
 let utm = {};
 let bannerEl = null;
+let clickTrackingInstalled = false;
+
+function storageKey(suffix) {
+  return `analytics_${SITE_ID}_${suffix}`;
+}
 
 export function setCollectUrl(url) {
   COLLECT_URL = String(url || '');
@@ -26,7 +31,7 @@ export function setCollectUrl(url) {
 
 export function getConsent() {
   try {
-    return localStorage.getItem(CONSENT_KEY);
+    return localStorage.getItem(storageKey('consent'));
   } catch {
     return null;
   }
@@ -34,35 +39,36 @@ export function getConsent() {
 
 export function setConsent(value) {
   try {
-    localStorage.setItem(CONSENT_KEY, value);
+    localStorage.setItem(storageKey('consent'), value);
   } catch { /* private mode */ }
   if (value === 'granted') {
     hideBanner();
-    bootstrapSession();
     track('page_view');
   } else {
     hideBanner();
   }
-  window.dispatchEvent(new CustomEvent('overhead-consent', { detail: value }));
+  window.dispatchEvent(new CustomEvent('analytics-consent', { detail: { siteId: SITE_ID, value } }));
 }
 
 /** Re-open the banner even if the visitor previously chose Decline. */
 export function resetConsentPrompt() {
   try {
-    localStorage.removeItem(CONSENT_KEY);
+    localStorage.removeItem(storageKey('consent'));
   } catch { /* ignore */ }
   showBanner();
 }
 
-export function initAnalytics({ collectUrl } = {}) {
+export function initAnalytics({ collectUrl, siteId, productName, privacyUrl } = {}) {
   if (collectUrl) COLLECT_URL = collectUrl;
+  if (siteId) SITE_ID = String(siteId);
+  if (productName) PRODUCT_NAME = String(productName);
+  if (privacyUrl) PRIVACY_URL = String(privacyUrl);
   utm = readUtm();
   pageEnteredAt = Date.now();
   engagementStarted = Date.now();
 
   const consent = getConsent();
   if (consent === 'granted') {
-    bootstrapSession();
     track('page_view');
   } else if (consent !== 'denied') {
     showBanner();
@@ -75,6 +81,7 @@ export function initAnalytics({ collectUrl } = {}) {
     else if (getConsent() === 'granted') engagementStarted = Date.now();
   });
   window.addEventListener('pagehide', flushEngagement);
+  installClickTracking();
 }
 
 export function track(eventName, eventParams = {}) {
@@ -89,32 +96,29 @@ export function track(eventName, eventParams = {}) {
   send(eventName, clientId, sessionId, eventParams);
 }
 
-function bootstrapSession() {
-  ensureIds();
-}
-
 function ensureIds() {
-  let clientId = read(CLIENT_KEY);
+  let clientId = read(storageKey('cid'));
   if (!clientId) {
     clientId = uuid();
-    write(CLIENT_KEY, clientId);
+    write(storageKey('cid'), clientId);
   }
 
   const now = Date.now();
-  let sessionId = read(SESSION_KEY);
-  let ts = Number(read(SESSION_TS_KEY) || 0);
+  let sessionId = read(storageKey('sid'));
+  let ts = Number(read(storageKey('sid_ts')) || 0);
   let isNewSession = false;
   if (!sessionId || !ts || now - ts > SESSION_TIMEOUT_MS) {
     sessionId = uuid();
     isNewSession = true;
   }
-  write(SESSION_KEY, sessionId);
-  write(SESSION_TS_KEY, String(now));
+  write(storageKey('sid'), sessionId);
+  write(storageKey('sid_ts'), String(now));
   return { clientId, sessionId, isNewSession };
 }
 
 function send(eventName, clientId, sessionId, eventParams) {
   const payload = {
+    site_id: SITE_ID,
     event_name: eventName,
     client_id: clientId,
     session_id: sessionId,
@@ -151,6 +155,28 @@ function send(eventName, clientId, sessionId, eventParams) {
   });
 }
 
+function installClickTracking() {
+  if (clickTrackingInstalled) return;
+  clickTrackingInstalled = true;
+  document.addEventListener('click', (event) => {
+    const element = event.target instanceof Element
+      ? event.target.closest('a, button, input, select, summary, [role="button"]')
+      : null;
+    if (!element || element.closest('#consent-banner')) return;
+    const anchor = element.closest('a');
+    let outboundHost = null;
+    if (anchor?.href) {
+      try {
+        const url = new URL(anchor.href, location.href);
+        if (url.origin !== location.origin) outboundHost = url.hostname;
+      } catch { /* ignore malformed links */ }
+    }
+    const explicit = element.getAttribute('data-analytics-label');
+    const target = explicit || element.id || [element.tagName.toLowerCase(), ...element.classList].slice(0, 3).join('.');
+    track('click', { target: target.slice(0, 120), outbound_host: outboundHost || '' });
+  });
+}
+
 function flushEngagement() {
   if (getConsent() !== 'granted') return;
   const ms = Date.now() - engagementStarted;
@@ -182,8 +208,8 @@ function showBanner() {
     <div class="consent-inner">
       <p>
         We use optional first-party analytics (page views, device type, country)
-        to understand how Overhead is used. No ads. No sale of data.
-        <a href="privacy.html">Privacy</a>
+        to understand how ${PRODUCT_NAME} is used. No ads. No sale of data.
+        <a href="${PRIVACY_URL}">Privacy</a>
       </p>
       <div class="consent-actions">
         <button type="button" data-consent="denied" class="consent-decline">Decline</button>

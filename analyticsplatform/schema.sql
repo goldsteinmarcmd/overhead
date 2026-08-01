@@ -1,6 +1,7 @@
 -- Reference schema (already applied in europe-west1)
 CREATE TABLE IF NOT EXISTS `overhead-analytics-260730.overhead.events` (
   event_id STRING NOT NULL,
+  site_id STRING,
   event_name STRING NOT NULL,
   received_at TIMESTAMP NOT NULL,
   client_id STRING,
@@ -23,3 +24,7 @@ CREATE TABLE IF NOT EXISTS `overhead-analytics-260730.overhead.events` (
   event_params STRING
 )
 PARTITION BY DATE(received_at);
+
+-- Existing installations created before multi-project support need this once:
+ALTER TABLE `overhead-analytics-260730.overhead.events`
+ADD COLUMN IF NOT EXISTS site_id STRING;

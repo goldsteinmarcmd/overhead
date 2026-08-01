@@ -50,6 +50,13 @@ const placeInput = $('place');
 const placeResults = $('place-results');
 const appEl = document.getElementById('app');
 
+initAnalytics({
+  collectUrl: ANALYTICS_COLLECT_URL.includes('PLACEHOLDER') ? '' : ANALYTICS_COLLECT_URL,
+  siteId: 'overhead',
+  productName: 'Overhead',
+  privacyUrl: 'privacy.html',
+});
+
 const state = {
   meta: null,
   curated: null,
@@ -509,10 +516,6 @@ for (let i = 0; i < n; i++) {
 buildFilters();
 propagate(true);
 statusEl.textContent = `${meta.total.toLocaleString()} objects · generated ${fmtDate(meta.generated)}`;
-initAnalytics({
-  collectUrl: ANALYTICS_COLLECT_URL.includes('PLACEHOLDER') ? '' : ANALYTICS_COLLECT_URL,
-});
-
 // ----------------------------------------------------------------- UI
 
 $('pause').addEventListener('change', (e) => {

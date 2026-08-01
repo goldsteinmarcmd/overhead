@@ -1,4 +1,4 @@
-# Overhead analytics collector + private dashboard
+# Multi-project analytics collector + private dashboard
 FROM node:20-slim
 WORKDIR /app
 COPY package.json ./

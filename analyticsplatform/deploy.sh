@@ -1,13 +1,20 @@
 #!/usr/bin/env bash
-# Deploy Overhead analytics collector to Cloud Run (europe-west1).
+# Deploy the multi-project analytics collector to Cloud Run (europe-west1).
 set -euo pipefail
 
 PROJECT_ID="${PROJECT_ID:-overhead-analytics-260730}"
 REGION="${REGION:-europe-west1}"
 SERVICE="${SERVICE:-overhead-analytics}"
+ALLOWED_SITE_IDS="${ALLOWED_SITE_IDS:-overhead,detentioncenters}"
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 
 echo "Deploying $SERVICE to $PROJECT_ID ($REGION)…"
+
+bq query \
+  --project_id="$PROJECT_ID" \
+  --location="$REGION" \
+  --use_legacy_sql=false \
+  "ALTER TABLE \`${PROJECT_ID}.overhead.events\` ADD COLUMN IF NOT EXISTS site_id STRING"
 
 # Allow Cloud Run runtime SA to read secrets + write BigQuery
 PROJECT_NUMBER="$(gcloud projects describe "$PROJECT_ID" --format='value(projectNumber)' --verbosity=info)"
@@ -46,7 +53,7 @@ gcloud run deploy "$SERVICE" \
   --memory=512Mi \
   --concurrency=80 \
   --timeout=60 \
-  --set-env-vars="GCP_PROJECT=${PROJECT_ID},BQ_DATASET=overhead,BQ_TABLE=events" \
+  --set-env-vars="^@^GCP_PROJECT=${PROJECT_ID}@BQ_DATASET=overhead@BQ_TABLE=events@BQ_LOCATION=${REGION}@ALLOWED_SITE_IDS=${ALLOWED_SITE_IDS}" \
   --set-secrets="HMAC_SALT=hmac-salt:latest,DASHBOARD_SECRET=dashboard-secret:latest" \
   --verbosity=info
 

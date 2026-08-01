@@ -101,6 +101,9 @@
     import { initAnalytics, setConsent } from './js/analytics.js';
     initAnalytics({
       collectUrl: 'https://overhead-analytics-xytglqjhja-ew.a.run.app',
+      siteId: 'overhead',
+      productName: 'Overhead',
+      privacyUrl: 'privacy.html',
     });
     document.getElementById('accept')?.addEventListener('click', () => {
       setConsent('granted');
@@ -109,9 +112,9 @@
     document.getElementById('withdraw')?.addEventListener('click', () => {
       setConsent('denied');
       try {
-        localStorage.removeItem('overhead_cid');
-        localStorage.removeItem('overhead_sid');
-        localStorage.removeItem('overhead_sid_ts');
+        localStorage.removeItem('analytics_overhead_cid');
+        localStorage.removeItem('analytics_overhead_sid');
+        localStorage.removeItem('analytics_overhead_sid_ts');
       } catch {}
       alert('Consent withdrawn. Analytics will not run unless you Accept again.');
     });
