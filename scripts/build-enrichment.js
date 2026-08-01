@@ -168,6 +168,11 @@ function buildSummary(purpose, detailed, comments) {
   return scrubUncertainMilitary(bits.join('. ').replace(/\.\./g, '.')).trim();
 }
 
+/** Rideshare / index pages that are not a satellite mission article. */
+const EOPORTAL_REJECT_SLUGS = new Set([
+  'content', 'article', 'sso-a', 'stp-2', 'stp2', 'transporter', 'rideshare',
+]);
+
 /** Rewrite legacy directory.eoportal.org URLs to the current site. */
 function normalizeEoportalUrl(url) {
   try {
@@ -176,16 +181,13 @@ function normalizeEoportalUrl(url) {
     if (!host.includes('eoportal.org')) return null;
     // /web/eoportal/satellite-missions/{letter}/{slug}
     // /web/eoportal/satellite-missions/{slug}
-    // /satellite-missions/{slug}
     // Prefer /satellite-missions/{letter}/{slug} or /{group}-missions/{slug}
     let m = u.pathname.match(/\/satellite-missions\/(?:[a-z0-9]+-missions|[a-z])\/([a-z0-9][a-z0-9-]{1,80})/i);
     if (!m) m = u.pathname.match(/\/satellite-missions\/([a-z0-9][a-z0-9-]{1,80})/i);
     if (!m) return null;
     const slug = m[1].toLowerCase();
-    // Reject catalogue index stubs and CMS paths.
     if (
-      slug === 'content'
-      || slug === 'article'
+      EOPORTAL_REJECT_SLUGS.has(slug)
       || /^(?:[a-z]-)+[a-z]$/.test(slug) // v-w-x-y-z style indexes
       || slug.endsWith('-missions')
     ) return null;
@@ -193,6 +195,73 @@ function normalizeEoportalUrl(url) {
   } catch {
     return null;
   }
+}
+
+/** Only keep an eoPortal URL when the slug overlaps the sat name. */
+function slugMatchesSat(url, entry) {
+  let slug = '';
+  try { slug = new URL(url).pathname.split('/').pop() || ''; } catch { return false; }
+  const slugToks = new Set(
+    normName(slug.replace(/-/g, ' ')).split(' ').filter((t) => t.length > 2),
+  );
+  if (!slugToks.size) return false;
+  const nameToks = new Set([
+    ...normName(entry.name).split(' '),
+    ...normName(entry.summary || '').split(' ').slice(0, 8),
+  ].filter((t) => t.length > 2));
+  let hits = 0;
+  for (const t of slugToks) if (nameToks.has(t)) hits++;
+  if (hits >= 2) return true;
+  if (hits === 1 && slugToks.size <= 2) return true;
+  return false;
+}
+
+/** Guess plausible eoPortal slugs from a catalog / UCS name (e.g. SKYSAT-C12 → skysat). */
+function candidateEoportalSlugs(name) {
+  const n = normName(name);
+  if (!n) return [];
+  const toks = n.split(' ').filter(Boolean);
+  const out = [];
+  const push = (s) => {
+    const slug = String(s || '').toLowerCase().replace(/[^a-z0-9-]+/g, '-').replace(/^-|-$/g, '');
+    if (slug && slug.length >= 3 && !EOPORTAL_REJECT_SLUGS.has(slug) && !out.includes(slug)) {
+      out.push(slug);
+    }
+  };
+  // Leading alpha token: SKYSAT / LANDSAT / KOMPSAT
+  const lead = (toks[0] || '').match(/^([A-Z]{3,})/);
+  if (lead) push(lead[1]);
+  if (toks[0]) push(toks[0].toLowerCase());
+  if (toks.length >= 2) push(`${toks[0]}-${toks[1]}`.toLowerCase());
+  // LETTER+digits families: CBERS4 → cbers, FORMOSAT7 → formosat
+  const fam = n.match(/\b([A-Z]{3,})\s*\d/);
+  if (fam) push(fam[1]);
+  return out;
+}
+
+function resolveHttpUrl(url) {
+  const res = spawnSync(
+    'curl',
+    ['-sI', '-L', '--max-time', '20', '-A', UA, '-o', '/dev/null', '-w', '%{http_code}\t%{url_effective}', url],
+    { encoding: 'utf8' },
+  );
+  if (res.status !== 0) return { ok: false, code: '000', finalUrl: url };
+  const [code, finalUrl] = String(res.stdout || '').trim().split('\t');
+  return { ok: code === '200', code, finalUrl: finalUrl || url };
+}
+
+function nssdcIsAvailable() {
+  // Deep links currently bounce to a maintenance page on nasa.gov.
+  const res = spawnSync(
+    'curl',
+    ['-sI', '-L', '--max-time', '20', '-A', UA, '-o', '/dev/null', '-w', '%{http_code}\t%{url_effective}',
+      'https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1998-067A'],
+    { encoding: 'utf8' },
+  );
+  const [code, finalUrl] = String(res.stdout || '').trim().split('\t');
+  if (code !== '200') return false;
+  if (/nasa\.gov\/nssdc\/?$/i.test(finalUrl || '')) return false;
+  return /nssdc\.gsfc\.nasa\.gov\/nmc\//i.test(finalUrl || '');
 }
 
 function normalizeGunterUrl(url) {
@@ -323,6 +392,15 @@ async function main() {
   const byName = new Map();
   let parsed = 0;
 
+  console.log('Probing NASA NSSDCA availability…');
+  const nssdcOk = nssdcIsAvailable();
+  console.log(nssdcOk
+    ? '  NSSDCA deep links look reachable'
+    : '  NSSDCA offline / redirected — keeping COSPAR links, skipping excerpts');
+
+  // Cache HEAD checks for guessed eoPortal slugs during the parse pass.
+  const eoResolveCache = new Map();
+
   for (const row of rows.slice(1)) {
     if (!row.length || row.every((c) => !c)) continue;
     const norad = parseNorad(row[C.norad]);
@@ -338,6 +416,7 @@ async function main() {
     const operator = (row[C.operator] || '').trim();
     const users = splitUsers(row[C.users]);
     const summary = buildSummary(purpose, detailed, comments);
+    const draft = { name, summary };
 
     const narratives = [];
     const seen = new Set();
@@ -347,16 +426,23 @@ async function main() {
       narratives.push({ provider, url, ...extra });
     };
 
+    let sawRejectedEoportal = false;
     for (const url of collectUrls(row, C.sourceStart)) {
-      const eo = normalizeEoportalUrl(url);
-      if (eo) addNarrative('eoportal', eo, { label: 'ESA eoPortal' });
+      if (/eoportal\.org/i.test(url)) {
+        const eo = normalizeEoportalUrl(url);
+        if (eo && slugMatchesSat(eo, draft)) {
+          addNarrative('eoportal', eo, { label: 'ESA eoPortal' });
+        } else {
+          sawRejectedEoportal = true;
+        }
+      }
       const g = normalizeGunterUrl(url);
       if (g) addNarrative('gunter', g, { label: "Gunter’s Space Page", citeOnly: true });
       if (/nssdc\.gsfc\.nasa\.gov\/nmc\/spacecraft\/display\.action/i.test(url)) {
         addNarrative('nssdc', url.split('#')[0], { label: 'NASA NSSDCA' });
       }
     }
-
+    // Always emit NSSDCA deep links from COSPAR — site may be intermittently offline.
     const nss = nssdcUrl(cospar);
     if (nss) addNarrative('nssdc', nss, { label: 'NASA NSSDCA' });
 
@@ -375,6 +461,7 @@ async function main() {
       asOf: UCS_AS_OF,
       narratives,
       match: 'norad',
+      _wantEoportalGuess: sawRejectedEoportal && !narratives.some((n) => n.provider === 'eoportal'),
     };
 
     // Prefer denser narratives / comments if duplicates appear.
@@ -428,6 +515,75 @@ async function main() {
     console.log('No catalog.json yet — writing full UCS index');
   }
 
+  // Name-based eoPortal recovery when UCS only cited a rideshare / wrong page.
+  {
+    let guessed = 0;
+    const needGuess = Object.values(outByNorad)
+      .filter((e) => e._wantEoportalGuess && !(e.narratives || []).some((n) => n.provider === 'eoportal'));
+    console.log(`Trying name-based eoPortal slugs for ${needGuess.length} sats…`);
+    for (const e of needGuess) {
+      for (const slug of candidateEoportalSlugs(e.name)) {
+        const guess = `https://www.eoportal.org/satellite-missions/${slug}`;
+        if (!slugMatchesSat(guess, e)) continue;
+        let resolved = eoResolveCache.get(guess);
+        if (!resolved) {
+          resolved = resolveHttpUrl(guess);
+          eoResolveCache.set(guess, resolved);
+          await sleep(120);
+        }
+        if (!resolved.ok) continue;
+        const finalEo = normalizeEoportalUrl(resolved.finalUrl) || guess;
+        if (!slugMatchesSat(finalEo, e)) continue;
+        e.narratives = e.narratives || [];
+        e.narratives.unshift({ provider: 'eoportal', url: finalEo, label: 'ESA eoPortal' });
+        guessed++;
+        break;
+      }
+      delete e._wantEoportalGuess;
+    }
+    for (const e of Object.values(outByNorad)) delete e._wantEoportalGuess;
+    console.log(`  recovered ${guessed} eoPortal links from satellite names`);
+  }
+
+  // Validate outbound eoPortal links (drop 404s; follow redirects to final slug).
+  {
+    const eoUrls = [...new Set(
+      Object.values(outByNorad).flatMap((e) => (e.narratives || [])
+        .filter((n) => n.provider === 'eoportal')
+        .map((n) => n.url)),
+    )];
+    console.log(`Validating ${eoUrls.length} unique eoPortal URLs…`);
+    const rewrite = new Map(); // old → final or null to drop
+    for (const url of eoUrls) {
+      const resolved = resolveHttpUrl(url);
+      await sleep(120);
+      if (!resolved.ok) {
+        rewrite.set(url, null);
+        console.log(`  drop ${resolved.code} ${url}`);
+        continue;
+      }
+      const finalEo = normalizeEoportalUrl(resolved.finalUrl) || resolved.finalUrl;
+      if (finalEo !== url) console.log(`  redirect ${url} → ${finalEo}`);
+      rewrite.set(url, finalEo);
+    }
+    let dropped = 0;
+    let redirected = 0;
+    for (const e of Object.values(outByNorad)) {
+      if (!e.narratives?.length) continue;
+      e.narratives = e.narratives.filter((n) => {
+        if (n.provider !== 'eoportal') return true;
+        if (!rewrite.has(n.url)) return true;
+        const next = rewrite.get(n.url);
+        if (!next) { dropped++; return false; }
+        if (next !== n.url) { n.url = next; redirected++; }
+        // Re-check name match against final slug.
+        if (!slugMatchesSat(n.url, e)) { dropped++; return false; }
+        return true;
+      });
+    }
+    console.log(`  eoPortal validation: dropped ${dropped}, redirected ${redirected}`);
+  }
+
   // Optional narrative excerpts (eoPortal + NSSDCA). Gunter is link-only.
   let excerptCount = 0;
   if (WANT_EXCERPTS) {
@@ -445,25 +601,8 @@ async function main() {
         }
       }
     }
-    /** Only attach an eoPortal blurb when the URL slug overlaps the sat name. */
-    function slugMatchesSat(url, entry) {
-      let slug = '';
-      try { slug = new URL(url).pathname.split('/').pop() || ''; } catch { return false; }
-      const slugToks = new Set(normName(slug.replace(/-/g, ' ')).split(' ').filter((t) => t.length > 2));
-      if (!slugToks.size) return false;
-      const nameToks = new Set([
-        ...normName(entry.name).split(' '),
-        ...normName(entry.summary || '').split(' ').slice(0, 8),
-      ].filter((t) => t.length > 2));
-      let hits = 0;
-      for (const t of slugToks) if (nameToks.has(t)) hits++;
-      // Strong single token (landsat, kompsat, pleiades) or ≥2 overlaps.
-      if (hits >= 2) return true;
-      if (hits === 1 && slugToks.size <= 2) return true;
-      return false;
-    }
 
-    console.log(`Fetching excerpts: ${eoUrls.size} eoPortal, ${nssUrls.size} NSSDCA…`);
+    console.log(`Fetching excerpts: ${eoUrls.size} eoPortal, ${nssdcOk ? nssUrls.size : 0} NSSDCA…`);
     for (const [url, keys] of eoUrls) {
       const excerpt = await excerptEoportal(url);
       await sleep(350);
@@ -481,24 +620,28 @@ async function main() {
       }
       if (attached) excerptCount++;
     }
-    let nssdcOffline = false;
-    for (const [url, keys] of nssUrls) {
-      if (nssdcOffline) break;
-      const excerpt = await excerptNssdc(url);
-      await sleep(350);
-      if (!excerpt) {
-        // One maintenance page is enough — don't hammer NSSDCA while it's down.
-        const probe = await fetchText(url);
-        if (probe && /temporarily offline for maintenance/i.test(probe)) {
-          console.log('  NSSDCA appears offline for maintenance — skipping remaining excerpts');
-          nssdcOffline = true;
+    if (!nssdcOk) {
+      console.log('  Skipping NSSDCA excerpts (site offline / redirected)');
+    } else {
+      let nssdcOffline = false;
+      for (const [url, keys] of nssUrls) {
+        if (nssdcOffline) break;
+        const excerpt = await excerptNssdc(url);
+        await sleep(350);
+        if (!excerpt) {
+          // One maintenance page is enough — don't hammer NSSDCA while it's down.
+          const probe = await fetchText(url);
+          if (probe && /temporarily offline for maintenance/i.test(probe)) {
+            console.log('  NSSDCA appears offline for maintenance — skipping remaining excerpts');
+            nssdcOffline = true;
+          }
+          continue;
         }
-        continue;
-      }
-      excerptCount++;
-      for (const key of keys) {
-        for (const n of outByNorad[key].narratives) {
-          if (n.provider === 'nssdc' && n.url === url) n.excerpt = excerpt;
+        excerptCount++;
+        for (const key of keys) {
+          for (const n of outByNorad[key].narratives) {
+            if (n.provider === 'nssdc' && n.url === url) n.excerpt = excerpt;
+          }
         }
       }
     }
