@@ -1643,8 +1643,13 @@ function renderNarratives(narratives) {
 }
 
 function renderResults(results) {
-  if (!results?.headline) return '';
-  const bullets = (results.bullets || [])
+  if (!results) return '';
+  const bullets = (results.bullets || []).filter((b) => b?.text);
+  const headline = (results.headline || '').trim();
+  const stubHeadline = /^results dossier not yet researched/i.test(headline);
+  // Hide the section until there is real content — no empty "not yet researched" block.
+  if (!bullets.length && (stubHeadline || !headline) && !results.stillDoing) return '';
+  const bulletHtml = bullets
     .map((b) => {
       const year = b.year != null ? `<span class="result-year">${b.year}</span>` : '';
       const conf = b.confidence ? `<span class="result-conf">${escapeHtml(b.confidence)}</span>` : '';
@@ -1658,11 +1663,14 @@ function renderResults(results) {
   const still = results.stillDoing
     ? `<p class="note still-doing"><span class="k">Still doing</span> ${escapeHtml(results.stillDoing)}</p>`
     : '';
+  const lead = headline && !stubHeadline
+    ? `<p class="dossier-lead">${escapeHtml(headline)}</p>`
+    : '';
   return `
     <section class="dossier-block">
       <p class="eyebrow">Results</p>
-      <p class="dossier-lead">${escapeHtml(results.headline)}</p>
-      ${bullets ? `<ul class="results-list">${bullets}</ul>` : '<p class="note">Detailed results not yet researched for this entry.</p>'}
+      ${lead}
+      ${bulletHtml ? `<ul class="results-list">${bulletHtml}</ul>` : ''}
       ${still}
     </section>
   `;
