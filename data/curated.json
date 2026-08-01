@@ -167,9 +167,28 @@
         ]
       },
       "results": {
-        "headline": "Results dossier not yet researched for this entry.",
-        "bullets": [],
-        "stillDoing": null
+        "headline": "China’s crewed space laboratory — continuous habitation and a growing national microgravity research program.",
+        "bullets": [
+          {
+            "text": "Three-module station completed with Tianhe, Wentian, and Mengtian; continuous crewed operations since late 2022.",
+            "year": 2022,
+            "confidence": "published",
+            "source": "CMSA / China Manned Space"
+          },
+          {
+            "text": "As of Dec 2024, CMSA reported 181 science and application projects flown, ~300 TB of data, and 500+ SCI papers.",
+            "year": 2024,
+            "confidence": "published",
+            "source": "CMSA Tiangong science progress report"
+          },
+          {
+            "text": "Highlighted firsts include space-grown rice germplasm and in-orbit differentiation of human embryonic stem cells into hematopoietic precursors.",
+            "year": 2024,
+            "confidence": "reported",
+            "source": "CMSA white paper / China Daily coverage"
+          }
+        ],
+        "stillDoing": "Crewed lab operations, EVAs, and expanding science/application payloads under CMSA."
       }
     },
     {
@@ -407,9 +426,28 @@
         ]
       },
       "results": {
-        "headline": "Results dossier not yet researched for this entry.",
-        "bullets": [],
-        "stillDoing": null
+        "headline": "All-sky gamma-ray workhorse — Fermi Bubbles, pulsars, and multi-messenger astronomy.",
+        "bullets": [
+          {
+            "text": "Discovered the Fermi Bubbles — vast gamma-ray structures spanning ~50,000 light-years above and below the Milky Way.",
+            "year": 2010,
+            "confidence": "published",
+            "source": "NASA Fermi / ApJ papers"
+          },
+          {
+            "text": "Catalogued hundreds of gamma-ray pulsars and mapped thousands of GeV sources with the Large Area Telescope.",
+            "year": 2018,
+            "confidence": "published",
+            "source": "NASA Fermi 10-year science highlights"
+          },
+          {
+            "text": "Detected GRB 170817A coincident with LIGO/Virgo GW170817 — first light from a gravitational-wave source.",
+            "year": 2017,
+            "confidence": "published",
+            "source": "NASA Fermi GBM / multi-messenger papers"
+          }
+        ],
+        "stillDoing": "Continuous all-sky gamma-ray monitoring and transient alerts (NASA Goddard / LAT collaboration)."
       }
     },
     {
@@ -466,9 +504,28 @@
         ]
       },
       "results": {
-        "headline": "Results dossier not yet researched for this entry.",
-        "bullets": [],
-        "stillDoing": null
+        "headline": "ESA’s long-lived X-ray spectroscopy flagship — black holes, clusters, and the hot cosmic web.",
+        "bullets": [
+          {
+            "text": "Thousands of refereed papers; high-throughput EPIC/RGS spectroscopy of AGN, clusters, and compact objects.",
+            "year": 2021,
+            "confidence": "published",
+            "source": "ESA XMM-Newton factsheet"
+          },
+          {
+            "text": "With NuSTAR, measured near-maximal spin of the supermassive black hole in NGC 1365 via relativistic iron-line reflection.",
+            "year": 2013,
+            "confidence": "published",
+            "source": "Nature / ESA–NASA joint release"
+          },
+          {
+            "text": "Detected hot intergalactic gas signatures helping close the long-standing missing-baryons gap.",
+            "year": 2018,
+            "confidence": "published",
+            "source": "ESA XMM-Newton / Nature papers"
+          }
+        ],
+        "stillDoing": "Open time-domain X-ray observatory under ESA science programme extensions."
       }
     },
     {
@@ -526,9 +583,28 @@
         ]
       },
       "results": {
-        "headline": "Results dossier not yet researched for this entry.",
-        "bullets": [],
-        "stillDoing": null
+        "headline": "Transformed gamma-ray burst science with autonomous multi-wavelength follow-up.",
+        "bullets": [
+          {
+            "text": "First precise localizations and X-ray afterglows of short GRBs, linking them to older stellar populations / mergers.",
+            "year": 2005,
+            "confidence": "published",
+            "source": "NASA Swift / Nature & ApJ short-GRB papers"
+          },
+          {
+            "text": "Pushed GRB redshift frontier (e.g. GRB 090423) into the first billion years after the Big Bang.",
+            "year": 2009,
+            "confidence": "published",
+            "source": "NASA Swift / Nature"
+          },
+          {
+            "text": "Detected GRB 221009A (the “BOAT”) jointly with Fermi — brightest GRB on record — and continues ~daily transient alerts.",
+            "year": 2022,
+            "confidence": "published",
+            "source": "NASA Swift / Fermi GRB 221009A papers"
+          }
+        ],
+        "stillDoing": "Rapid GRB and multi-messenger follow-up despite accelerated orbital decay (NASA GSFC / Penn State)."
       }
     },
     {
@@ -585,9 +661,28 @@
         ]
       },
       "results": {
-        "headline": "Results dossier not yet researched for this entry.",
-        "bullets": [],
-        "stillDoing": null
+        "headline": "First focusing hard X-ray telescope — black-hole spin, buried AGN, and supernova radioactivity maps.",
+        "bullets": [
+          {
+            "text": "With XMM-Newton, delivered the first definitive near-maximal spin measurement of NGC 1365’s black hole.",
+            "year": 2013,
+            "confidence": "published",
+            "source": "Nature / NASA JPL NuSTAR"
+          },
+          {
+            "text": "Mapped radioactive titanium-44 in Cassiopeia A, showing asymmetric core-collapse dynamics.",
+            "year": 2014,
+            "confidence": "published",
+            "source": "Nature / NASA NuSTAR Cas A"
+          },
+          {
+            "text": "Pierced Compton-thick gas to reveal obscured supermassive black holes missed by softer X-ray surveys.",
+            "year": 2015,
+            "confidence": "published",
+            "source": "NASA NuSTAR / Caltech science highlights"
+          }
+        ],
+        "stillDoing": "Hard X-ray observations of compact objects, AGN, and transients (NASA/Caltech)."
       }
     },
     {
@@ -644,9 +739,28 @@
         ]
       },
       "results": {
-        "headline": "Results dossier not yet researched for this entry.",
-        "bullets": [],
-        "stillDoing": null
+        "headline": "Opened imaging X-ray polarimetry — magnetic fields near neutron stars, black holes, and remnants.",
+        "bullets": [
+          {
+            "text": "First dedicated imaging X-ray polarimeter; measured polarization from magnetar 4U 0142+61, supporting a solid crust.",
+            "year": 2022,
+            "confidence": "published",
+            "source": "NASA IXPE / Science"
+          },
+          {
+            "text": "Mapped polarization geometry in supernova remnants (e.g. Cas A) and accretion flows around black holes.",
+            "year": 2022,
+            "confidence": "published",
+            "source": "NASA IXPE first-year highlights"
+          },
+          {
+            "text": "Constrained jet/corona geometries in blazars and stellar-mass black-hole binaries via polarization degree and angle.",
+            "year": 2023,
+            "confidence": "published",
+            "source": "NASA IXPE / ASI collaboration papers"
+          }
+        ],
+        "stillDoing": "Targeted X-ray polarimetry of compact objects under NASA–ASI partnership."
       }
     },
     {
@@ -1670,9 +1784,28 @@
         ]
       },
       "results": {
-        "headline": "Results dossier not yet researched for this entry.",
-        "bullets": [],
-        "stillDoing": null
+        "headline": "Operational GOES East — ABI/GLM weather imagery plus the first operational space-based coronagraph.",
+        "bullets": [
+          {
+            "text": "Declared operational GOES East on 7 April 2025, replacing GOES-16 at 75.2°W.",
+            "year": 2025,
+            "confidence": "published",
+            "source": "NOAA GOES-19 operations announcement"
+          },
+          {
+            "text": "Continues GOES-R ABI and GLM for hurricanes, severe storms, fires, and lightning over the Americas.",
+            "year": 2025,
+            "confidence": "published",
+            "source": "NOAA NESDIS / GOES-R program"
+          },
+          {
+            "text": "Carries CCOR-1, the world’s first operational space-based coronagraph for CME detection and space-weather warnings.",
+            "year": 2024,
+            "confidence": "published",
+            "source": "NOAA NESDIS CCOR-1"
+          }
+        ],
+        "stillDoing": "Primary GOES East weather and space-weather observations for NWS / SWPC."
       }
     },
     {
@@ -1729,9 +1862,28 @@
         ]
       },
       "results": {
-        "headline": "Results dossier not yet researched for this entry.",
-        "bullets": [],
-        "stillDoing": null
+        "headline": "New-generation GEO imager for East Asia–Pacific — 10-minute full-disk AHI transformed regional forecasting.",
+        "bullets": [
+          {
+            "text": "Entered operations with 16-band Advanced Himawari Imager; full-disk every 10 minutes vs prior MTSAT cadence.",
+            "year": 2015,
+            "confidence": "published",
+            "source": "JMA Himawari-8/9 introduction paper"
+          },
+          {
+            "text": "Assimilation of Himawari-8 AMVs and clear-sky radiances improved JMA GSM forecasts and typhoon track skill.",
+            "year": 2016,
+            "confidence": "published",
+            "source": "JMA NWP technical review"
+          },
+          {
+            "text": "Open Himawari imagery became a regional standard for nowcasting, volcanic ash, and dust monitoring across Asia–Oceania.",
+            "year": 2017,
+            "confidence": "reported",
+            "source": "JMA MSC / WMO user community"
+          }
+        ],
+        "stillDoing": "On-orbit standby after Himawari-9 took primary duty in December 2022."
       }
     },
     {
@@ -1788,9 +1940,28 @@
         ]
       },
       "results": {
-        "headline": "Results dossier not yet researched for this entry.",
-        "bullets": [],
-        "stillDoing": null
+        "headline": "Completed Europe’s three-Metop polar constellation — top-tier observations for global NWP.",
+        "bullets": [
+          {
+            "text": "Entered service as the third Metop, securing mid-morning polar observations for EUMETSAT EPS / IJPS with NOAA.",
+            "year": 2019,
+            "confidence": "published",
+            "source": "EUMETSAT Metop-C operations"
+          },
+          {
+            "text": "IASI, ASCAT, and sounding suite data remain among the highest-impact satellite inputs to medium-range forecasts.",
+            "year": 2018,
+            "confidence": "published",
+            "source": "ECMWF / EUMETSAT NWP impact assessments"
+          },
+          {
+            "text": "Three-Metop constellation enabled denser revisit and dual/triple-satellite products until Metop-A retirement and Metop-SG transition.",
+            "year": 2019,
+            "confidence": "reported",
+            "source": "EUMETSAT / ECMWF Metop-C briefing"
+          }
+        ],
+        "stillDoing": "Operational polar sounding and scatterometry pending full Metop-SG succession."
       }
     },
     {
@@ -2025,9 +2196,28 @@
         ]
       },
       "results": {
-        "headline": "Results dossier not yet researched for this entry.",
-        "bullets": [],
-        "stillDoing": null
+        "headline": "China’s completed global GNSS — third worldwide PNT system with unique short-message services.",
+        "bullets": [
+          {
+            "text": "Final BDS-3 satellite launched June 2020; global constellation deployed about six months ahead of schedule.",
+            "year": 2020,
+            "confidence": "published",
+            "source": "China Satellite Navigation Office / CASC"
+          },
+          {
+            "text": "Formally commissioned 31 July 2020 — China became the third nation with an independent global GNSS.",
+            "year": 2020,
+            "confidence": "published",
+            "source": "Xinhua / China.gov BDS-3 commissioning"
+          },
+          {
+            "text": "Provides global PNT (meter-class open service) plus regional short-message, SAR, and PPP/augmentation services.",
+            "year": 2020,
+            "confidence": "published",
+            "source": "CSNO BeiDou service description"
+          }
+        ],
+        "stillDoing": "Operational global BDS-3 PNT and value-added services; replenishment continues."
       }
     },
     {
@@ -2089,9 +2279,28 @@
         ]
       },
       "results": {
-        "headline": "Results dossier not yet researched for this entry.",
-        "bullets": [],
-        "stillDoing": null
+        "headline": "Russia’s restored global GNSS — dual-constellation positioning with ongoing CDMA modernization.",
+        "bullets": [
+          {
+            "text": "Full 24-satellite global coverage restored after post-Soviet decline, enabling worldwide GLONASS PNT.",
+            "year": 2011,
+            "confidence": "published",
+            "source": "Roscosmos / IAC GLONASS status"
+          },
+          {
+            "text": "Civilian dual-system GPS+GLONASS receivers became standard, improving availability at high latitudes and in cities.",
+            "year": 2012,
+            "confidence": "reported",
+            "source": "GNSS industry / NovAtel constellation guides"
+          },
+          {
+            "text": "GLONASS-K/K2 introduce CDMA civil signals (L3 and beyond) for better interoperability with GPS/Galileo/BeiDou.",
+            "year": 2023,
+            "confidence": "published",
+            "source": "UNOOSA ICG GLONASS status reports"
+          }
+        ],
+        "stillDoing": "Operational MEO constellation with K/K2 replenishment and SDCM augmentation."
       }
     },
     {
@@ -2150,9 +2359,28 @@
         ]
       },
       "results": {
-        "headline": "Results dossier not yet researched for this entry.",
-        "bullets": [],
-        "stillDoing": null
+        "headline": "Japan’s regional GNSS — high-elevation coverage and the first open satellite PPP-RTK (CLAS).",
+        "bullets": [
+          {
+            "text": "Four-satellite Michibiki constellation delivers quasi-zenith coverage improving GNSS availability in urban Japan.",
+            "year": 2018,
+            "confidence": "published",
+            "source": "Cabinet Office of Japan QZSS"
+          },
+          {
+            "text": "Centimeter Level Augmentation Service (CLAS) began — world’s first open satellite-based PPP-RTK service.",
+            "year": 2018,
+            "confidence": "published",
+            "source": "QZSS CLAS service overview"
+          },
+          {
+            "text": "Sub-meter SLAS and messaging/disaster services support surveying, precision agriculture, and crisis alerts.",
+            "year": 2020,
+            "confidence": "published",
+            "source": "Cabinet Office QZSS / UNOOSA briefings"
+          }
+        ],
+        "stillDoing": "Operational regional PNT and CLAS; constellation expanding toward seven satellites."
       }
     },
     {
@@ -2301,9 +2529,28 @@
         ]
       },
       "results": {
-        "headline": "Results dossier not yet researched for this entry.",
-        "bullets": [],
-        "stillDoing": null
+        "headline": "Enterprise/government LEO broadband — full Gen-1 constellation under Eutelsat OneWeb.",
+        "bullets": [
+          {
+            "text": "Completed Gen-1 space segment (~600+ satellites) after UK/Bharti rescue and recovery from 2020 bankruptcy.",
+            "year": 2023,
+            "confidence": "published",
+            "source": "Eutelsat Group / SpaceNews"
+          },
+          {
+            "text": "Merged with Eutelsat (2023) to form the first integrated GEO–LEO commercial operator.",
+            "year": 2023,
+            "confidence": "published",
+            "source": "Eutelsat FY results / combination close"
+          },
+          {
+            "text": "Multi-year capacity deals (e.g. Intelsat up to $500M) for aviation, government, and enterprise multi-orbit services.",
+            "year": 2024,
+            "confidence": "reported",
+            "source": "Eutelsat–Intelsat LEO partnership release"
+          }
+        ],
+        "stillDoing": "Commercial LEO broadband ramp-up as ground gateways and landing rights expand."
       }
     },
     {
@@ -2364,9 +2611,28 @@
         ]
       },
       "results": {
-        "headline": "Results dossier not yet researched for this entry.",
-        "bullets": [],
-        "stillDoing": null
+        "headline": "Only true pole-to-pole mobile satellite network — voice, IoT, and Certus broadband worldwide.",
+        "bullets": [
+          {
+            "text": "Completed Iridium NEXT replenishment, preserving the crosslinked 66-satellite mesh with higher-throughput payloads.",
+            "year": 2019,
+            "confidence": "published",
+            "source": "Iridium SEC 10-K / NEXT program"
+          },
+          {
+            "text": "Iridium Certus brought global L-band broadband for maritime, aviation, land mobile, and government users.",
+            "year": 2019,
+            "confidence": "published",
+            "source": "Iridium Certus product announcements"
+          },
+          {
+            "text": "Long-running DoD EMSS airtime and gateway sustainment contracts keep Iridium a core U.S. government narrowband asset.",
+            "year": 2024,
+            "confidence": "published",
+            "source": "Iridium / USSF Space Systems Command awards"
+          }
+        ],
+        "stillDoing": "Global voice, IoT, Certus, and government EMSS services on the NEXT constellation."
       }
     },
     {
@@ -2424,9 +2690,28 @@
         ]
       },
       "results": {
-        "headline": "Results dossier not yet researched for this entry.",
-        "bullets": [],
-        "stillDoing": null
+        "headline": "C/Ku GEO workhorse at 62°E — media, mobility, and national capacity across Africa–Asia.",
+        "bullets": [
+          {
+            "text": "Entered service replacing Intelsat 902, adding wide and steerable beams for Africa, Middle East, Europe, and Asia.",
+            "year": 2019,
+            "confidence": "published",
+            "source": "Intelsat / Arianespace launch releases"
+          },
+          {
+            "text": "Expanded Intelsat Flex managed services for aero, maritime, enterprise, and government Indian Ocean users.",
+            "year": 2020,
+            "confidence": "reported",
+            "source": "Intelsat IS-39 service descriptions"
+          },
+          {
+            "text": "Hosts MyanmarSat-2 capacity for Myanmar’s MOTC to extend broadband and 3G/4G backhaul nationwide.",
+            "year": 2019,
+            "confidence": "published",
+            "source": "Intelsat / SpaceNews MyanmarSat-2 coverage"
+          }
+        ],
+        "stillDoing": "Operational C/Ku services at 62°E for media, mobility, and government customers."
       }
     },
     {
@@ -2484,9 +2769,28 @@
         ]
       },
       "results": {
-        "headline": "Results dossier not yet researched for this entry.",
-        "bullets": [],
-        "stillDoing": null
+        "headline": "Ka-band HTS for the Americas — digital payload flexibility for aviation and enterprise.",
+        "bullets": [
+          {
+            "text": "Entered full commercial service at 67.1°W with ~200 Ka-band spot beams over the Americas and Atlantic.",
+            "year": 2022,
+            "confidence": "published",
+            "source": "SES SES-17 operations announcement"
+          },
+          {
+            "text": "Anchor customer Thales FlytLIVE uses SES-17 for high-speed inflight Wi-Fi (Spirit and other airlines).",
+            "year": 2022,
+            "confidence": "reported",
+            "source": "SES / Thales InFlyt Experience"
+          },
+          {
+            "text": "Digital transparent processor enables real-time beam/bandwidth reallocation for mobility and enterprise networks.",
+            "year": 2022,
+            "confidence": "published",
+            "source": "Thales Alenia Space / SES technical briefings"
+          }
+        ],
+        "stillDoing": "Ka-band HTS connectivity for aviation, maritime, enterprise, and government over the Americas."
       }
     },
     {
@@ -2544,9 +2848,28 @@
         ]
       },
       "results": {
-        "headline": "Results dossier not yet researched for this entry.",
-        "bullets": [],
-        "stillDoing": null
+        "headline": "Americas ViaSat-3 — antenna anomaly cut capacity >90%; still entered limited commercial service.",
+        "bullets": [
+          {
+            "text": "Reflector deployment anomaly after Falcon Heavy launch left less than ~10% of planned ~1 Tbps throughput.",
+            "year": 2023,
+            "confidence": "published",
+            "source": "Viasat SEC filings / SpaceNews"
+          },
+          {
+            "text": "Filed ~$420M insurance claim; Viasat elected not to order a dedicated Americas replacement satellite.",
+            "year": 2023,
+            "confidence": "published",
+            "source": "Viasat earnings / CNBC / SpaceNews"
+          },
+          {
+            "text": "Degraded spacecraft entered limited service (notably aviation Wi-Fi) alongside other fleet assets.",
+            "year": 2024,
+            "confidence": "reported",
+            "source": "Viasat investor updates / SpaceNews"
+          }
+        ],
+        "stillDoing": "Limited-capacity Ka-band services over the Americas pending later ViaSat-3 constellation adjustments."
       }
     },
     {
@@ -2605,9 +2928,28 @@
         ]
       },
       "results": {
-        "headline": "Results dossier not yet researched for this entry.",
-        "bullets": [],
-        "stillDoing": null
+        "headline": "Final third-generation NASA relay — near-continuous LEO communications for ISS, Hubble, and science fleets.",
+        "bullets": [
+          {
+            "text": "Renamed TDRS-13 and entered the operational Space Network fleet after checkout — completing the third generation.",
+            "year": 2018,
+            "confidence": "published",
+            "source": "NASA TDRS-M/13 operations release"
+          },
+          {
+            "text": "Part of the GEO relay constellation that carries nearly continuous ISS and Hubble tracking, telemetry, and science data.",
+            "year": 2018,
+            "confidence": "published",
+            "source": "NASA SCaN / TDRS program"
+          },
+          {
+            "text": "NASA stopped assigning new missions to legacy TDRS (Nov 2024) while flying out existing users into the 2030s.",
+            "year": 2024,
+            "confidence": "published",
+            "source": "NASA Near Space Network / TDRS fly-out plan"
+          }
+        ],
+        "stillDoing": "On-orbit spare/operational relay for legacy LEO users including ISS and Hubble."
       }
     },
     {
@@ -2665,9 +3007,28 @@
         ]
       },
       "results": {
-        "headline": "Results dossier not yet researched for this entry.",
-        "bullets": [],
-        "stillDoing": null
+        "headline": "Completed the AEHF protected strategic/tactical SATCOM constellation for the U.S. and partners.",
+        "bullets": [
+          {
+            "text": "Final AEHF satellite; first USSF launch mission (Atlas V, March 2020).",
+            "year": 2020,
+            "confidence": "published",
+            "source": "USSF / Lockheed Martin AEHF-6"
+          },
+          {
+            "text": "Operational acceptance completed the six-satellite AEHF constellation providing jam-resistant EHF communications.",
+            "year": 2020,
+            "confidence": "published",
+            "source": "Space Operations Command / Los Angeles SFB"
+          },
+          {
+            "text": "Delivers roughly 10× Milstar throughput for nuclear C2 and high-priority tactical users (U.S., UK, Canada, Netherlands, Australia).",
+            "year": 2020,
+            "confidence": "published",
+            "source": "USSF AEHF fact sheet"
+          }
+        ],
+        "stillDoing": "Protected MILSATCOM for U.S. and allied users; detailed performance classified."
       }
     },
     {
@@ -2806,9 +3167,28 @@
         ]
       },
       "results": {
-        "headline": "Results dossier not yet researched for this entry.",
-        "bullets": [],
-        "stillDoing": null
+        "headline": "On-orbit spare completing the five-satellite MUOS narrowband UHF constellation.",
+        "bullets": [
+          {
+            "text": "Reached operational orbit after main-propulsion anomaly using secondary thrusters; arrays and antennas deployed.",
+            "year": 2016,
+            "confidence": "published",
+            "source": "U.S. Navy / SpaceNews MUOS-5"
+          },
+          {
+            "text": "Entered service supporting legacy UHF while serving as WCDMA on-orbit spare for the four primary MUOS birds.",
+            "year": 2017,
+            "confidence": "published",
+            "source": "Lockheed Martin / Navy MUOS-5 release"
+          },
+          {
+            "text": "MUOS constellation provides cellphone-like beyond-line-of-sight UHF voice/data for tens of thousands of tactical terminals.",
+            "year": 2019,
+            "confidence": "published",
+            "source": "Lockheed Martin MUOS program / USSF–Navy"
+          }
+        ],
+        "stillDoing": "On-orbit spare and legacy UHF support within the operational MUOS network."
       }
     },
     {
@@ -2866,9 +3246,28 @@
         ]
       },
       "results": {
-        "headline": "Results dossier not yet researched for this entry.",
-        "bullets": [],
-        "stillDoing": null
+        "headline": "First Wideband Global SATCOM satellite — order-of-magnitude jump over legacy DSCS capacity.",
+        "bullets": [
+          {
+            "text": "First WGS spacecraft declared operational over the Pacific, transitioning users from DSCS.",
+            "year": 2008,
+            "confidence": "published",
+            "source": "Boeing / U.S. Army SMDC WGS-1 activation"
+          },
+          {
+            "text": "Single WGS offers more X/Ka wideband capacity than the entire prior DSCS constellation combined.",
+            "year": 2008,
+            "confidence": "published",
+            "source": "USSF WGS fact sheet / Boeing"
+          },
+          {
+            "text": "Opened the multi-satellite WGS architecture now used by DoD and partners for high-capacity military communications.",
+            "year": 2008,
+            "confidence": "published",
+            "source": "USSF Wideband Global SATCOM program"
+          }
+        ],
+        "stillDoing": "Operational wideband X/Ka SATCOM within the multi-satellite WGS constellation."
       }
     },
     {
@@ -3349,9 +3748,28 @@
         ]
       },
       "results": {
-        "headline": "Results dossier not yet researched for this entry.",
-        "bullets": [],
-        "stillDoing": null
+        "headline": "First constellation to image Earth’s landmasses near-daily — commercial Earth monitoring at CubeSat scale.",
+        "bullets": [
+          {
+            "text": "Mission 1 achieved near-daily global land imaging after Flock 3P (88 Doves) and follow-on flocks.",
+            "year": 2017,
+            "confidence": "published",
+            "source": "Planet Labs Mission 1 / PlanetScope docs"
+          },
+          {
+            "text": "Built the largest commercial optical EO fleet; continuous replenishment keeps ~daily PlanetScope coverage.",
+            "year": 2018,
+            "confidence": "reported",
+            "source": "Planet Labs / eoPortal Flock overview"
+          },
+          {
+            "text": "SuperDove upgrade added eight spectral bands (including red edge and coastal blue) while retaining ~3 m monitoring.",
+            "year": 2021,
+            "confidence": "published",
+            "source": "Planet PlanetScope / SuperDove documentation"
+          }
+        ],
+        "stillDoing": "Near-daily PlanetScope monitoring imagery for commercial, NGO, and government users."
       }
     },
     {

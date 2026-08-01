@@ -109,3 +109,17 @@ export function compass(azimuthDeg) {
   const a = ((azimuthDeg % 360) + 360) % 360;
   return COMPASS[Math.round(a / 22.5) % 16];
 }
+
+/** Sub-satellite point (lat/lon/alt) from a live satrec + time. */
+export function subpointOf(satrec, date = new Date()) {
+  if (!satrec) return null;
+  const pv = satellite.propagate(satrec, date);
+  if (!pv?.position) return null;
+  const gmst = satellite.gstime(date);
+  const gd = satellite.eciToGeodetic(pv.position, gmst);
+  return {
+    lat: satellite.degreesLat(gd.latitude),
+    lon: satellite.degreesLong(gd.longitude),
+    altKm: gd.height,
+  };
+}

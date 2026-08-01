@@ -1,8 +1,8 @@
 import * as THREE from 'three';
 import { OrbitControls } from '../vendor/OrbitControls.js';
 import { imageryFor, fillLastImage } from './imagery.js';
-import { geocode, formatLatLon } from './geocode.js';
-import { latLonToScene, findOverhead, lookAngleAt, compass } from './sky.js';
+import { geocode, reverseGeocode, formatLatLon } from './geocode.js';
+import { latLonToScene, findOverhead, lookAngleAt, compass, subpointOf } from './sky.js';
 import { initAnalytics, track } from './analytics.js';
 
 /** Cloud Run collector — set after deploy; empty disables beacons. */
@@ -169,6 +169,7 @@ const dataPromise = Promise.all([
   fetchJson('data/curated.json'),
   fetchJson('data/dimensions.json'),
   fetchJson('data/enrichment.json').catch(() => null),
+  fetchJson('data/satmeta.json').catch(() => null),
 ]);
 
 let dayMap;
@@ -314,9 +315,10 @@ let catalog;
 let curated;
 let dimensions;
 let enrichment;
+let satmeta;
 try {
   // Started earlier, in parallel with the Earth textures.
-  [meta, catalog, curated, dimensions, enrichment] = await dataPromise;
+  [meta, catalog, curated, dimensions, enrichment, satmeta] = await dataPromise;
 } catch (err) {
   console.error(err);
   statusEl.textContent = 'Couldn’t load the satellite catalog — check your connection and refresh.';
@@ -327,6 +329,7 @@ state.meta = meta;
 state.curated = curated;
 state.dimensions = dimensions;
 state.enrichment = enrichment;
+state.satmeta = satmeta;
 // Owner/country expand indexes (~5 MB) load on demand — see ensureBrowseIndex.
 
 const lengthByKey = new Map();
@@ -352,6 +355,61 @@ for (const d of curated.satellites) {
 
 function enrichmentFor(norad) {
   return enrichment?.byNorad?.[String(norad)] || null;
+}
+
+function satmetaFor(norad) {
+  return satmeta?.byNorad?.[String(norad)] || null;
+}
+
+const COVER_UPDATE_MS = 45000;
+let coverTimer = null;
+let coverAbort = null;
+
+function stopCoverageUpdates() {
+  if (coverTimer) { clearInterval(coverTimer); coverTimer = null; }
+  if (coverAbort) { coverAbort.abort(); coverAbort = null; }
+}
+
+/** Live “currently over …” for LEO fleets; GEO shows the longitude slot. */
+async function updateCoverageLine() {
+  const el = $('sat-coverage');
+  const idx = state.selectedIdx;
+  if (!el || idx == null || idx < 0) return;
+  const row = state.sats[idx];
+  const satrec = state.satrecs[idx];
+  const sub = subpointOf(satrec, new Date());
+  if (!sub) {
+    el.textContent = '';
+    return;
+  }
+  const orbit = row[fi.orbit];
+  if (orbit === 'GEO') {
+    const lon = sub.lon;
+    const hemi = lon >= 0 ? `${Math.abs(lon).toFixed(1)}°E` : `${Math.abs(lon).toFixed(1)}°W`;
+    el.textContent = `Geostationary slot ~${hemi} · sub-satellite point ${formatLatLon(sub.lat, sub.lon)}`;
+    return;
+  }
+  el.textContent = `Currently over ${formatLatLon(sub.lat, sub.lon)}…`;
+  if (coverAbort) coverAbort.abort();
+  coverAbort = new AbortController();
+  try {
+    const label = await reverseGeocode(sub.lat, sub.lon, { signal: coverAbort.signal });
+    if (state.selectedIdx !== idx) return;
+    el.textContent = label
+      ? `Currently over ${label}`
+      : `Currently over ${formatLatLon(sub.lat, sub.lon)}`;
+  } catch (err) {
+    if (err?.name === 'AbortError') return;
+    if (state.selectedIdx === idx) {
+      el.textContent = `Currently over ${formatLatLon(sub.lat, sub.lon)}`;
+    }
+  }
+}
+
+function startCoverageUpdates() {
+  stopCoverageUpdates();
+  updateCoverageLine();
+  coverTimer = setInterval(updateCoverageLine, COVER_UPDATE_MS);
 }
 
 const n = catalog.sats.length;
@@ -1421,6 +1479,7 @@ async function openBrowse(kind, id) {
 
 function closePanel() {
   setPanelOpen(false);
+  stopCoverageUpdates();
   state.selectedIdx = -1;
   state.skyMode = false;
   state.browseKind = null;
@@ -1461,6 +1520,8 @@ function renderPanel(row, dossier) {
       ? `${look.elevation.toFixed(0)}° above the horizon · ${compass(look.azimuth)} · ${Math.round(look.rangeKm).toLocaleString()} km away`
       : `Below the horizon from ${escapeHtml(state.place.name)} right now`}</p>`
     : '';
+  const coverLine = `<p class="place-coords sat-coverage" id="sat-coverage"></p>`;
+  const smeta = satmetaFor(row[fi.norad]);
 
   const opBtn = operatorName
     ? `<button type="button" class="lookup" id="open-op">${escapeHtml(shortOperator(operatorName))}</button>`
@@ -1478,14 +1539,19 @@ function renderPanel(row, dossier) {
           <p class="dossier-lead">${escapeHtml(cat?.label ? `Catalogued as ${cat.label.toLowerCase()} — no hand-researched mission dossier yet.` : 'No hand-researched mission dossier yet.')}</p>
         </section>`;
     const narrativeBlock = renderNarratives(enrich?.narratives);
+    const satnogsBlock = renderSatnogs(smeta?.satnogs);
+    const ceosBlock = renderCeos(smeta?.ceos);
     panelBody.innerHTML = `
       ${backBtn}
       <p class="eyebrow">${escapeHtml(cat?.label || 'Satellite')}</p>
       <h2>${escapeHtml(row[fi.name])}</h2>
       <p class="sub">${opBtn} · ${countryBtn}</p>
       ${lookLine}
+      ${coverLine}
       ${imageSlot}
       ${purposeBlock}
+      ${satnogsBlock}
+      ${ceosBlock}
       ${narrativeBlock}
       <div class="cost-grid bare-sat">
         <div class="cost-card"><div class="label">NORAD</div><div class="value">${row[fi.norad]}</div></div>
@@ -1495,12 +1561,16 @@ function renderPanel(row, dossier) {
         <div class="cost-card"><div class="label">Apogee</div><div class="value">${row[fi.apogeeKm]} km</div></div>
         <div class="cost-card wide"><div class="label">Inclination</div><div class="value">${row[fi.incDeg]}°</div></div>
       </div>
-      <p class="note">${escapeHtml(sizeScaleNote())} Classification is rule-based from the catalog name.${enrich ? ' Purpose line is from the UCS Satellite Database (auto-joined), not a hand dossier.' : ''}</p>
+      <ul class="facts">
+        ${satmetaFactRows(smeta, row)}
+      </ul>
+      <p class="note">${escapeHtml(sizeScaleNote())} Classification is rule-based from the catalog name.${enrich ? ' Purpose line is from the UCS Satellite Database (auto-joined), not a hand dossier.' : ''} LEO craft move — “currently over” is the live ground track, not a fixed service area.</p>
     `;
     $('open-op')?.addEventListener('click', () => openBrowse('operator', operatorName));
     $('open-country')?.addEventListener('click', () => openBrowse('country', country.id));
     $('panel-back')?.addEventListener('click', () => showSky());
     if (imgCfg) fillLastImage($('sat-image-slot'), imgCfg, { token: imageryToken });
+    startCoverageUpdates();
     return;
   }
 
@@ -1511,6 +1581,8 @@ function renderPanel(row, dossier) {
   const resultsBlock = renderResults(dossier.results);
   const enrich = enrichmentFor(row[fi.norad]);
   const narrativeBlock = renderNarratives(enrich?.narratives);
+  const satnogsBlock = renderSatnogs(smeta?.satnogs);
+  const ceosBlock = renderCeos(smeta?.ceos);
 
   panelBody.innerHTML = `
     ${backBtn}
@@ -1518,10 +1590,13 @@ function renderPanel(row, dossier) {
     <h2>${escapeHtml(dossier.shortName || dossier.name)}</h2>
     <p class="sub">${opBtn} · ${countryBtn}</p>
     ${lookLine}
+    ${coverLine}
     ${imageSlot}
 
     ${purposeBlock}
     ${resultsBlock}
+    ${ceosBlock}
+    ${satnogsBlock}
     ${narrativeBlock}
 
     <p class="eyebrow">Cost</p>
@@ -1549,9 +1624,9 @@ function renderPanel(row, dossier) {
 
     <ul class="facts">
       <li><span class="k">Built</span><span>${escapeHtml(dossier.built?.text || '—')}</span></li>
-      <li><span class="k">Launched</span><span>${escapeHtml(fmtLaunch(dossier.launched))}</span></li>
+      <li><span class="k">Launched</span><span>${escapeHtml((() => { const L = fmtLaunch(dossier.launched); return L !== '—' ? L : (smeta?.launchDate || '—'); })())}</span></li>
       <li><span class="k">Settled</span><span>${escapeHtml(dossier.settled?.text || dossier.settled?.date || '—')}</span></li>
-      <li><span class="k">Status</span><span>${escapeHtml(dossier.status || '—')}</span></li>
+      <li><span class="k">Status</span><span>${escapeHtml(dossier.status || smeta?.opsStatus || '—')}</span></li>
       <li><span class="k">Mass</span><span>${escapeHtml(dossier.mass || '—')}</span></li>
       <li><span class="k">Size</span><span>${escapeHtml(sizeFactLabel(state.lengthM[state.selectedIdx]))}</span></li>
       <li><span class="k">Orbit</span><span>${escapeHtml(dossier.orbitClass || row[fi.orbit])} · ${row[fi.perigeeKm]}–${row[fi.apogeeKm]} km · ${row[fi.incDeg]}°</span></li>
@@ -1559,6 +1634,7 @@ function renderPanel(row, dossier) {
       <li><span class="k">NORAD</span><span>${row[fi.norad]}</span></li>
       <li><span class="k">Owner</span><span>${escapeHtml(operatorName || '—')}</span></li>
       <li><span class="k">Country</span><span>${escapeHtml(country?.flag || '')} ${escapeHtml(country?.label || '—')}</span></li>
+      ${satmetaFactRows(smeta, row, { skipLaunchStatus: true })}
     </ul>
 
     ${dossier.sources?.length ? `
@@ -1571,6 +1647,83 @@ function renderPanel(row, dossier) {
   $('open-country')?.addEventListener('click', () => openBrowse('country', country.id));
   $('panel-back')?.addEventListener('click', () => showSky());
   if (imgCfg) fillLastImage($('sat-image-slot'), imgCfg, { token: imageryToken });
+  startCoverageUpdates();
+}
+
+function satmetaFactRows(meta, row, { skipLaunchStatus = false } = {}) {
+  if (!meta) return '';
+  const bits = [];
+  if (!skipLaunchStatus && meta.launchDate) {
+    bits.push(`<li><span class="k">Launched</span><span>${escapeHtml(meta.launchDate)}${meta.launchSite ? ` · ${escapeHtml(meta.launchSite)}` : ''}</span></li>`);
+  } else if (meta.launchSite && !skipLaunchStatus) {
+    bits.push(`<li><span class="k">Launch site</span><span>${escapeHtml(meta.launchSite)}</span></li>`);
+  }
+  if (meta.launchSite && skipLaunchStatus) {
+    bits.push(`<li><span class="k">Launch site</span><span>${escapeHtml(meta.launchSite)}</span></li>`);
+  }
+  if (!skipLaunchStatus && meta.opsStatus) {
+    bits.push(`<li><span class="k">Status</span><span>${escapeHtml(meta.opsStatus)}</span></li>`);
+  }
+  if (meta.objectType) {
+    bits.push(`<li><span class="k">Object</span><span>${escapeHtml(meta.objectType)}</span></li>`);
+  }
+  if (meta.cospar) {
+    bits.push(`<li><span class="k">COSPAR</span><span>${escapeHtml(meta.cospar)}</span></li>`);
+  }
+  if (meta.satcatOwner) {
+    bits.push(`<li><span class="k">SATCAT owner</span><span>${escapeHtml(meta.satcatOwner)}</span></li>`);
+  }
+  if (meta.decayDate) {
+    bits.push(`<li><span class="k">Decay</span><span>${escapeHtml(meta.decayDate)}</span></li>`);
+  }
+  return bits.join('');
+}
+
+function renderSatnogs(s) {
+  if (!s) return '';
+  const chips = [];
+  if (s.status) chips.push(`<span class="chip">${escapeHtml(s.status)}</span>`);
+  if (s.countries) chips.push(`<span class="chip">${escapeHtml(s.countries)}</span>`);
+  const link = s.website
+    ? `<div class="dossier-meta"><span class="k">Website</span><span><a class="narrative-link" href="${escapeHtml(s.website)}" target="_blank" rel="noopener noreferrer">${escapeHtml(s.website.replace(/^https?:\/\//, '').slice(0, 48))}</a></span></div>`
+    : '';
+  const names = s.names
+    ? `<div class="dossier-meta"><span class="k">Also called</span><span>${escapeHtml(s.names)}</span></div>`
+    : '';
+  const desc = s.description
+    ? `<p class="dossier-lead">${escapeHtml(s.description)}</p>`
+    : '';
+  if (!desc && !link && !names && !chips.length) return '';
+  return `
+    <section class="dossier-block">
+      <p class="eyebrow">SatNOGS</p>
+      ${desc}
+      ${chips.length ? `<div class="chip-row">${chips.join('')}</div>` : ''}
+      ${names}
+      ${link}
+    </section>
+  `;
+}
+
+function renderCeos(c) {
+  if (!c?.instruments?.length && !c?.applications) return '';
+  const inst = (c.instruments || []).slice(0, 12)
+    .map((i) => `<span class="chip">${escapeHtml(i)}</span>`)
+    .join('');
+  const app = c.applications
+    ? `<p class="dossier-lead">${escapeHtml(c.applications)}</p>`
+    : '';
+  const link = c.url
+    ? `<div class="dossier-meta"><span class="k">CEOS MIM</span><span><a class="narrative-link" href="${escapeHtml(c.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(c.name || 'Mission page')}</a></span></div>`
+    : '';
+  return `
+    <section class="dossier-block">
+      <p class="eyebrow">Instruments</p>
+      ${app}
+      ${inst ? `<div class="chip-row">${inst}</div>` : ''}
+      ${link}
+    </section>
+  `;
 }
 
 function renderPurpose(purpose) {

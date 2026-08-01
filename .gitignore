@@ -21,5 +21,8 @@ Untitled/
 node_modules/
 analytics/node_modules/
 
-# Large raw downloads (rebuild via fetch / build-enrichment)
+# Large raw downloads (rebuild via fetch / build-enrichment / build-satmeta)
 data/raw-ucs.txt
+data/raw-satcat.csv
+data/raw-satnogs.json
+data/raw-ceos-index.html

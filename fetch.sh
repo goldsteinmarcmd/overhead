@@ -1,19 +1,22 @@
 #!/usr/bin/env bash
 # Refresh CelesTrak GP element sets into data/raw-*.txt
-# Usage: ./fetch.sh [--enrichment] [--excerpts]
+# Usage: ./fetch.sh [--enrichment] [--excerpts] [--satmeta]
 #   --enrichment  also rebuild data/enrichment.json from UCS (+ narrative links)
 #   --excerpts    with --enrichment, fetch eoPortal / NSSDCA page excerpts
+#   --satmeta     rebuild data/satmeta.json (SATCAT + SatNOGS + CEOS instruments)
 set -euo pipefail
 cd "$(dirname "$0")"
 DATA=data
 BASE='https://celestrak.org/NORAD/elements/gp.php'
 
 WANT_ENRICHMENT=0
+WANT_SATMETA=0
 ENRICH_ARGS=()
 for arg in "$@"; do
   case "$arg" in
     --enrichment) WANT_ENRICHMENT=1 ;;
     --excerpts) ENRICH_ARGS+=(--excerpts) ;;
+    --satmeta) WANT_SATMETA=1 ;;
     *) echo "Unknown flag: $arg" >&2; exit 1 ;;
   esac
 done
@@ -60,4 +63,9 @@ if [[ "$WANT_ENRICHMENT" -eq 1 ]]; then
   else
     arch -arm64 node scripts/build-enrichment.js
   fi
+fi
+
+if [[ "$WANT_SATMETA" -eq 1 ]]; then
+  echo "Building SATCAT / SatNOGS / CEOS satmeta…"
+  arch -arm64 node scripts/build-satmeta.js
 fi

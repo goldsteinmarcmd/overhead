@@ -7,10 +7,12 @@
  * keyed geocoder (Mapbox / MapTiler / Google) before this sees real volume.
  */
 
-const ENDPOINT = 'https://nominatim.openstreetmap.org/search';
+const SEARCH_ENDPOINT = 'https://nominatim.openstreetmap.org/search';
+const REVERSE_ENDPOINT = 'https://nominatim.openstreetmap.org/reverse';
 const MIN_GAP_MS = 1100;
 
 const cache = new Map();
+const reverseCache = new Map();
 let lastRequestAt = 0;
 
 /** "40.7128, -74.006" typed straight into the box — no round trip needed. */
@@ -36,7 +38,7 @@ export async function geocode(query, { signal, limit = 6 } = {}) {
   if (cache.has(key)) return cache.get(key);
 
   await gap(signal);
-  const url = `${ENDPOINT}?format=jsonv2&limit=${limit}&q=${encodeURIComponent(q)}`;
+  const url = `${SEARCH_ENDPOINT}?format=jsonv2&limit=${limit}&q=${encodeURIComponent(q)}`;
   const res = await fetch(url, { signal, headers: { Accept: 'application/json' } });
   if (!res.ok) throw new Error(`Geocoder returned ${res.status}`);
 
@@ -45,10 +47,50 @@ export async function geocode(query, { signal, limit = 6 } = {}) {
   return places;
 }
 
+/**
+ * Lat/lon → a short place label for “currently over …”.
+ * Cached on ~0.5° bins so panel updates don’t hammer Nominatim.
+ */
+export async function reverseGeocode(lat, lon, { signal } = {}) {
+  if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
+  const key = `${(Math.round(lat * 2) / 2).toFixed(1)},${(Math.round(lon * 2) / 2).toFixed(1)}`;
+  if (reverseCache.has(key)) return reverseCache.get(key);
+
+  await gap(signal);
+  const url = `${REVERSE_ENDPOINT}?format=jsonv2&lat=${lat}&lon=${lon}&zoom=6`;
+  const res = await fetch(url, { signal, headers: { Accept: 'application/json' } });
+  if (!res.ok) throw new Error(`Reverse geocoder returned ${res.status}`);
+  const row = await res.json();
+  const label = formatReverseLabel(row, lat, lon);
+  reverseCache.set(key, label);
+  return label;
+}
+
 export function formatLatLon(lat, lon) {
   const ns = lat >= 0 ? 'N' : 'S';
   const ew = lon >= 0 ? 'E' : 'W';
   return `${Math.abs(lat).toFixed(4)}°${ns}, ${Math.abs(lon).toFixed(4)}°${ew}`;
+}
+
+function formatReverseLabel(row, lat, lon) {
+  const coords = formatLatLon(lat, lon);
+  if (!row || row.error) return coords;
+  const a = row.address || {};
+  const locality = a.city || a.town || a.village || a.municipality
+    || a.county || a.state_district || a.region || a.ocean || a.sea;
+  const region = a.state || a.province || a.region || a.country;
+  const country = a.country;
+  const bits = [];
+  if (locality) bits.push(locality);
+  if (region && region !== locality) bits.push(region);
+  if (country && country !== region && !bits.includes(country)) bits.push(country);
+  if (!bits.length) {
+    const parts = String(row.display_name || '').split(',').map((s) => s.trim()).filter(Boolean);
+    if (parts.length) return parts.slice(0, 3).join(', ');
+    return coords;
+  }
+  // Prefer “County, State” / “Ocean” style over dumping the full address.
+  return bits.slice(0, 3).join(', ');
 }
 
 function toPlace(row) {

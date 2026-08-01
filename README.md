@@ -10,6 +10,8 @@ Interactive globe of Earth-orbiting satellites — what they’re for, what they
 - Filters by category, operator, and country
 - Hand-researched dossiers (cost, purpose, results) for notable missions
 - Auto purpose text for ~5k objects from the UCS Satellite Database (see below)
+- Live **Currently over …** ground track on each profile (LEO fleets like Starlink; GEO shows longitude slot)
+- Launch date / ops status from CelesTrak SATCAT; SatNOGS notes for ~1k smallsats; CEOS instruments for EO missions
 - Point sizes at true scale vs Earth by default; Extra → Enlarge ×2,500 for readable relative sizes
 - Optional last-known imagery via NASA GIBS for mapped sensors
 - Address lookup (OpenStreetMap Nominatim) to see what’s overhead
@@ -63,10 +65,11 @@ Refresh catalog (optional):
 ./fetch.sh
 node build.js
 node scripts/build-enrichment.js          # UCS purpose + narrative links
-# node scripts/build-enrichment.js --excerpts   # also pull eoPortal/NSSDCA blurbs
+node scripts/build-satmeta.js             # SATCAT + SatNOGS + CEOS instruments
+# node scripts/build-enrichment.js --excerpts
 ```
 
-Or in one shot after TLEs: `./fetch.sh --enrichment` (add `--excerpts` for page blurbs).
+Or: `./fetch.sh --enrichment --satmeta` (add `--excerpts` for page blurbs).
 
 ## Data notes
 
