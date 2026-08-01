@@ -59,6 +59,11 @@
             <button type="button" class="filter-picture-btn" role="menuitemradio" aria-checked="false" data-picture="no">No picture</button>
           </div>
         </div>
+        <button type="button" class="filter-rollup" id="filter-rollup" aria-expanded="true" aria-controls="filters-cat" title="Hide satellite types" aria-label="Hide satellite types">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+            <path d="M6 14l6-6 6 6" />
+          </svg>
+        </button>
       </div>
       <div id="filters-cat" class="filter-list" role="tabpanel"></div>
       <div id="filters-owner" class="filter-list" role="tabpanel" hidden></div>
@@ -95,6 +100,6 @@
   </div>
 
   <script src="vendor/satellite.min.js"></script>
-  <script type="module" src="js/app.js?v=20260731-pixel"></script>
+  <script type="module" src="js/app.js?v=20260731-rollup"></script>
 </body>
 </html>

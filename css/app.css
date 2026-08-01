@@ -346,6 +346,44 @@ html, body {
   color: var(--accent);
 }
 
+.filter-rollup {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: rgba(8, 14, 26, 0.7);
+  color: var(--muted);
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+}
+
+.filter-rollup svg {
+  transition: transform 0.18s ease;
+}
+
+.filter-rollup:hover,
+.filter-rollup[aria-expanded="false"] {
+  color: var(--accent);
+  border-color: rgba(76, 201, 240, 0.45);
+}
+
+/* Chevron points up while open (click to roll up); flips down when rolled. */
+.filter-rollup[aria-expanded="false"] svg {
+  transform: rotate(180deg);
+}
+
+.filters.is-rolled {
+  max-height: none;
+}
+
+.filters.is-rolled .filter-list {
+  display: none !important;
+}
+
 .filter-list {
   display: flex;
   flex-direction: column;

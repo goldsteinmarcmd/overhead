@@ -1095,7 +1095,13 @@ function buildFilters() {
       filtersOwnerEl.hidden = mode !== 'owner';
       filtersCountryEl.hidden = mode !== 'country';
       syncBulkToggleUi();
+      syncFilterRollupUi();
     });
+  });
+
+  $('filter-rollup')?.addEventListener('click', () => {
+    document.querySelector('.filters')?.classList.toggle('is-rolled');
+    syncFilterRollupUi();
   });
 
   const bulkToggle = $('bulk-toggle');
@@ -1133,6 +1139,7 @@ function buildFilters() {
   // Keep Extra menu from fighting the globe on first paint; sync labels.
   syncBulkToggleUi();
   syncPictureFilterUi();
+  syncFilterRollupUi();
 }
 
 /** Select or clear every item in the active filter header. */
@@ -1185,6 +1192,21 @@ function syncPictureFilterUi() {
     const labels = { all: 'All', yes: 'Has picture', no: 'No picture' };
     icon.title = `Picture filter: ${labels[state.pictureFilter] || 'All'}`;
   }
+}
+
+function syncFilterRollupUi() {
+  const btn = $('filter-rollup');
+  const filters = document.querySelector('.filters');
+  if (!btn || !filters) return;
+  const rolled = filters.classList.contains('is-rolled');
+  const mode = document.querySelector('.filter-tab.active')?.dataset.mode || 'cat';
+  const panelId = mode === 'owner' ? 'filters-owner' : mode === 'country' ? 'filters-country' : 'filters-cat';
+  const noun = mode === 'owner' ? 'owners' : mode === 'country' ? 'countries' : 'satellite types';
+  btn.setAttribute('aria-expanded', rolled ? 'false' : 'true');
+  btn.setAttribute('aria-controls', panelId);
+  const label = rolled ? `Show ${noun}` : `Hide ${noun}`;
+  btn.title = label;
+  btn.setAttribute('aria-label', label);
 }
 
 function toggleSet(set, id, el) {
