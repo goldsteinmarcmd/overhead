@@ -43,10 +43,11 @@ Rough corpus size in `data/enrichment.json`: ~185k characters of purpose summari
 
 Optional consent-gated analytics on Google Cloud free tier (Cloud Run + BigQuery, `europe-west1`). Not Google Analytics ads products.
 
-- Multi-project collector / dashboard: `analyticsplatform/`, deployed as Cloud Run
-  service `overhead-analytics` in project `overhead-analytics-260730`
+- Multi-project collector / dashboard: standalone local project
+  `~/Documents/analyticsplatform`, deployed as Cloud Run service `overhead-analytics`
+  in project `overhead-analytics-260730`
 - Site sends events only after **Accept** on the consent banner ([privacy.html](privacy.html))
-- Redeploy collector: `./analyticsplatform/deploy.sh`
+- Redeploy collector: `../analyticsplatform/deploy.sh`
 - Open dashboard: Cloud Run `/dashboard` URL + secret from Secret Manager:
 
 ```bash
